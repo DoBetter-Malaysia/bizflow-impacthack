@@ -24,7 +24,7 @@ export default function RootLayout({
         <body className={poppins.className}>
           <div className="bg-gray-50/50">
             <Sidebar />
-            <main className="relative ml-64 flex min-h-screen flex-col items-stretch justify-stretch px-4 py-4">
+            <main className="relative ml-64 flex min-h-screen flex-col items-stretch justify-stretch">
               {children}
             </main>
           </div>

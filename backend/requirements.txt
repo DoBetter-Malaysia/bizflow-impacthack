@@ -1,0 +1,6 @@
+flask-ngrok
+flask
+torch
+git+https://github.com/huggingface/transformers.git
+sentencepiece
+dotenv

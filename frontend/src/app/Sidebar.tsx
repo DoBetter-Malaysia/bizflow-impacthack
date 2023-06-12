@@ -32,13 +32,7 @@ const navs = [
         label: "Dashboard",
         Icon: AiOutlineHome,
         IconActive: AiFillHome,
-        href: "/sales/dashboard",
-      },
-      {
-        label: "My Documents",
-        Icon: AiOutlineHome,
-        IconActive: AiFillHome,
-        href: "/sales/documents",
+        href: "/sales",
       },
       {
         label: "Deal Finders",
@@ -66,6 +60,11 @@ const Sidebar = () => {
             href="/"
             text="Home"
             logo={(isActive) => (isActive ? AiFillHome : AiOutlineHome)}
+          />
+          <SidebarNavButton
+            href="/documents"
+            text="My Documents"
+            logo={(isActive) => (isActive ? RiQrScanFill : RiQrScan2Line)}
           />
           <SidebarNavButton
             href="/marketplace"

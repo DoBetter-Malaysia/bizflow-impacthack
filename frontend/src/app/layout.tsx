@@ -1,4 +1,5 @@
 import Provider from "./Provider";
+import Sidebar from "./Sidebar";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 
@@ -20,7 +21,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Provider>
-        <body className={poppins.className}>{children}</body>
+        <body className={poppins.className}>
+          <div className="bg-gray-50/50">
+            <Sidebar />
+            <main className="relative ml-64 flex min-h-screen flex-col items-stretch justify-stretch px-4 py-4">
+              {children}
+            </main>
+          </div>
+        </body>
       </Provider>
     </html>
   );

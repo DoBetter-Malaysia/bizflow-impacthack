@@ -10,7 +10,7 @@ export default function SalesLayout({
   return (
     <section>
       <Header />
-      <div className="relative -top-24">{children}</div>
+      {children}
     </section>
   );
 }

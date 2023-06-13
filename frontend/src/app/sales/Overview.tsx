@@ -4,6 +4,7 @@ import DashboardCard, {
 } from "@/components/cards/DashboardCard";
 import { SimpleGrid } from "@mantine/core";
 import { FaWarehouse } from "react-icons/fa";
+import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 
 const data: DashboardCardProps[] = [
   {
@@ -16,7 +17,7 @@ const data: DashboardCardProps[] = [
     isGood: true,
   },
   {
-    icon: FaWarehouse,
+    icon: GiPayMoney,
     title: "$ 69,420",
     subtitle: "Cash Out (MYR)",
     valueChange: 10,
@@ -25,7 +26,7 @@ const data: DashboardCardProps[] = [
     isGood: true,
   },
   {
-    icon: FaWarehouse,
+    icon: GiReceiveMoney,
     title: "$ 200,000",
     subtitle: "Cash In (MYR)",
     valueChange: 5,

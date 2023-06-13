@@ -15,7 +15,12 @@ export default function Sales() {
   return (
     <main className="relative flex w-full flex-col items-stretch px-24">
       <div className="relative -top-48">
-        <Tabs defaultValue="overview" color="blue.3" keepMounted={false}>
+        <Tabs
+          defaultValue="overview"
+          color="blue.3"
+          keepMounted={false}
+          classNames={{ tab: "hover:bg-blue-700" }}
+        >
           <Tabs.List>
             {tabs.map((tab) => (
               <Tabs.Tab value={tab.value} key={tab.value}>

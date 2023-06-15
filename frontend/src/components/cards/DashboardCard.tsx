@@ -2,18 +2,7 @@ import React from "react";
 import { IconType } from "react-icons/lib";
 import { FiTrendingUp, FiTrendingDown } from "react-icons/fi";
 import { MdTrendingFlat } from "react-icons/md";
-
-type ChangeType = "Increase" | "Decrease" | "None";
-
-export interface DashboardCardProps {
-  icon: IconType;
-  title: string;
-  subtitle?: string;
-  valueChange?: number;
-  changeType: ChangeType;
-  changeMetric?: string;
-  isGood?: boolean;
-}
+import { DashboardCardProps } from "@/models/dashboardCard";
 
 const DashboardCard = ({
   icon,
@@ -33,8 +22,8 @@ const DashboardCard = ({
           </div>
           <div className="col-span-2 grow py-2">
             <div className="flex flex-col">
-              <h1 className="font-bold">{title}</h1>
-              <h2 className="text-gray-400">{subtitle}</h2>
+              <h3 className="text-2xl font-bold">{title}</h3>
+              <h4 className="text-lg text-gray-400">{subtitle}</h4>
             </div>
           </div>
           {changeType === "None" ? (

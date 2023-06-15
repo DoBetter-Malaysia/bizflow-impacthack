@@ -1,46 +1,25 @@
 import React from "react";
-import DashboardCard, {
-  DashboardCardProps,
-} from "@/components/cards/DashboardCard";
 import { SimpleGrid } from "@mantine/core";
-import { FaWarehouse } from "react-icons/fa";
-import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
+import DashboardCard from "@/components/cards/DashboardCard";
+import DynamicDataTable from "@/components/tables/DynamicDataTable";
+import {
+  TRANSACTIONS,
+  TRANSACTION_COLUMNS,
+  DASHBOARD_CARDS,
+} from "@/app/data/";
 
-const data: DashboardCardProps[] = [
-  {
-    icon: FaWarehouse,
-    title: "$ 999,999",
-    subtitle: "Total Assets (MYR)",
-    valueChange: 2,
-    changeType: "Increase",
-    changeMetric: "%",
-    isGood: true,
-  },
-  {
-    icon: GiPayMoney,
-    title: "$ 69,420",
-    subtitle: "Cash Out (MYR)",
-    valueChange: 10,
-    changeType: "Decrease",
-    changeMetric: "%",
-    isGood: true,
-  },
-  {
-    icon: GiReceiveMoney,
-    title: "$ 200,000",
-    subtitle: "Cash In (MYR)",
-    valueChange: 5,
-    changeType: "Decrease",
-    changeMetric: "%",
-    isGood: false,
-  },
+const dropDownOptions: any[] = [
+  { value: "payment", label: "Payment" },
+  { value: "cashout", label: "Cash Out" },
+  { value: "cashin", label: "Cash In" },
+  { value: "asset", label: "Asset" },
 ];
 
 const Overview = () => {
   return (
     <div>
       <SimpleGrid cols={3} spacing={"xl"} h={220}>
-        {data.map((item) => (
+        {DASHBOARD_CARDS.map((item) => (
           <DashboardCard
             key={item.title}
             icon={item.icon}
@@ -53,6 +32,13 @@ const Overview = () => {
           />
         ))}
       </SimpleGrid>
+      <div className="mt-12">
+        <DynamicDataTable
+          rows={TRANSACTIONS}
+          columns={TRANSACTION_COLUMNS}
+          dropDownOptions={dropDownOptions}
+        />
+      </div>
     </div>
   );
 };

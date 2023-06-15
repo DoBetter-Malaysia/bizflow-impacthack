@@ -1,7 +1,9 @@
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 type UseServerActionType = <T extends (...args: any[]) => any>(
-  serverAction: T
+  serverAction: T,
+  defaultArgs: Parameters<T> | null,
+  invokeOnStart: boolean
 ) =>
   | {
       /** The function caller */
@@ -31,9 +33,12 @@ type UseServerActionType = <T extends (...args: any[]) => any>(
 const useServerAction: UseServerActionType = <
   T extends (...args: any[]) => any
 >(
-  serverAction: T
+  serverAction: T,
+  defaultArgs = null,
+  invokeOnStart = false
 ) => {
   let [isPending, startTransition] = useTransition();
+  const [invoked, setInvoked] = useState(false);
   const [data, setData] = useState<Awaited<ReturnType<T>> | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -44,6 +49,13 @@ const useServerAction: UseServerActionType = <
       setData(res);
     });
   };
+
+  useEffect(() => {
+    if (invokeOnStart && !invoked && defaultArgs) {
+      invoke(...defaultArgs);
+      setInvoked(true);
+    }
+  }, []);
 
   return {
     isLoading: isPending,

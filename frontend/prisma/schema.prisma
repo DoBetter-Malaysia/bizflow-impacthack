@@ -11,10 +11,12 @@ datasource db {
 }
 
 model Document {
-  id       Int    @id @default(autoincrement())
-  filename String
-  type     String
+  id        Int      @id @default(autoincrement())
+  filename  String
+  type      String
   // In the format of {name, quantity, amount, price_per_unit, total_price}
-  items    Json
-  subtotal Float?
+  items     Json
+  subtotal  Float?
+  info      Json
+  createdAt DateTime @default(now())
 }

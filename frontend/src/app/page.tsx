@@ -1,3 +1,5 @@
+import { Metadata } from "next";
+
 export default function Home() {
   return (
     <main className="flex  w-full flex-col items-stretch px-24">
@@ -11,3 +13,7 @@ export default function Home() {
     </main>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Home | BizFLow",
+};

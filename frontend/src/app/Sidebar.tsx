@@ -1,11 +1,24 @@
 "use client";
 
 import { AiFillHome, AiOutlineHome, AiOutlineSearch } from "react-icons/ai";
-import { RiQrScan2Line, RiQrScanFill } from "react-icons/ri";
+import { HiLink } from "react-icons/hi";
+import { ImLink } from "react-icons/im";
+import {
+  RiBarChartBoxFill,
+  RiBarChartBoxLine,
+  RiSearchFill,
+  RiSearchLine,
+} from "react-icons/ri";
+import {
+  IoDocumentOutline,
+  IoDocument,
+  IoCartOutline,
+  IoCartSharp,
+} from "react-icons/io5";
 import SidebarNavButton from "@/components/buttons/SidebarNavButton";
 import Logo from "@/components/branding/Logo";
-import { useState } from "react";
 import { Accordion } from "@mantine/core";
+import { MdOutlineInventory2, MdInventory } from "react-icons/md";
 
 const navs = [
   {
@@ -13,14 +26,14 @@ const navs = [
     children: [
       {
         label: "My Inventory",
-        Icon: AiOutlineHome,
-        IconActive: AiFillHome,
+        Icon: MdOutlineInventory2,
+        IconActive: MdInventory,
         href: "/inventory",
       },
       {
         label: "Integration",
-        Icon: AiOutlineHome,
-        IconActive: AiFillHome,
+        Icon: HiLink,
+        IconActive: ImLink,
         href: "/inventory/integration",
       },
     ],
@@ -30,14 +43,14 @@ const navs = [
     children: [
       {
         label: "Dashboard",
-        Icon: AiOutlineHome,
-        IconActive: AiFillHome,
+        Icon: RiBarChartBoxLine,
+        IconActive: RiBarChartBoxFill,
         href: "/sales",
       },
       {
         label: "Deal Finders",
-        Icon: AiOutlineHome,
-        IconActive: AiFillHome,
+        Icon: RiSearchLine,
+        IconActive: RiSearchFill,
         href: "/sales/deals",
       },
     ],
@@ -64,12 +77,12 @@ const Sidebar = () => {
           <SidebarNavButton
             href="/documents"
             text="My Documents"
-            logo={(isActive) => (isActive ? RiQrScanFill : RiQrScan2Line)}
+            logo={(isActive) => (isActive ? IoDocument : IoDocumentOutline)}
           />
           <SidebarNavButton
             href="/marketplace"
             text="Marketplace"
-            logo={(isActive) => (isActive ? RiQrScanFill : RiQrScan2Line)}
+            logo={(isActive) => (isActive ? IoCartSharp : IoCartOutline)}
           />
         </div>
         <Accordion

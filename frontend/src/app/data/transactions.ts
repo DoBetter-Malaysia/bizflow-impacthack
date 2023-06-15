@@ -11,7 +11,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment", "Stock In"],
     transactionStatus: "Success",
   },
   {
@@ -24,7 +24,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment", "Stock In"],
     transactionStatus: "Success",
   },
   {
@@ -37,7 +37,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment", "Asset"],
     transactionStatus: "Success",
   },
   {
@@ -50,7 +50,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment", "Stock Out"],
     transactionStatus: "Success",
   },
   {
@@ -63,7 +63,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment"],
     transactionStatus: "Success",
   },
   {
@@ -76,7 +76,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment"],
     transactionStatus: "Success",
   },
   {
@@ -89,7 +89,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment"],
     transactionStatus: "Success",
   },
   {
@@ -102,7 +102,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment"],
     transactionStatus: "Success",
   },
   {
@@ -115,7 +115,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment"],
     transactionStatus: "Success",
   },
   {
@@ -128,7 +128,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment"],
     transactionStatus: "Success",
   },
   {
@@ -141,7 +141,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment"],
     transactionStatus: "Success",
   },
   {
@@ -154,7 +154,7 @@ export const TRANSACTIONS: Transaction[] = [
     currentBalance: 1000,
     senderName: "John Doe",
     receiverName: "Jane Doe",
-    transactionType: "Payment",
+    transactionType: ["Payment"],
     transactionStatus: "Success",
   },
 ];

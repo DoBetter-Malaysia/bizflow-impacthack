@@ -1,5 +1,12 @@
-type TransactionType = "Cash In" | "Cash Out" | "Transfer" | "Payment";
-type TransactionStatus = "Success" | "Failed" | "Pending" | "Cancelled";
+export type TransactionType =
+  | "Cash In"
+  | "Cash Out"
+  | "Transfer"
+  | "Payment"
+  | "Asset"
+  | "Stock In"
+  | "Stock Out";
+export type TransactionStatus = "Success" | "Failed" | "Pending" | "Cancelled";
 
 export interface Transaction {
   id: number;
@@ -11,6 +18,6 @@ export interface Transaction {
   currentBalance: number;
   senderName: string;
   receiverName: string;
-  transactionType: TransactionType;
+  transactionType: TransactionType[];
   transactionStatus: TransactionStatus;
 }

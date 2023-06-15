@@ -1,4 +1,5 @@
 import { Text, Button } from "@mantine/core";
+import { TransactionType } from "@/models/transaction";
 
 function identifyCol(col: string): string {
   let x: string;
@@ -10,6 +11,26 @@ function identifyCol(col: string): string {
     x = "dark.6";
   }
   return x;
+}
+
+function getTransactionTypeColor(transactionType: TransactionType): string {
+  let color: string = "";
+  if (transactionType === "Cash In") {
+    color = "green.6";
+  } else if (transactionType === "Cash Out") {
+    color = "red.6";
+  } else if (transactionType === "Transfer") {
+    color = "blue.6";
+  } else if (transactionType === "Payment") {
+    color = "orange.6";
+  } else if (transactionType === "Asset") {
+    color = "violet.6";
+  } else if (transactionType === "Stock In") {
+    color = "yellow.6";
+  } else if (transactionType === "Stock Out") {
+    color = "pink.6";
+  }
+  return color;
 }
 
 const ColoredText = ({
@@ -26,29 +47,27 @@ const ColoredText = ({
   );
 };
 
-//type TransactionType = "Cash In" | "Cash Out" | "Transfer" | "Payment";
 const TransactionType = ({
   transactionType,
 }: {
-  transactionType: string;
+  transactionType: TransactionType[];
 }): JSX.Element => {
-  let color;
-  if (transactionType === "Cash In") {
-    color = "green.6";
-  } else if (transactionType === "Cash Out") {
-    color = "red.6";
-  } else if (transactionType === "Transfer") {
-    color = "blue.6";
-  } else if (transactionType === "Payment") {
-    color = "orange.6";
-  } else {
-    color = "orange.6";
-  }
   return (
     <>
-      <Button variant="outline" color={color} radius="xl" size="xs">
-        {transactionType}
-      </Button>
+      {transactionType.map((item) => (
+        <Button
+          mx={2}
+          variant="outline"
+          color={getTransactionTypeColor(item)}
+          radius="xl"
+          size="xs"
+          key={item}
+          compact
+          style={{ cursor: "default" }}
+        >
+          {item}
+        </Button>
+      ))}
     </>
   );
 };
@@ -80,7 +99,7 @@ export const TRANSACTION_COLUMNS: any[] = [
     accessor: "transactionType",
     title: "Transaction Type",
     sortable: true,
-    render: ({ transactionType }: { transactionType: string }) =>
+    render: ({ transactionType }: { transactionType: TransactionType[] }) =>
       TransactionType({ transactionType }),
   },
   { accessor: "transactionStatus", title: "Status", sortable: true },

@@ -5,12 +5,11 @@ import string
 from datetime import datetime
 
 import ngrok
+from ai import parse_document, process_document_docvqa
 from dotenv import dotenv_values
 from flask import Flask, jsonify, request, send_from_directory
 from PIL import Image
 from werkzeug.utils import secure_filename
-
-from backend.ai import parse_document, process_document_docvqa
 
 config = dotenv_values()
 

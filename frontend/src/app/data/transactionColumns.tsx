@@ -56,7 +56,7 @@ const TransactionType = ({
     <>
       {transactionType.map((item) => (
         <Button
-          mx={2}
+          m={2}
           variant="outline"
           color={getTransactionTypeColor(item)}
           radius="xl"

@@ -10,6 +10,8 @@ from flask import Flask, jsonify, request, send_from_directory
 from PIL import Image
 from werkzeug.utils import secure_filename
 
+from backend.ai import parse_document, process_document_docvqa
+
 config = dotenv_values()
 
 app = Flask(__name__)
@@ -44,6 +46,10 @@ def predict(name: str):
    if not os.path.isfile(filename):
       return jsonify({"message": "File not found"}), 404
    image = Image.open(os.path.join(UPLOAD_FOLDER, name))
+   return jsonify({
+      "details": parse_document(image),
+      "from": process_document_docvqa(image, "Who issued the receipt?")
+   }), 200
 
 async def setup():
    debug = config.get("DEBUG") == '1'

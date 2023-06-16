@@ -5,7 +5,7 @@ import string
 from datetime import datetime
 
 import ngrok
-from ai import parse_document, process_document_docvqa
+from ai import process_document_docvqa
 from dotenv import dotenv_values
 from flask import Flask, jsonify, request, send_from_directory
 from PIL import Image
@@ -46,7 +46,6 @@ def predict(name: str):
       return jsonify({"message": "File not found"}), 404
    image = Image.open(os.path.join(UPLOAD_FOLDER, name))
    return jsonify({
-      "details": parse_document(image),
       "from": process_document_docvqa(image, "Who issued the receipt?")
    }), 200
 

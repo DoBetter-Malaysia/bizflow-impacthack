@@ -1,7 +1,7 @@
 import React from "react";
-import { SimpleGrid } from "@mantine/core";
 import DashboardCard from "@/components/cards/DashboardCard";
 import DynamicDataTable from "@/components/tables/DynamicDataTable";
+import Recommendation from "./Recommendation";
 import {
   TRANSACTIONS,
   TRANSACTION_COLUMNS,
@@ -33,6 +33,9 @@ const Overview = () => {
               />
             </div>
           ))}
+        </div>
+        <div>
+          <Recommendation />
         </div>
         <div>
           <DynamicDataTable

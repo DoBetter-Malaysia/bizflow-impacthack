@@ -51,7 +51,7 @@ const navs = [
         label: "Deal Finders",
         Icon: RiSearchLine,
         IconActive: RiSearchFill,
-        href: "/sales/deals",
+        href: "/deals",
       },
     ],
   },

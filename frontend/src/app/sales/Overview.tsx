@@ -18,26 +18,29 @@ const dropDownOptions: any[] = [
 const Overview = () => {
   return (
     <div>
-      <SimpleGrid cols={3} spacing={"xl"} h={220}>
-        {DASHBOARD_CARDS.map((item) => (
-          <DashboardCard
-            key={item.title}
-            icon={item.icon}
-            title={item.title}
-            subtitle={item.subtitle}
-            valueChange={item.valueChange}
-            changeType={item.changeType}
-            changeMetric={item.changeMetric}
-            isGood={item.isGood}
+      <div className="flex flex-col gap-8">
+        <div className="grid h-min w-full grid-cols-3 gap-8">
+          {DASHBOARD_CARDS.map((item) => (
+            <div className="col-span-1" key={item.title}>
+              <DashboardCard
+                icon={item.icon}
+                title={item.title}
+                subtitle={item.subtitle}
+                valueChange={item.valueChange}
+                changeType={item.changeType}
+                changeMetric={item.changeMetric}
+                isGood={item.isGood}
+              />
+            </div>
+          ))}
+        </div>
+        <div>
+          <DynamicDataTable
+            rows={TRANSACTIONS}
+            columns={TRANSACTION_COLUMNS}
+            dropDownOptions={dropDownOptions}
           />
-        ))}
-      </SimpleGrid>
-      <div className="mt-12">
-        <DynamicDataTable
-          rows={TRANSACTIONS}
-          columns={TRANSACTION_COLUMNS}
-          dropDownOptions={dropDownOptions}
-        />
+        </div>
       </div>
     </div>
   );

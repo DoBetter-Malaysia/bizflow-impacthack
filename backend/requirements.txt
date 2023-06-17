@@ -12,3 +12,10 @@ gradio
 langchain
 llama-index
 Werkzeug==2.3.6
+diffusers==0.16.1
+safetensors
+transformers 
+scipy 
+ftfy 
+accelerate
+compel

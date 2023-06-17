@@ -85,10 +85,11 @@ const InputSection = ({
           onClick={() => (isRecording ? stopRecording() : startRecording())}
           variant="subtle"
           w={"100%"}
-          className={clsx("rounded-full", { "text-red-600": isRecording })}
+          className={clsx("rounded-full", { "!text-red-600": isRecording })}
           disabled={loading}
+          color={isRecording ? "red" : undefined}
         >
-          {isRecording ? <FiMicOff size="1rem" /> : <FiMic size="1rem" />}
+          {isRecording ? <FiMicOff size="1.5rem" /> : <FiMic size="1.5rem" />}
         </Button>
         <Button
           variant="subtle"

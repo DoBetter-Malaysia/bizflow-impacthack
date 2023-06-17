@@ -4,16 +4,11 @@ import { Metadata } from "next";
 import { Group, Select, TextInput, clsx } from "@mantine/core";
 import { Dropzone, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { useState } from "react";
-import useServerAction from "@/utils/hooks/useServerAction";
-import { getAllDocuments } from "@/actions/documents";
 import { RiSearchLine } from "react-icons/ri";
 import DisplayStyle from "./DisplayStyle";
 import { BiFilter } from "react-icons/bi";
-import { useGetAllDocuments } from "@/api/documents";
 import DocumentGrid from "./DocumentGrid";
 const Home = () => {
-  const [active, setActive] = useState(false);
-
   return (
     <>
       <div className="bg-blue-600 px-8 pb-12 pt-6">
@@ -33,7 +28,7 @@ const Home = () => {
           />
           <DisplayStyle />
         </div>
-        <div className="mt-4 flex space-x-3 px-8">
+        <div className="mt-4 flex space-x-3">
           {[
             "All",
             "Receipts",
@@ -46,7 +41,10 @@ const Home = () => {
               key={index}
               className={clsx(
                 "cursor-pointer rounded-md border-2 bg-white px-3 py-1 text-sm shadow-sm",
-                { "border-blue-200 bg-blue-200 text-blue-600": index === 1 }
+                {
+                  "border-blue-200 !bg-blue-200 font-medium text-blue-600":
+                    index === 1,
+                }
               )}
             >
               {type}
@@ -55,13 +53,15 @@ const Home = () => {
         </div>
       </div>
 
-      <DocumentGrid />
+      <div className="px-12 py-6">
+        <DocumentGrid />
+      </div>
       <Dropzone.FullScreen
         active={true}
         accept={IMAGE_MIME_TYPE}
         onDrop={(files) => {
-          console.log(files);
-          setActive(false);
+          const formData = new FormData();
+          formData.append("file", files[0]);
         }}
       >
         <Group

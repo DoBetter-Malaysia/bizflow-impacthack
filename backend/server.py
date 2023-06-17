@@ -71,7 +71,8 @@ def predict(name: str):
         return jsonify({"message": "File not found"}), 404
     image = Image.open(os.path.join(UPLOAD_FOLDER, name))
     return (
-        jsonify({"from": process_document_docvqa(image, "Who issued the receipt?")}),
+        jsonify({"from": process_document_docvqa(
+            image, "Who issued the receipt?")}),
         200,
     )
 
@@ -79,7 +80,7 @@ def predict(name: str):
 @app.route("/good-questions")
 def goodQuestions():
     res = chatbot(
-        "Based on the pizza sales this week, what are some good questions to ask as the business owner. Remember the questions should be short and concise without explanation, and separated by |."
+        "Based on the pizza sales this week, what are some good questions to ask as the business owner.\n\nRemember the questions should be short and concise without explanation.\n\nMake sure the questions listed are separated by | in a single paragraph."
     )
     return jsonify({"questions": res.split("|")}), 200
 
@@ -95,9 +96,9 @@ def prompt():
         return jsonify({image: filename})
 
     res = chatbot(
-        f"{prompt} . Explain in a short and concise manner separated using a | in a single long string."
+        f"{prompt}. Explain in a short and concise manner in a single long string."
     )
-    return jsonify({"response": res.split("|")}), 200
+    return jsonify({"response": res.split(".")}), 200
 
 
 # /recommendations?insight=...
@@ -105,14 +106,14 @@ def prompt():
 def recommendations():
     insight = request.args.get("insight")
     res = chatbot(
-        f"""
-Given that {insight}. I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
+        f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
 
 Answer in the following format, 
 Recommendation 1 - explanation
 Recommendation 2 - explanation
 
-Make sure there is no numbering, and all recommendations are in one line."""
+Limit the number of recommendations to only 2.
+Make sure there is no numbering and all recommendations are in one line."""
     )
     recommendations = res.split("\n")
     values = []
@@ -132,8 +133,7 @@ Make sure there is no numbering, and all recommendations are in one line."""
 def recommendation_steps():
     recommendation = request.args.get("recommendation")
     res = chatbot(
-        f"""
-From the recommendation, "{recommendation}",
+        f"""From the recommendation, "{recommendation}",
 
 What are some questions or requirements as a business owner? 
 
@@ -141,8 +141,7 @@ For example, "Show me the poster", "Who are the ads agent to find?"
 
 Make them short and concise.
 
-Make sure the list is separated by | without numbering and newline.
-                  """
+Make sure the list is separated by | without numbering and newline."""
     )
     return jsonify({"steps": res.split("|")})
 

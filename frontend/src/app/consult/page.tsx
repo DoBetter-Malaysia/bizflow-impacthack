@@ -74,7 +74,7 @@ export default function Consult() {
         text: "",
         body: message.includes("poster") ? (
           <img
-            src={"/logo.png"}
+            src={res}
             alt="Poster"
             height="400px"
             width="300px"
@@ -162,7 +162,7 @@ export default function Consult() {
             text: "",
             body: message.includes("poster") ? (
               <img
-                src={"/logo.png"}
+                src={res}
                 alt="Poster"
                 height="400px"
                 width="300px"

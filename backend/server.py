@@ -11,6 +11,7 @@ from flask_cors import CORS
 from gpt import chatbot, construct_index
 from PIL import Image
 from speech import recognize_speech
+
 # from stable_diffusion import prompt_image
 from werkzeug.utils import secure_filename
 
@@ -81,29 +82,29 @@ def goodQuestions():
     res = chatbot(
         "Based on the pizza sales this week, what are some good questions to ask as the business owner.\n\nRemember the questions should be short and concise without explanation.\n\nMake sure the questions listed are separated by | in a single paragraph."
     )
-    return jsonify({"questions": [r.split(".")[1].strip() for r in res.strip().split("|")]}), 200
+    return (
+        jsonify(
+            {"questions": [r.split(".")[1].strip() for r in res.strip().split("|")]}
+        ),
+        200,
+    )
 
 
 # /prompt?question=...
 @app.route("/prompt")
 def prompt():
-    prompt = request.args.get("question")
-    # if "poster" in prompt:
-    #     image = prompt_image(prompt)
-    #     filename = f"poster-{datetime.now()}.jpg"
-    #     image.save(os.path.join(UPLOAD_FOLDER, filename))
-    #     return jsonify({image: filename})
+    prompt = request.args.get("info")
 
     res = chatbot(
         f"{prompt}. Explain in a short and concise manner in a single long string."
     )
-    return jsonify({"response": res.strip()}), 200
+    return jsonify(res.strip()), 200
 
 
 # /recommendations?insight=...
 @app.route("/recommendations")
 def recommendations():
-    insight = request.args.get("insight")
+    insight = request.args.get("info")
     res = chatbot(
         f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
 
@@ -124,13 +125,13 @@ Make sure there is no numbering and all recommendations are in one line."""
                 "explanation": explanation.strip(),
             }
         )
-    return jsonify({"recommendations": values}), 200
+    return jsonify(values), 200
 
 
 # /steps?recommendation=...
 @app.route("/steps")
 def recommendation_steps():
-    recommendation = request.args.get("recommendation")
+    recommendation = request.args.get("info")
     res = chatbot(
         f"""From the recommendation, "{recommendation}",
 
@@ -142,7 +143,20 @@ Make them short and concise.
 
 Make sure the list is separated by | without numbering and newline."""
     )
-    return jsonify({"steps": res.strip().split("|")})
+    return jsonify(res.strip().split("|")), 200
+
+
+# /solve?problem=...
+@app.route("/solve")
+def recommendation_steps():
+    problem = request.args.get("info")
+    # if "poster" in prompt:
+    #     image = prompt_image(prompt)
+    #     filename = f"poster-{datetime.now()}.jpg"
+    #     image.save(os.path.join(UPLOAD_FOLDER, filename))
+    #     return jsonify(filename), 200
+    res = chatbot(f"""{problem}""")
+    return jsonify(res.strip().split("|")), 200
 
 
 async def setup():

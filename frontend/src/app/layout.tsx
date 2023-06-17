@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Provider from "./Provider";
+import Header from "./Header";
 import Sidebar from "./Sidebar";
 import "./globals.css";
 import { Poppins } from "next/font/google";
@@ -19,8 +20,9 @@ export default function RootLayout({
       <Provider>
         <body className={poppins.className}>
           <div className="bg-gray-50/50">
-            <Sidebar />
-            <main className="relative ml-64 flex min-h-screen flex-col items-stretch justify-stretch">
+            {/* <Sidebar /> */}
+            <main className="relative flex min-h-screen flex-col items-stretch justify-stretch">
+              <Header />
               {children}
             </main>
           </div>

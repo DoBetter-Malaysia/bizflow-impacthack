@@ -18,28 +18,28 @@ const Integrations = () => {
   const [integration, setIntegration] = useState<IntegrationType[]>([
     {
       id: 1,
-      img: "https://www.bernama.com/storage/photos/94c4dff4f2bc53851d47301c54f8e878632a81699dfe0",
+      img: "/storehub.jpg",
       name: "StoreHub",
       description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia velit dolorem reiciendis laudantium modi soluta quam! Commodi quis sunt debitis!",
+        "StoreHub is a cloud-based point of sale (POS) and business management system designed specifically for retail and F&B businesses. It offers a comprehensive set of features and tools to help businesses streamline their operations, manage inventory, process sales transactions, track customer data, and analyze business performance. ",
       hasAuthenticated: -1,
       hasSynced: -1,
     },
     {
       id: 2,
-      img: "https://skteatt.files.wordpress.com/2020/09/37174.jpg",
+      img: "/grabfood.png",
       name: "Grab Food",
       description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia velit dolorem reiciendis laudantium modi soluta quam! Commodi quis sunt debitis!",
+        "GrabFood is a popular online food delivery platform that connects users with a wide range of restaurants and food establishments in their area. It offers a convenient and efficient way for customers to order food from their favorite restaurants and have it delivered to their doorstep. GrabFood provides a user-friendly mobile app or website where customers can browse menus, place orders, and track their delivery in real-time. ",
       hasAuthenticated: -1,
       hasSynced: -1,
     },
     {
       id: 3,
-      img: "https://1000logos.net/wp-content/uploads/2021/02/FoodPanda-logo.png",
+      img: "/foodpanda.png",
       name: "Foodpanda",
       description:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia velit dolorem reiciendis laudantium modi soluta quam! Commodi quis sunt debitis!",
+        "Foodpanda is an online food delivery platform that allows users to order food from a wide selection of restaurants in their area. It operates through a user-friendly website or mobile app, where customers can browse menus, place orders, and track their deliveries in real-time. Foodpanda partners with local restaurants to provide a convenient and reliable food delivery service to customers.",
       hasAuthenticated: -1,
       hasSynced: -1,
     },

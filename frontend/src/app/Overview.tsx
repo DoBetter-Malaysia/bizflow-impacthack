@@ -5,19 +5,19 @@ import BarChartComponent from "@/components/charts/BarChartComponent";
 import Recommendation from "./Recommendation";
 
 const data: any[] = [
-  { name: "2023/06/12", sales: 850.2 },
-  { name: "2023/06/13", sales: 780.6 },
-  { name: "2023/06/14", sales: 810.0 },
-  { name: "2023/06/15", sales: 800.0 },
-  { name: "2023/06/16", sales: 1100.2 },
-  { name: "2023/06/17", sales: 988.5 },
-  { name: "2023/06/18", sales: 1200.2 },
+  { name: "12/06/2023", sales: 220.0 },
+  { name: "13/06/2023", sales: 530.0 },
+  { name: "14/06/2023", sales: 700.0 },
+  { name: "15/06/2023", sales: 620.0 },
+  { name: "16/06/2023", sales: 830.0 },
+  { name: "17/06/2023", sales: 476.0 },
+  { name: "18/06/2023", sales: 380.0 },
 ];
 
 const pizza: any[] = [
-  { name: "Pepperoni Pizza", count: 220 },
-  { name: "Cheese Pizza", count: 100 },
-  { name: "Hawaiian Pizza", count: 92 },
+  { name: "Hawaiian Pizza", count: 8 },
+  { name: "Pepperoni Pizza", count: 7 },
+  { name: "Cheese Pizza", count: 2 },
 ];
 
 const Overview = () => {

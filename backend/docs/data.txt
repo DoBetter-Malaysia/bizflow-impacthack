@@ -1,16 +1,25 @@
 SALES
 date,item_id,quantity,customer_id
+16/06/2023,1,1,1
+16/06/2023,2,1,1
+16/06/2023,1,3,2
+16/06/2023,3,40,3
+17/06/2023,1,2,1
+17/06/2023,3,2,1
 17/06/2023,1,12,2
 18/06/2023,2,3,1
 18/06/2023,2,5,2
 18/06/2023,1,7,1
+18/06/2023,3,2,3
 
 CUSTOMER
 customer_id, name, age, gender
 1,John Doe,35,Male
 2,Jane Doe,45,Female
+3,Kumar,23,Male
 
 ITEMS
 item_id,name,type,price
 1,Peperoni Pizza,Pizza,RM20.00
 2,Hawaian Pizza,Pizza,RM30.00
+3,Cheese Pizza,Pizza,RM18.00

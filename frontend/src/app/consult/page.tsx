@@ -21,6 +21,13 @@ export default function Consult() {
     messages: [],
   };
 
+  function fixString(val: string) {
+    if (val.includes("-")) {
+      return val.split("-")[1].trim();
+    }
+    return val.trim();
+  }
+
   const NestedList = ({
     list,
     onChange,
@@ -42,7 +49,8 @@ export default function Consult() {
             <div key={index}>
               <div>
                 <span className="mr-4">
-                  {index + 1}. {nested ? item["recommendation"] : item}
+                  {index + 1}.{" "}
+                  {fixString(nested ? item["recommendation"] : item)}
                 </span>
 
                 <ArrowLink

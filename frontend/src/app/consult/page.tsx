@@ -1,15 +1,203 @@
 "use client";
 import { Metadata } from "next";
-import { useRef } from "react";
+import { useCallback, useRef, useState } from "react";
 import InputSection from "./InputSection";
 import ChatSection from "./ChatSection";
+import useConsult from "./useConsult";
+import useMessageStore from "@/stores/useMessageStore";
+import useStore from "@/utils/hooks/useStore";
+import { List } from "@mantine/core";
+import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
+
+type PromptType = "prompt" | "recommendations" | "steps" | "solve";
 
 export default function Consult() {
   const ref = useRef<HTMLDivElement>(null);
-  const onChange = () => {
+  const [promptType, setPromptType] = useState<PromptType>("prompt");
+  const [options, setOptions] = useState<string[]>([]);
+  const [disabled, setDisabled] = useState(false);
+  const mutation = useConsult({ type: promptType });
+  const { addMessage } = useStore(useMessageStore, (state) => state) ?? {
+    messages: [],
+  };
+
+  const NestedList = ({
+    list,
+    onChange,
+    nested = true,
+  }: {
+    list: Record<string, string>[] | string[];
+    onChange: (message: string) => void;
+    nested: boolean;
+  }) => {
+    return (
+      <div>
+        <div>
+          {nested
+            ? "Check out the recommendations below, you may explore more for each option"
+            : "Do you require further information on how to execute it?"}
+        </div>
+        <div className="mt-3 space-y-4">
+          {list.map((item, index) => (
+            <div key={index}>
+              <div>
+                <span className="mr-4">
+                  {index + 1}. {nested ? item["recommendation"] : item}
+                </span>
+
+                <ArrowLink
+                  onClick={() =>
+                    onChange(nested ? item["recommendation"] : item)
+                  }
+                >
+                  Explore
+                </ArrowLink>
+              </div>
+              {nested && (
+                <div className="ml-8 text-gray-600">{item["explanation"]}</div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const thirdOnChange = (message: string) => {
     setTimeout(() => {
       ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
     }, 300);
+    mutation.mutateAsync(message).then((res) => {
+      addMessage?.({
+        origin: "bot",
+        isMarkdown: true,
+        text: "",
+        body: message.includes("poster") ? (
+          <img
+            src={"/logo.png"}
+            alt="Poster"
+            height="400px"
+            width="300px"
+            className="object-contain"
+          />
+        ) : (
+          <div>{res}</div>
+        ),
+      });
+      addMessage?.({
+        origin: "bot",
+        isMarkdown: true,
+        text: "",
+        body: "Do you have more to ask?",
+      });
+      setPromptType("solve");
+      setTimeout(() => {
+        ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 100);
+    });
+  };
+
+  const secondOnchange = (message: string) => {
+    setTimeout(() => {
+      ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }, 300);
+    mutation.mutateAsync(message).then((res) => {
+      addMessage?.({
+        origin: "bot",
+        isMarkdown: true,
+        text: "",
+        body: NestedList({ list: res, nested: false, onChange: thirdOnChange }),
+      });
+      setPromptType("solve");
+      setTimeout(() => {
+        ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 100);
+    });
+  };
+
+  const onChange = (message: string) => {
+    setTimeout(() => {
+      ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+    }, 300);
+    if (promptType === "recommendations") {
+      setOptions([]);
+    }
+    console.log(promptType);
+
+    mutation.mutateAsync(message).then((res) => {
+      if (promptType === "prompt") {
+        addMessage?.({
+          origin: "bot",
+          isMarkdown: true,
+          text: "",
+          body: toList(res),
+        });
+        addMessage?.({
+          origin: "bot",
+          text: "",
+          body: "I have some recommendations based on the insights provided, are you interested to learn more?",
+        });
+        setPromptType("recommendations");
+        setOptions(["Yes", "No"]);
+        setDisabled(true);
+      } else if (promptType === "recommendations") {
+        setPromptType("steps");
+        console.log(promptType);
+        setDisabled(false);
+        addMessage?.({
+          origin: "bot",
+          isMarkdown: true,
+          text: "",
+          body: NestedList({ list: res, onChange: secondOnchange }),
+        });
+        setPromptType("steps");
+      } else if (promptType === "solve") {
+        setTimeout(() => {
+          ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+        }, 300);
+        mutation.mutateAsync(message).then((res) => {
+          addMessage?.({
+            origin: "bot",
+            isMarkdown: true,
+            text: "",
+            body: message.includes("poster") ? (
+              <img
+                src={"/logo.png"}
+                alt="Poster"
+                height="400px"
+                width="300px"
+                className="object-contain"
+              />
+            ) : (
+              <div>{res}</div>
+            ),
+          });
+          addMessage?.({
+            origin: "bot",
+            isMarkdown: true,
+            text: "",
+            body: "Do you have more to ask?",
+          });
+          setPromptType("solve");
+          setTimeout(() => {
+            ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+          }, 100);
+        });
+      }
+      setTimeout(() => {
+        ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 100);
+    });
+  };
+
+  const toList = (list: string[]) => {
+    return (
+      <List type="ordered" classNames={{ root: "list-decimal" }}>
+        {list.map((item, index) => (
+          <List.Item key={index}>{item}</List.Item>
+        ))}
+      </List>
+    );
   };
 
   return (
@@ -21,10 +209,18 @@ export default function Consult() {
           className="overflow-auto rounded-lg"
           style={{ height: "calc(100vh - 250px)" }}
         >
-          <ChatSection ref={ref} />
+          <ChatSection
+            ref={ref}
+            loading={mutation.isLoading}
+            options={options}
+            onChange={onChange}
+          />
         </div>
         <div className="mx-8 mb-4 bg-slate-100">
-          <InputSection onChange={onChange} />
+          <InputSection
+            onChange={onChange}
+            loading={mutation.isLoading || disabled}
+          />
         </div>
       </div>
     </main>

@@ -1,0 +1,55 @@
+$color: #37a6fb;
+$color-active: #0149e0;
+
+.link {
+  color: $color;
+  cursor: pointer;
+  font-weight: 400;
+  text-decoration: none !important;
+  font-size: 1rem;
+  transition: all 1s linear;
+  &:hover,
+  &.active {
+    color: $color-active;
+  }
+}
+
+.link--arrowed {
+  transition: all 0.3s linear;
+  cursor: pointer;
+
+  .arrow-icon {
+    margin-left: 8px;
+    position: relative;
+    top: -1px;
+    -webkit-transition: -webkit-transform 0.3s ease;
+    transition: -webkit-transform 0.3s ease;
+    transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+    vertical-align: middle;
+
+    .arrow-stroke {
+      stroke: $color;
+    }
+
+    .arrow-icon--circle {
+      transition: stroke-dashoffset 0.3s ease;
+      stroke-dasharray: 95;
+      stroke-dashoffset: 95;
+    }
+  }
+
+  &:hover,
+  &.active {
+    .arrow-icon {
+      transform: translate3d(5px, 0, 0);
+
+      .arrow-stroke {
+        stroke: $color-active;
+      }
+    }
+
+    .arrow-icon--circle {
+      stroke-dashoffset: 0;
+    }
+  }
+}

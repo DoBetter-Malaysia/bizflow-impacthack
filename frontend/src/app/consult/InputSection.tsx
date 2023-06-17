@@ -5,7 +5,13 @@ import { Input } from "@mantine/core";
 import { FiSend, FiPaperclip, FiMic } from "react-icons/fi";
 import { useState } from "react";
 
-const InputSection = ({ onChange }: { onChange: () => void }) => {
+const InputSection = ({
+  onChange,
+  loading,
+}: {
+  onChange: (message: string) => void;
+  loading: boolean;
+}) => {
   const [text, setText] = useState("");
   const { addMessage } = useStore(useMessageStore, (state) => state) ?? {
     addMessage: () => null,
@@ -14,10 +20,10 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
   const onEnter = ({ message }: { message: string }) => {
     addMessage({
       text: message,
-      origin: "bot",
+      origin: "user",
     });
     setText("");
-    onChange();
+    onChange(message);
   };
 
   return (
@@ -35,13 +41,24 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
               onEnter({ message: text });
             }
           }}
+          disabled={loading}
         />
       </div>
       <div className="col-span-2 flex items-center justify-center space-x-2">
-        <Button variant="subtle" w={"100%"} className="rounded-full">
+        <Button
+          variant="subtle"
+          w={"100%"}
+          className="rounded-full"
+          disabled={loading}
+        >
           <FiMic size="1.5rem" />
         </Button>
-        <Button variant="subtle" w={"100%"} className="rounded-full">
+        <Button
+          variant="subtle"
+          w={"100%"}
+          className="rounded-full"
+          disabled={loading}
+        >
           <FiPaperclip size="1.5rem" />
         </Button>
         <Button
@@ -51,6 +68,7 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
           onClick={() => {
             if (text.trim() !== "") onEnter({ message: text });
           }}
+          loading={loading}
         >
           <FiSend size="1.5rem" />
         </Button>

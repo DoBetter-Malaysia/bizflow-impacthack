@@ -13,7 +13,7 @@ const useConsult = ({ type }: UseConsultParams) => {
   const mutation = useMutation({
     mutationKey: ["consult", type],
     mutationFn: async (text: string) => {
-      await wait(3000);
+      await wait(100);
       if (type === "prompt") {
         return [
           "Total sales revenue: RM230.00",
@@ -45,6 +45,19 @@ const useConsult = ({ type }: UseConsultParams) => {
           },
         ];
       }
+      if (type === "steps") {
+        return [
+          "Show me a sample poster",
+          "Who are the advertising agents to contact",
+          "What social media platforms should I target",
+          "What special offers should be included",
+          "How can I track the success of my advertising efforts",
+        ];
+      }
+      return "Highlight Pepperoni Pizza in advertisements and social media campaigns to create awareness and generate more interest among customers.";
     },
   });
+  return mutation;
 };
+
+export default useConsult;

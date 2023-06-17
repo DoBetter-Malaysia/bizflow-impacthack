@@ -2,58 +2,84 @@ import React, { ForwardedRef, ReactElement, RefObject } from "react";
 import useStore from "@/utils/hooks/useStore";
 import useMessageStore from "@/stores/useMessageStore";
 import Image from "next/image";
-import MarkdownEmbed from "./MarkdownEmbed";
+import Button from "@/components/buttons/Button";
+import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
 
-const ChatSection = React.forwardRef<HTMLDivElement>((props, ref) => {
-  const { messages } = useStore(useMessageStore, (state) => state) ?? {
-    messages: [],
-  };
+interface ChatSectionProps {
+  loading: boolean;
+  onChange: (message: string) => void;
+  options: string[];
+}
 
-  return (
-    <div ref={ref} className="space-y-2">
-      {messages.map((message) => {
-        return (
-          <div key={message.text} className="py-2">
-            {message.origin === "user" ? (
-              <div className=" p-2">
-                <div className="rounded-lg p-2">{message.text}</div>
-              </div>
-            ) : (
-              <div className="flex flex-col justify-start bg-blue-100 py-2">
-                <div className="flex p-2">
+const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
+  ({ loading, onChange, options }, ref) => {
+    const { messages, addMessage } = useStore(
+      useMessageStore,
+      (state) => state
+    ) ?? {
+      messages: [],
+    };
+
+    return (
+      <div ref={ref} className="">
+        {messages.map((message) => {
+          return (
+            <div key={message.text} className="py-2">
+              {message.origin === "user" ? (
+                <div className=" p-2">
+                  <div className="rounded-lg p-2">{message.text}</div>
+                </div>
+              ) : (
+                <div className="mx-4 flex items-start px-4 py-2">
                   <Image
-                    src="/logo_plain.png"
+                    src="/bot.png"
                     alt="logo"
                     className="mr-4"
                     width={40}
                     height={40}
                   />
-                  <div className="rounded-lg p-2">{message.text}</div>
-                </div>
-                {message.body && (
-                  <div className="flex items-start p-2">
-                    <Image
-                      src="/logo_plain.png"
-                      alt="logo"
-                      className="relative mr-4 object-contain py-4"
-                      width={40}
-                      height={40}
-                    />
-                    {message.isMarkdown ? (
-                      <MarkdownEmbed markdown={message.body} />
-                    ) : (
-                      <>{message.body}</>
-                    )}
+                  <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-2">
+                    {message.body}
                   </div>
-                )}
-              </div>
-            )}
+                </div>
+              )}
+            </div>
+          );
+        })}
+        {loading && (
+          <div className="mx-4 flex items-start px-4 py-2">
+            <Image
+              src="/logo_plain.png"
+              alt="logo"
+              className="mr-4 animate-[spin_2s_infinite_linear]"
+              width={32}
+              height={32}
+            />
+            <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-2">
+              Loading...
+            </div>
           </div>
-        );
-      })}
-    </div>
-  );
-});
+        )}
+        <div className="flex-start ml-24 flex flex-col items-start space-y-2">
+          {options.map((opt, index) => (
+            <ArrowLink
+              key={index}
+              onClick={() => {
+                addMessage?.({
+                  origin: "user",
+                  text: opt,
+                });
+                onChange(opt);
+              }}
+            >
+              {opt}
+            </ArrowLink>
+          ))}
+        </div>
+      </div>
+    );
+  }
+);
 ChatSection.displayName = "ChatSection";
 
 export default ChatSection;

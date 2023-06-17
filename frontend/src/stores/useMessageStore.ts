@@ -9,18 +9,16 @@ interface MessageState {
 
 const useMessageStore = create<MessageState>()(
   devtools(
-    persist(
-      (set, get) => ({
-        messages: [],
-        addMessage: (message: MessageModel) =>
-          set({
-            messages: [...get().messages, message],
-          }),
-      }),
-      {
-        name: "message-storage",
-      }
-    )
+    (set, get) => ({
+      messages: [],
+      addMessage: (message: MessageModel) =>
+        set({
+          messages: [...get().messages, message],
+        }),
+    }),
+    {
+      name: "message-storage",
+    }
   )
 );
 

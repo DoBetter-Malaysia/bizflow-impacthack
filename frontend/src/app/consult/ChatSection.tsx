@@ -6,6 +6,7 @@ import Button from "@/components/buttons/Button";
 import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@mantine/core";
+import axios from "axios";
 
 interface ChatSectionProps {
   loading: boolean;
@@ -23,9 +24,11 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
     };
     const questions = useQuery({
       queryKey: ["questions"],
-      queryFn: () => {
-        "http://localhost:5050/good-questions";
+      queryFn: async () => {
+        const res = await axios.get("http://localhost:5050/good-questions");
+        return res.data;
       },
+      staleTime: Infinity,
     });
 
     return (
@@ -35,7 +38,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
           style={{ transform: "translateX(-50%) translateY(-50%)" }}
         >
           {messages.length === 0 && questions.isSuccess
-            ? questions.data.data.map((ques, ind) => (
+            ? questions.data.map((ques, ind) => (
                 <Button
                   variant="outline"
                   key={ind}
@@ -44,7 +47,11 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                   {ques}
                 </Button>
               ))
-            : new Array(5).fill(0).map((_, index) => <Skeleton key={index} />)}
+            : new Array(5)
+                .fill(0)
+                .map((_, index) => (
+                  <Skeleton key={index} w={"240px"} height="70px" />
+                ))}
         </div>
         {messages.map((message) => {
           return (

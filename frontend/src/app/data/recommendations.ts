@@ -3,17 +3,17 @@ import { FaWallet, FaUser, FaChartPie, FaBoxes } from "react-icons/fa";
 
 export const RECOMMENDATIONS: RecommendationCard[] = [
   {
-    title: "Good Projected Revenue",
+    title: "Projected Revenue Growth",
     description:
-      "You have consistent revenue growth in the past year. Consider investing more to increase your revenue. Click here to find out our suggestions.",
+      "There will be a significant increase in your revenue for the next quarter. Want to allocate funds for marketing campaigns to enhance brand visibility?",
     icon: FaWallet,
     link: "/deals",
     sentiment: "positive",
   },
   {
-    title: "Potential Market Expansion",
+    title: "Market Expansion Opportunity",
     description:
-      "Try to explore client generation through direct to consumer channels as your business orients more physically. Some examples are flyers and kiosks. Click to find out more!",
+      "A promising opportunity for market expansion in a neighboring city with high demand for your products. Develop a strategic plan to establish a presence in the new market now!",
     icon: FaUser,
     link: "/deals",
     sentiment: "neutral",
@@ -21,7 +21,7 @@ export const RECOMMENDATIONS: RecommendationCard[] = [
   {
     title: "Overstocked Inventory",
     description:
-      "You have consequtively overstocked inventory and resulted in wastage of perishables and overhoarding. Click here to identify recommendations to remedy this issue!",
+      "2 product categories have been identified for low profit margin. Explore various options of optimizing the supply chain to increase your profitability.",
     icon: FaBoxes,
     link: "/deals",
     sentiment: "negative",

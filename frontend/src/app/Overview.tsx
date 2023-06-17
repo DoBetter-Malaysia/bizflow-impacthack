@@ -123,33 +123,6 @@ const Overview = () => {
               />
             </div>
           ))}
-          <div className="h-full w-full rounded-md shadow-md">
-            <AudioRecorder
-              onRecordingComplete={async (b) => {
-                const formData = new FormData();
-                try {
-                  const blob = await blobToWav(
-                    new Blob([b], { type: "audio/webm;codecs=opus" })
-                  );
-
-                  formData.append("file", blob, "voice.wav");
-
-                  axios
-                    .post(`http://127.0.0.1:5050/speech`, formData, {
-                      headers: {
-                        "Content-Type": "multipart/form-data",
-                      },
-                    })
-                    .then((res) => {
-                      console.log(res);
-                    });
-                } catch (error) {
-                  console.log(error);
-                }
-              }}
-              downloadFileExtension="wav"
-            />
-          </div>
         </div>
         <div className="grid h-min w-full grid-cols-8 gap-8">
           <div className="col-span-5 w-full rounded-xl bg-white p-12 drop-shadow-lg">

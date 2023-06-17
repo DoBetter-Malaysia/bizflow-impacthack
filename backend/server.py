@@ -4,7 +4,6 @@ import random
 import string
 from datetime import datetime
 
-import ngrok
 from ai import process_document_docvqa
 from configs import config
 from flask import Flask, jsonify, request, send_from_directory
@@ -71,7 +70,8 @@ def predict(name: str):
         return jsonify({"message": "File not found"}), 404
     image = Image.open(os.path.join(UPLOAD_FOLDER, name))
     return (
-        jsonify({"from": process_document_docvqa(image, "Who issued the receipt?")}),
+        jsonify({"from": process_document_docvqa(
+            image, "Who issued the receipt?")}),
         200,
     )
 
@@ -149,15 +149,6 @@ Make sure the list is separated by | without numbering and newline.
 
 async def setup():
     debug = config.get("DEBUG") == "1"
-    if not debug:
-        session = (
-            await ngrok.NgrokSessionBuilder()
-            .authtoken(config.get("NGROK_TOKEN"))
-            .connect()
-        )
-        tunnel = await session.http_endpoint().listen()
-        print(f"Ingress established at {tunnel.url()}")
-        tunnel.forward_tcp("localhost:5050")
     if config.get("SETUP") == "1":
         construct_index("docs")
     app.run(debug=debug, port=5050)

@@ -38,7 +38,7 @@ const DynamicDataTable = ({
   return (
     <>
       <div className="w-full rounded-xl bg-white p-12 drop-shadow-lg">
-        <h1 className="text-3xl font-bold">Recent Transactions</h1>
+        <h2 className="text-3xl font-bold">Recent Transactions</h2>
         <div className="grid w-full grid-cols-4 gap-6 py-2">
           <div className="col-span-3">
             <TextInput

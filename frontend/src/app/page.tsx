@@ -1,15 +1,11 @@
+"use client";
 import { Metadata } from "next";
+import Overview from "./Overview";
 
 export default function Home() {
   return (
-    <main className="flex  w-full flex-col items-stretch px-24">
-      <div className="self-start">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-      </div>
-      <div className="pt-16"></div>
+    <main className="relative flex flex-col px-24 py-12">
+      <Overview />
     </main>
   );
 }

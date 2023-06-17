@@ -62,7 +62,7 @@ const Sidebar = () => {
     <div className="fixed bottom-0 left-0 top-0 z-50 flex max-h-screen w-64 overflow-auto border-r-[1px] border-r-gray-200 bg-white">
       <div className="relative flex max-h-screen flex-1 flex-col">
         <div className="px-6 py-3">
-          <div className="mb-4 flex items-end justify-start space-x-1">
+          <div className="mb-4 flex items-end justify-center space-x-1">
             <Logo size={36} />
             <h1 className="text-2xl font-semibold text-blue-600">BizFlow</h1>
           </div>

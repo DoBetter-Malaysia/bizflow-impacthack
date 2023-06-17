@@ -4,12 +4,13 @@ import random
 import string
 from datetime import datetime
 
-import ngrok
-from ai import parse_document, process_document_docvqa
+# import flask_ngrok as ngrok
+# from ai import parse_document, process_document_docvqa
 from dotenv import dotenv_values
 from flask import Flask, jsonify, request, send_from_directory
 from PIL import Image
 from werkzeug.utils import secure_filename
+from speech import recognize_speech
 
 config = dotenv_values()
 
@@ -34,30 +35,42 @@ def upload_file():
    f.save(os.path.join(UPLOAD_FOLDER, filename))
    return jsonify({"message": "File uploaded successfully", "file": filename}), 201
 
+@app.route('/speech', methods = ['POST'])
+def speech():
+   if 'file' not in request.files:
+      return jsonify({"message": "No File Part"}), 400
+   f = request.files['file']
+
+   if f.content_type != 'audio/wav':
+      return jsonify({"message": "Invalid file type. This endpoint only accepts audio/wav files."}), 400
+
+   msg = recognize_speech(f);
+
+   return jsonify({"message": msg}), 201
 
 @app.route('/uploads/<name>')
 def download_file(name: str):
    return send_from_directory(UPLOAD_FOLDER, name)
 
-@app.route('/predict/<name>')
-def predict(name: str):
-   filename = os.path.join(UPLOAD_FOLDER, name)
-   if not os.path.isfile(filename):
-      return jsonify({"message": "File not found"}), 404
-   image = Image.open(os.path.join(UPLOAD_FOLDER, name))
-   return jsonify({
-      "details": parse_document(image),
-      "from": process_document_docvqa(image, "Who issued the receipt?")
-   }), 200
+# @app.route('/predict/<name>')
+# def predict(name: str):
+#    filename = os.path.join(UPLOAD_FOLDER, name)
+#    if not os.path.isfile(filename):
+#       return jsonify({"message": "File not found"}), 404
+#    image = Image.open(os.path.join(UPLOAD_FOLDER, name))
+#    return jsonify({
+#       "details": parse_document(image),
+#       "from": process_document_docvqa(image, "Who issued the receipt?")
+#    }), 200
 
 async def setup():
    debug = config.get("DEBUG") == '1'
    print(debug)
-   if not debug:
-      session = await ngrok.NgrokSessionBuilder().authtoken(config.get("NGROK_TOKEN")).connect()
-      tunnel = await session.http_endpoint().listen()
-      print (f"Ingress established at {tunnel.url()}")
-      tunnel.forward_tcp("localhost:5050")
+   # if not debug:
+   #    session = await ngrok.NgrokSessionBuilder().authtoken(config.get("NGROK_TOKEN")).connect()
+   #    tunnel = await session.http_endpoint().listen()
+   #    print (f"Ingress established at {tunnel.url()}")
+   #    tunnel.forward_tcp("localhost:5050")
    app.run(debug=debug, port=5050)
    print(app.url_map)
 		

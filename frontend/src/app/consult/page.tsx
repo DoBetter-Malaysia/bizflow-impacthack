@@ -202,7 +202,7 @@ export default function Consult() {
 
   return (
     <main className="relative flex w-full flex-col gap-2 px-16 py-3">
-      <h2 className="mb-2 text-2xl font-bold">Flow AI</h2>
+      <h2 className="mb-2 text-2xl font-bold">FlowAI</h2>
 
       <div className="rounded-md border-[1px] border-solid border-gray-400 bg-blue-50">
         <div

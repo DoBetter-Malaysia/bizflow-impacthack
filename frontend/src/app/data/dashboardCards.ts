@@ -5,7 +5,7 @@ import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 export const DASHBOARD_CARDS: DashboardCardProps[] = [
   {
     icon: FaWarehouse,
-    title: "$ 999,999",
+    title: "RM 206,407",
     subtitle: "Total Assets (MYR)",
     valueChange: 2,
     changeType: "Increase",
@@ -14,8 +14,8 @@ export const DASHBOARD_CARDS: DashboardCardProps[] = [
   },
   {
     icon: GiPayMoney,
-    title: "$ 69,420",
-    subtitle: "Cash Out (MYR)",
+    title: "RM 120,422",
+    subtitle: "Total Cash Out (MYR)",
     valueChange: 10,
     changeType: "Decrease",
     changeMetric: "%",
@@ -23,8 +23,8 @@ export const DASHBOARD_CARDS: DashboardCardProps[] = [
   },
   {
     icon: GiReceiveMoney,
-    title: "$ 200,000",
-    subtitle: "Cash In (MYR)",
+    title: "RM 163,234",
+    subtitle: "Total Cash In (MYR)",
     valueChange: 5,
     changeType: "Decrease",
     changeMetric: "%",

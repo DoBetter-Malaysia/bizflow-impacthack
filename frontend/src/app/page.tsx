@@ -4,7 +4,7 @@ import Overview from "./Overview";
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col px-24 py-12">
+    <main className="relative flex flex-col px-40 py-8">
       <Overview />
     </main>
   );

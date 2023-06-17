@@ -1,9 +1,8 @@
 "use client";
 
-import Button from "@/components/buttons/Button";
-import { GiRapidshareArrow } from "react-icons/gi";
 import Link from "next/link";
 import Image from "next/image";
+import { FiArrowRight } from "react-icons/fi";
 
 const Header = () => {
   return (
@@ -21,16 +20,17 @@ const Header = () => {
         </div>
       </Link>
       <Link href={"/consult"}>
-        <Button
-          leftIcon={
-            <div className="h-4 w-4">
-              <GiRapidshareArrow size={20} />
-            </div>
-          }
-          className="rounded-md py-2 "
-        >
-          FlowAI
-        </Button>
+        <div className="flex items-center justify-center gap-0 rounded-md bg-[#004be0] px-4 py-2 align-middle text-white">
+          <Image
+            src="/logo_icon_split.png"
+            alt="logo"
+            width={40}
+            height={40}
+            className="object-cover"
+          />
+          <p>FlowAI</p>
+          {/* <FiArrowRight size={30} className="font-bold text-[#004be0]" /> */}
+        </div>
       </Link>
     </div>
   );

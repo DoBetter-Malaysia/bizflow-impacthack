@@ -1,15 +1,50 @@
-import useStore from "@/utils/hooks/useStore";
-import useMessageStore from "@/stores/useMessageStore";
 import Button from "@/components/buttons/Button";
+import useMessageStore from "@/stores/useMessageStore";
+import { blobToWav } from "@/utils/helpers/blobHelper";
+import useStore from "@/utils/hooks/useStore";
 import { Input } from "@mantine/core";
-import { FiSend, FiPaperclip, FiMic } from "react-icons/fi";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAudioRecorder } from "react-audio-voice-recorder";
+import { FiMic, FiMicOff, FiPaperclip, FiSend } from "react-icons/fi";
 
 const InputSection = ({ onChange }: { onChange: () => void }) => {
   const [text, setText] = useState("");
   const { addMessage } = useStore(useMessageStore, (state) => state) ?? {
     addMessage: () => null,
   };
+  const { startRecording, stopRecording, recordingBlob, isRecording } =
+    useAudioRecorder();
+
+  useEffect(() => {
+    if (!recordingBlob) return;
+
+    const recognizeVoice = async () => {
+      const formData = new FormData();
+      try {
+        const blob = await blobToWav(
+          new Blob([recordingBlob], { type: "audio/webm;codecs=opus" })
+        );
+
+        formData.append("file", blob, "voice.wav");
+
+        axios
+          .post(`http://127.0.0.1:5050/speech`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            addMessage({ text: res.data["message"], origin: "user" });
+            onChange();
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    recognizeVoice();
+  }, [recordingBlob]);
 
   const onEnter = ({ message }: { message: string }) => {
     addMessage({
@@ -37,9 +72,15 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
           }}
         />
       </div>
+
       <div className="col-span-2 flex items-center justify-center space-x-2">
-        <Button variant="subtle" w={"100%"} className="rounded-full">
-          <FiMic size="1.5rem" />
+        <Button
+          onClick={() => (isRecording ? stopRecording() : startRecording())}
+          variant="filled"
+          w={"100%"}
+          className="col-span-1 rounded-md"
+        >
+          {isRecording ? <FiMicOff size="1rem" /> : <FiMic size="1rem" />}
         </Button>
         <Button variant="subtle" w={"100%"} className="rounded-full">
           <FiPaperclip size="1.5rem" />

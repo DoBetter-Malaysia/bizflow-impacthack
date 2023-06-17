@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <Provider>
         <body className={poppins.className}>
-          <div className="bg-gray-50/50">
+          <div className="bg-gray-200/70">
             {/* <Sidebar /> */}
             <main className="relative flex min-h-screen flex-col items-stretch justify-stretch">
               <Header />

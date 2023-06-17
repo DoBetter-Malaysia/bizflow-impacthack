@@ -18,7 +18,7 @@ const AreaChartComponent = ({
   return (
     <>
       <div className="mb-5">
-        <p className="text-xl font-bold">{title}</p>
+        <p className="text-xl font-medium">{title}</p>
       </div>
       <ResponsiveContainer height={400} width={"99%"}>
         <AreaChart
@@ -27,11 +27,11 @@ const AreaChartComponent = ({
         >
           <defs>
             <linearGradient id="areaChartColour" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="15%" stopColor="#2563eb" stopOpacity={0.9} />
-              <stop offset="90%" stopColor="#2563eb" stopOpacity={0.3} />
+              <stop offset="5%" stopColor="#004be0" stopOpacity={0.7} />
+              <stop offset="90%" stopColor="#004be0" stopOpacity={0.15} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name" className="text-sm" />
           <YAxis />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
@@ -40,6 +40,8 @@ const AreaChartComponent = ({
             dataKey="sales"
             fillOpacity={1}
             fill="url(#areaChartColour)"
+            stroke="#004be0"
+            markerUnits={0}
           />
         </AreaChart>
       </ResponsiveContainer>

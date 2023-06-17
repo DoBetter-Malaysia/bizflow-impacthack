@@ -17,7 +17,7 @@ const RecentTopTracksBarChart = ({
   return (
     <>
       <div className="mb-5">
-        <p className="text-xl font-bold">{title}</p>
+        <p className="text-xl font-medium">{title}</p>
       </div>
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
@@ -27,17 +27,17 @@ const RecentTopTracksBarChart = ({
         >
           <defs>
             <linearGradient id="barChartColour" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="15%" stopColor="#2563eb" stopOpacity={0.9} />
-              <stop offset="90%" stopColor="#2563eb" stopOpacity={0.1} />
+              <stop offset="5%" stopColor="#004be0" stopOpacity={0.75} />
+              <stop offset="90%" stopColor="#004be0" stopOpacity={0.15} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" interval={0} />
+          <XAxis dataKey="name" interval={0} className="text-sm" />
           <YAxis />
           <Bar
             dataKey="count"
             fill="url(#areaChartColour)"
-            stroke="#2563eb"
+            stroke="#004be0"
             isAnimationActive={false}
           />
         </BarChart>

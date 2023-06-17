@@ -16,7 +16,7 @@ const Button = ({ children, variant = "filled", ...props }: ButtonProps) => {
       {...props}
       className={clsx(props.className, "rounded-md px-4 py-4 transition-all", {
         "bg-blue-500 hover:bg-blue-600 active:bg-blue-700": variant == "filled",
-        "!bg-transparent text-blue-500 hover:border-blue-600 hover:text-blue-600 active:text-blue-700":
+        " text-blue-500 hover:text-blue-600 active:text-blue-700":
           variant == "subtle",
         "border-blue-600 bg-transparent text-blue-500 hover:border-blue-600 hover:bg-blue-500/20 active:bg-blue-600/20":
           variant == "outline",

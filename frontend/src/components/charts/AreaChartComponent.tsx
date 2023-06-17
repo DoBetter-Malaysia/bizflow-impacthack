@@ -28,7 +28,7 @@ const AreaChartComponent = ({
           <defs>
             <linearGradient id="areaChartColour" x1="0" y1="0" x2="0" y2="1">
               <stop offset="15%" stopColor="#2563eb" stopOpacity={0.9} />
-              <stop offset="90%" stopColor="#2563eb" stopOpacity={0.1} />
+              <stop offset="90%" stopColor="#2563eb" stopOpacity={0.3} />
             </linearGradient>
           </defs>
           <XAxis dataKey="name" />
@@ -38,7 +38,6 @@ const AreaChartComponent = ({
           <Area
             type="monotone"
             dataKey="sales"
-            stroke="#2563eb"
             fillOpacity={1}
             fill="url(#areaChartColour)"
           />

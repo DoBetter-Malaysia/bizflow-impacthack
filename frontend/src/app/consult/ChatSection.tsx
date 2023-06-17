@@ -10,18 +10,16 @@ const ChatSection = React.forwardRef<HTMLDivElement>((props, ref) => {
   };
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="space-y-2">
       {messages.map((message) => {
         return (
-          <div key={message.text}>
+          <div key={message.text} className="py-2">
             {message.origin === "user" ? (
-              <div className="flex justify-end p-2">
-                <div className="rounded-lg bg-blue-800 p-2 text-white">
-                  {message.text}
-                </div>
+              <div className=" p-2">
+                <div className="rounded-lg p-2">{message.text}</div>
               </div>
             ) : (
-              <div className="flex flex-col justify-start">
+              <div className="flex flex-col justify-start bg-blue-100 py-2">
                 <div className="flex p-2">
                   <Image
                     src="/logo_plain.png"
@@ -30,9 +28,7 @@ const ChatSection = React.forwardRef<HTMLDivElement>((props, ref) => {
                     width={40}
                     height={40}
                   />
-                  <div className="rounded-lg bg-blue-600 p-2 text-white">
-                    {message.text}
-                  </div>
+                  <div className="rounded-lg p-2">{message.text}</div>
                 </div>
                 {message.body && (
                   <div className="flex items-start p-2">

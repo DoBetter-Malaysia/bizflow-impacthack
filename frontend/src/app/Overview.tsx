@@ -152,13 +152,13 @@ const Overview = () => {
           </div>
         </div>
         <div className="grid h-min w-full grid-cols-8 gap-8">
-          <div className="col-span-5 w-full rounded-xl bg-white p-12 drop-shadow-lg">
+          <div className="col-span-5 w-full rounded-xl bg-white p-12 shadow-sm">
             <AreaChartComponent
               data={data}
               title={"Total Sales Amount(RM) For The Past 7 Days"}
             />
           </div>
-          <div className="col-span-3 w-full rounded-xl bg-white p-12 drop-shadow-lg">
+          <div className="col-span-3 w-full rounded-xl bg-white p-12 shadow-sm">
             <BarChartComponent data={pizza} title={"Top Pizzas Sold Today"} />
           </div>
         </div>

@@ -13,16 +13,19 @@ export default function Consult() {
   };
 
   return (
-    <main className="relative flex w-full flex-col gap-2  px-24 py-8">
-      <h2 className="mb-4 text-lg font-bold">Flow AI</h2>
-      <div
-        className="overflow-auto rounded-lg px-2"
-        style={{ height: "calc(100vh - 300px)" }}
-      >
-        <ChatSection ref={ref} />
-      </div>
-      <div className="bg-slate-100">
-        <InputSection onChange={onChange} />
+    <main className="relative flex w-full flex-col gap-2 px-16 py-3">
+      <h2 className="mb-2 text-2xl font-bold">Flow AI</h2>
+
+      <div className="rounded-md border-[1px] border-solid border-gray-400 bg-blue-50">
+        <div
+          className="overflow-auto rounded-lg"
+          style={{ height: "calc(100vh - 250px)" }}
+        >
+          <ChatSection ref={ref} />
+        </div>
+        <div className="mx-8 mb-4 bg-slate-100">
+          <InputSection onChange={onChange} />
+        </div>
       </div>
     </main>
   );

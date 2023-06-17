@@ -4,15 +4,14 @@ import random
 import string
 from datetime import datetime
 
-import ngrok
-from ai import process_document_docvqa
+# from ai import process_document_docvqa
 from configs import config
 from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 from gpt import chatbot, construct_index
 from PIL import Image
 from speech import recognize_speech
-from stable_diffusion import prompt_image
+# from stable_diffusion import prompt_image
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -64,40 +63,41 @@ def download_file(name: str):
     return send_from_directory(UPLOAD_FOLDER, name)
 
 
-@app.route("/predict/<name>")
-def predict(name: str):
-    filename = os.path.join(UPLOAD_FOLDER, name)
-    if not os.path.isfile(filename):
-        return jsonify({"message": "File not found"}), 404
-    image = Image.open(os.path.join(UPLOAD_FOLDER, name))
-    return (
-        jsonify({"from": process_document_docvqa(image, "Who issued the receipt?")}),
-        200,
-    )
+# @app.route("/predict/<name>")
+# def predict(name: str):
+#     filename = os.path.join(UPLOAD_FOLDER, name)
+#     if not os.path.isfile(filename):
+#         return jsonify({"message": "File not found"}), 404
+#     image = Image.open(os.path.join(UPLOAD_FOLDER, name))
+#     return (
+#         jsonify({"from": process_document_docvqa(
+#             image, "Who issued the receipt?")}),
+#         200,
+#     )
 
 
 @app.route("/good-questions")
 def goodQuestions():
     res = chatbot(
-        "Based on the pizza sales this week, what are some good questions to ask as the business owner. Remember the questions should be short and concise without explanation, and separated by |."
+        "Based on the pizza sales this week, what are some good questions to ask as the business owner.\n\nRemember the questions should be short and concise without explanation.\n\nMake sure the questions listed are separated by | in a single paragraph."
     )
-    return jsonify({"questions": res.split("|")}), 200
+    return jsonify({"questions": [r.split(".")[1].strip() for r in res.strip().split("|")]}), 200
 
 
 # /prompt?question=...
 @app.route("/prompt")
 def prompt():
     prompt = request.args.get("question")
-    if "poster" in prompt:
-        image = prompt_image(prompt)
-        filename = f"poster-{datetime.now()}.jpg"
-        image.save(os.path.join(UPLOAD_FOLDER, filename))
-        return jsonify({image: filename})
+    # if "poster" in prompt:
+    #     image = prompt_image(prompt)
+    #     filename = f"poster-{datetime.now()}.jpg"
+    #     image.save(os.path.join(UPLOAD_FOLDER, filename))
+    #     return jsonify({image: filename})
 
     res = chatbot(
-        f"{prompt} . Explain in a short and concise manner separated using a | in a single long string."
+        f"{prompt}. Explain in a short and concise manner in a single long string."
     )
-    return jsonify({"response": res.split("|")}), 200
+    return jsonify({"response": res.strip()}), 200
 
 
 # /recommendations?insight=...
@@ -105,16 +105,16 @@ def prompt():
 def recommendations():
     insight = request.args.get("insight")
     res = chatbot(
-        f"""
-Given that {insight}. I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
+        f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
 
 Answer in the following format, 
-Recommendation 1 - explanation
-Recommendation 2 - explanation
+Recommendation - explanation
+Recommendation - explanation
 
-Make sure there is no numbering, and all recommendations are in one line."""
+Limit the number of recommendations to only 4.
+Make sure there is no numbering and all recommendations are in one line."""
     )
-    recommendations = res.split("\n")
+    recommendations = res.strip().split("\n")
     values = []
     for recom in recommendations:
         recommendation, explanation = recom.split("-")
@@ -132,8 +132,7 @@ Make sure there is no numbering, and all recommendations are in one line."""
 def recommendation_steps():
     recommendation = request.args.get("recommendation")
     res = chatbot(
-        f"""
-From the recommendation, "{recommendation}",
+        f"""From the recommendation, "{recommendation}",
 
 What are some questions or requirements as a business owner? 
 
@@ -141,23 +140,13 @@ For example, "Show me the poster", "Who are the ads agent to find?"
 
 Make them short and concise.
 
-Make sure the list is separated by | without numbering and newline.
-                  """
+Make sure the list is separated by | without numbering and newline."""
     )
-    return jsonify({"steps": res.split("|")})
+    return jsonify({"steps": res.strip().split("|")})
 
 
 async def setup():
     debug = config.get("DEBUG") == "1"
-    if not debug:
-        session = (
-            await ngrok.NgrokSessionBuilder()
-            .authtoken(config.get("NGROK_TOKEN"))
-            .connect()
-        )
-        tunnel = await session.http_endpoint().listen()
-        print(f"Ingress established at {tunnel.url()}")
-        tunnel.forward_tcp("localhost:5050")
     if config.get("SETUP") == "1":
         construct_index("docs")
     app.run(debug=debug, port=5050)

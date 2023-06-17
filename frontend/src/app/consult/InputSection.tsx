@@ -1,9 +1,12 @@
-import useStore from "@/utils/hooks/useStore";
-import useMessageStore from "@/stores/useMessageStore";
 import Button from "@/components/buttons/Button";
-import { Input } from "@mantine/core";
-import { FiSend, FiPaperclip, FiMic } from "react-icons/fi";
-import { useState } from "react";
+import useMessageStore from "@/stores/useMessageStore";
+import { blobToWav } from "@/utils/helpers/blobHelper";
+import useStore from "@/utils/hooks/useStore";
+import { Input, clsx } from "@mantine/core";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAudioRecorder } from "react-audio-voice-recorder";
+import { FiMic, FiMicOff, FiPaperclip, FiSend } from "react-icons/fi";
 
 const InputSection = ({
   onChange,
@@ -16,6 +19,38 @@ const InputSection = ({
   const { addMessage } = useStore(useMessageStore, (state) => state) ?? {
     addMessage: () => null,
   };
+  const { startRecording, stopRecording, recordingBlob, isRecording } =
+    useAudioRecorder();
+
+  useEffect(() => {
+    if (!recordingBlob) return;
+
+    const recognizeVoice = async () => {
+      const formData = new FormData();
+      try {
+        const blob = await blobToWav(
+          new Blob([recordingBlob], { type: "audio/webm;codecs=opus" })
+        );
+
+        formData.append("file", blob, "voice.wav");
+
+        axios
+          .post(`http://127.0.0.1:5050/speech`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            addMessage({ text: res.data["message"], origin: "user" });
+            onChange(res.data["message"]);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    recognizeVoice();
+  }, [recordingBlob]);
 
   const onEnter = ({ message }: { message: string }) => {
     addMessage({
@@ -44,14 +79,16 @@ const InputSection = ({
           disabled={loading}
         />
       </div>
+
       <div className="col-span-2 flex items-center justify-center space-x-2">
         <Button
+          onClick={() => (isRecording ? stopRecording() : startRecording())}
           variant="subtle"
           w={"100%"}
-          className="rounded-full"
+          className={clsx("rounded-full", { "text-red-600": isRecording })}
           disabled={loading}
         >
-          <FiMic size="1.5rem" />
+          {isRecording ? <FiMicOff size="1rem" /> : <FiMic size="1rem" />}
         </Button>
         <Button
           variant="subtle"

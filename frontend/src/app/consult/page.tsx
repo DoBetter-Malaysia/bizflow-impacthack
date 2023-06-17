@@ -88,7 +88,7 @@ export default function Consult() {
         origin: "bot",
         isMarkdown: true,
         text: "",
-        body: "Do you have more to ask?",
+        body: "What else can I help you with?",
       });
       setPromptType("solve");
       setTimeout(() => {
@@ -130,7 +130,7 @@ export default function Consult() {
           origin: "bot",
           isMarkdown: true,
           text: "",
-          body: toList(res),
+          body: res,
         });
         addMessage?.({
           origin: "bot",
@@ -176,7 +176,7 @@ export default function Consult() {
             origin: "bot",
             isMarkdown: true,
             text: "",
-            body: "Do you have more to ask?",
+            body: "What else can I help you with?",
           });
           setPromptType("solve");
           setTimeout(() => {

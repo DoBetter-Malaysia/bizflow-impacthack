@@ -1,9 +1,9 @@
 "use client";
 
 import Button from "@/components/buttons/Button";
-import { Container, Group, Paper, Table, Text } from "@mantine/core";
-import React, { useState } from "react";
-import { FaKey, FaSync } from "react-icons/fa";
+import { Container, Table, Text } from "@mantine/core";
+import { useState } from "react";
+import { FaCheck, FaKey, FaSync } from "react-icons/fa";
 
 interface IntegrationType {
   id: number;
@@ -18,8 +18,8 @@ const Integrations = () => {
   const [integration, setIntegration] = useState<IntegrationType[]>([
     {
       id: 1,
-      img: "https://picsum.photos/200",
-      name: "Swedish Man Enterprise Sdn Bhd",
+      img: "https://www.bernama.com/storage/photos/94c4dff4f2bc53851d47301c54f8e878632a81699dfe0",
+      name: "StoreHub",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia velit dolorem reiciendis laudantium modi soluta quam! Commodi quis sunt debitis!",
       hasAuthenticated: -1,
@@ -27,8 +27,8 @@ const Integrations = () => {
     },
     {
       id: 2,
-      img: "https://picsum.photos/200",
-      name: "Swedish Man Enterprise Sdn Bhd",
+      img: "https://skteatt.files.wordpress.com/2020/09/37174.jpg",
+      name: "Grab Food",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia velit dolorem reiciendis laudantium modi soluta quam! Commodi quis sunt debitis!",
       hasAuthenticated: -1,
@@ -36,8 +36,8 @@ const Integrations = () => {
     },
     {
       id: 3,
-      img: "https://picsum.photos/200",
-      name: "Swedish Man Enterprise Sdn Bhd",
+      img: "https://1000logos.net/wp-content/uploads/2021/02/FoodPanda-logo.png",
+      name: "Foodpanda",
       description:
         "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia velit dolorem reiciendis laudantium modi soluta quam! Commodi quis sunt debitis!",
       hasAuthenticated: -1,
@@ -45,28 +45,58 @@ const Integrations = () => {
     },
   ]);
 
-  const onSyncPressed = (lol: IntegrationType) => {
-    setIntegration((xd) => {
-      xd.forEach((yolo: IntegrationType) => {
-        if (yolo.id == lol.id) {
-          yolo.hasSynced = 0;
-          return;
+  const onSyncPressed = (integration: IntegrationType) => {
+    setIntegration((prevIntegration) => {
+      return prevIntegration.map((type) => {
+        if (type.id == integration.id) {
+          return {
+            ...type,
+            hasSynced: 0,
+          };
         }
+        return type;
       });
-      console.log(xd);
-
-      return xd;
     });
 
     setTimeout(() => {
-      setIntegration((xd) => {
-        xd.forEach((yolo: IntegrationType) => {
-          if (yolo.id == lol.id) {
-            yolo.hasSynced = 1;
-            return;
+      setIntegration((prevIntegration) => {
+        return prevIntegration.map((type) => {
+          if (type.id == integration.id) {
+            return {
+              ...type,
+              hasSynced: 1,
+            };
           }
+          return type;
         });
-        return xd;
+      });
+    }, 5000);
+  };
+
+  const onAuthPressed = (integration: IntegrationType) => {
+    setIntegration((prevIntegration) => {
+      return prevIntegration.map((type) => {
+        if (type.id == integration.id) {
+          return {
+            ...type,
+            hasAuthenticated: 0,
+          };
+        }
+        return type;
+      });
+    });
+
+    setTimeout(() => {
+      setIntegration((prevIntegration) => {
+        return prevIntegration.map((type) => {
+          if (type.id == integration.id) {
+            return {
+              ...type,
+              hasAuthenticated: 1,
+            };
+          }
+          return type;
+        });
       });
     }, 5000);
   };
@@ -93,32 +123,37 @@ const Integrations = () => {
           <tbody>
             {integration.map((e) => (
               <tr key={e.name}>
-                <td>
+                <td className="h-max max-w-[500px]">
                   <img src={e.img} alt={`${e.name} Logo`} />
                 </td>
                 <td>
                   <Text fw="bold" fz="lg">
                     {e.name}
                   </Text>
-                  <Text fz="md" color="dimmed">
+                  <Text fz="md" color="dimmed" lineClamp={2}>
                     {e.description}
                   </Text>
                 </td>
-                <td className="flex gap-4">
+                <td className="flex gap-4" valign="middle">
                   <Button
-                    disabled={e.hasAuthenticated != -1}
+                    onClick={() => onAuthPressed(e)}
+                    className="px-4 py-4"
+                    disabled={e.hasAuthenticated == 1}
+                    loading={e.hasAuthenticated == 0}
                     variant="filled"
-                    leftIcon={<FaKey />}
+                    leftIcon={e.hasAuthenticated != 1 ? <FaKey /> : <FaCheck />}
                   >
-                    Authenticate
+                    {e.hasAuthenticated != 1 ? "Authenticate" : "Authenticated"}
                   </Button>
                   <Button
                     onClick={() => onSyncPressed(e)}
-                    loading={e.hasSynced != -1}
+                    className="px-4 py-4"
+                    disabled={e.hasSynced == 1}
+                    loading={e.hasSynced == 0}
                     variant="filled"
-                    leftIcon={<FaSync />}
+                    leftIcon={e.hasSynced != 1 ? <FaSync /> : <FaCheck />}
                   >
-                    Synchronize
+                    {e.hasSynced != 1 ? "Synchronize" : "Synchronized"}
                   </Button>
                 </td>
               </tr>

@@ -14,12 +14,11 @@ const Button = ({ children, variant = "filled", ...props }: ButtonProps) => {
   return (
     <MantineButton
       {...props}
-      className={clsx(props.className, "rounded-full transition-all", {
-        "bg-indigo-500 hover:bg-indigo-600 active:bg-indigo-700":
-          variant == "filled",
-        "!bg-transparent text-indigo-500 hover:border-indigo-600 hover:text-indigo-600 active:text-indigo-700":
+      className={clsx(props.className, "rounded-md px-4 py-4 transition-all", {
+        "bg-blue-500 hover:bg-blue-600 active:bg-blue-700": variant == "filled",
+        "!bg-transparent text-blue-500 hover:border-blue-600 hover:text-blue-600 active:text-blue-700":
           variant == "subtle",
-        "border-indigo-600 bg-transparent text-indigo-500 hover:border-indigo-600 hover:bg-indigo-500/20 active:bg-indigo-600/20":
+        "border-blue-600 bg-transparent text-blue-500 hover:border-blue-600 hover:bg-blue-500/20 active:bg-blue-600/20":
           variant == "outline",
       })}
       variant={variant}

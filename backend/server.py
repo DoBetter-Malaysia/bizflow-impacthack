@@ -11,10 +11,12 @@ from flask import Flask, jsonify, request, send_from_directory
 from PIL import Image
 from werkzeug.utils import secure_filename
 from speech import recognize_speech
+from flask_cors import CORS
 
 config = dotenv_values()
 
 app = Flask(__name__)
+CORS(app) 
 UPLOAD_FOLDER = "./files/"
 
 if not os.path.isdir(UPLOAD_FOLDER):
@@ -52,24 +54,24 @@ def speech():
 def download_file(name: str):
    return send_from_directory(UPLOAD_FOLDER, name)
 
-# @app.route('/predict/<name>')
-# def predict(name: str):
-#    filename = os.path.join(UPLOAD_FOLDER, name)
-#    if not os.path.isfile(filename):
-#       return jsonify({"message": "File not found"}), 404
-#    image = Image.open(os.path.join(UPLOAD_FOLDER, name))
-#    return jsonify({
-#       "from": process_document_docvqa(image, "Who issued the receipt?")
-#    }), 200
+@app.route('/predict/<name>')
+def predict(name: str):
+   filename = os.path.join(UPLOAD_FOLDER, name)
+   if not os.path.isfile(filename):
+      return jsonify({"message": "File not found"}), 404
+   image = Image.open(os.path.join(UPLOAD_FOLDER, name))
+   return jsonify({
+      "from": process_document_docvqa(image, "Who issued the receipt?")
+   }), 200
 
 async def setup():
    debug = config.get("DEBUG") == '1'
    print(debug)
-   # if not debug:
-   #    session = await ngrok.NgrokSessionBuilder().authtoken(config.get("NGROK_TOKEN")).connect()
-   #    tunnel = await session.http_endpoint().listen()
-   #    print (f"Ingress established at {tunnel.url()}")
-   #    tunnel.forward_tcp("localhost:5050")
+   if not debug:
+      session = await ngrok.NgrokSessionBuilder().authtoken(config.get("NGROK_TOKEN")).connect()
+      tunnel = await session.http_endpoint().listen()
+      print (f"Ingress established at {tunnel.url()}")
+      tunnel.forward_tcp("localhost:5050")
    app.run(debug=debug, port=5050)
    print(app.url_map)
 		

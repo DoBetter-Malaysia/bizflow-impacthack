@@ -2,6 +2,7 @@ import os
 
 import gradio as gr
 import openai
+from configs import config
 from langchain.chat_models import ChatOpenAI
 from llama_index import (
     GPTVectorStoreIndex,
@@ -11,7 +12,6 @@ from llama_index import (
     StorageContext,
     load_index_from_storage,
 )
-from server import config
 
 os.environ["OPENAI_API_KEY"] = config.get("GPT_KEY")
 

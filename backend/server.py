@@ -158,6 +158,8 @@ async def setup():
         tunnel = await session.http_endpoint().listen()
         print(f"Ingress established at {tunnel.url()}")
         tunnel.forward_tcp("localhost:5050")
+    if config.get("SETUP") == "1":
+        construct_index("docs")
     app.run(debug=debug, port=5050)
     print(app.url_map)
 

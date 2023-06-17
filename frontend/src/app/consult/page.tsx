@@ -15,7 +15,10 @@ export default function Consult() {
   return (
     <main className="relative flex w-full flex-col gap-2  px-24 py-8">
       <h2 className="mb-4 text-lg font-bold">Flow AI</h2>
-      <div className="h-96 overflow-auto rounded-lg">
+      <div
+        className="overflow-auto rounded-lg"
+        style={{ height: "calc(100vh - 300px)" }}
+      >
         <ChatSection ref={ref} />
       </div>
       <div className="bg-slate-100">

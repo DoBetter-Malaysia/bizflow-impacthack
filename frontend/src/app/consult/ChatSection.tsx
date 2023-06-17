@@ -2,6 +2,7 @@ import React, { ForwardedRef, ReactElement, RefObject } from "react";
 import useStore from "@/utils/hooks/useStore";
 import useMessageStore from "@/stores/useMessageStore";
 import Image from "next/image";
+import MarkdownEmbed from "./MarkdownEmbed";
 
 const ChatSection = React.forwardRef<HTMLDivElement>((props, ref) => {
   const { messages } = useStore(useMessageStore, (state) => state) ?? {

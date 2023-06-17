@@ -21,9 +21,11 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
   };
 
   return (
-    <div className="grid w-full grid-cols-12 gap-4 p-2">
+    <div className="grid w-full grid-cols-12 gap-4 p-2 ">
       <div className="col-span-9 w-full">
         <Input
+          classNames={{ wrapper: "flex items-center" }}
+          h={"100%"}
           placeholder="Ask a question"
           value={text}
           onChange={(event) => setText(event.currentTarget.value)}
@@ -36,25 +38,20 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
         />
       </div>
       <div className="col-span-1 flex items-center justify-center">
-        <Button variant="filled" w={"100%"} className="col-span-1 rounded-md">
+        <Button variant="filled" w={"100%"} className="col-span-1 rounded-md ">
           <FiMic size="1rem" />
         </Button>
       </div>
-      <div className="col-span-1 flex items-center justify-center ">
-        <Button
-          variant="filled"
-          w={"100%"}
-          className="col-span-1 rounded-md"
-          color={"blue.6"}
-        >
+      <div className="col-span-1 flex items-center justify-center">
+        <Button variant="filled" w={"100%"} className="col-span-1 rounded-md ">
           <FiPaperclip size="1rem" />
         </Button>
       </div>
-      <div className="col-span-1 flex items-center justify-center ">
+      <div className="col-span-1 flex items-center justify-center">
         <Button
           variant="filled"
           w={"100%"}
-          className="col-span-1 rounded-md"
+          className="col-span-1 rounded-md "
           onClick={() => {
             if (text.trim() !== "") onEnter({ message: text });
           }}

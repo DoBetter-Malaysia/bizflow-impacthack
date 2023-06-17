@@ -12,6 +12,7 @@ from flask_cors import CORS
 from gpt import chatbot, construct_index
 from PIL import Image
 from speech import recognize_speech
+from stable_diffusion import prompt_image
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -78,7 +79,7 @@ def predict(name: str):
 @app.route("/good-questions")
 def goodQuestions():
     res = chatbot(
-        "Based on the pizza sales this week, what are some good questions to ask as the business owner? Make it short and concise, and separate the questions using |"
+        "Based on the pizza sales this week, what are some good questions to ask as the business owner. Remember the questions should be short and concise without explanation, and separated by |."
     )
     return jsonify({"questions": res.split("|")}), 200
 
@@ -87,6 +88,63 @@ def goodQuestions():
 @app.route("/prompt")
 def prompt():
     prompt = request.args.get("question")
+    if "poster" in prompt:
+        image = prompt_image(prompt)
+        filename = f"poster-{datetime.now()}.jpg"
+        image.save(os.path.join(UPLOAD_FOLDER, filename))
+        return jsonify({image: filename})
+
+    res = chatbot(
+        f"{prompt} . Explain in a short and concise manner separated using a | in a single long string."
+    )
+    return jsonify({"response": res.split("|")}), 200
+
+
+# /recommendations?insight=...
+@app.route("/recommendations")
+def recommendations():
+    insight = request.args.get("insight")
+    res = chatbot(
+        f"""
+Given that {insight}. I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
+
+Answer in the following format, 
+Recommendation 1 - explanation
+Recommendation 2 - explanation
+
+Make sure there is no numbering, and all recommendations are in one line."""
+    )
+    recommendations = res.split("\n")
+    values = []
+    for recom in recommendations:
+        recommendation, explanation = recom.split("-")
+        values.append(
+            {
+                "recommendation": recommendation.strip(),
+                "explanation": explanation.strip(),
+            }
+        )
+    return jsonify({"recommendations": values}), 200
+
+
+# /steps?recommendation=...
+@app.route("/steps")
+def recommendation_steps():
+    recommendation = request.args.get("recommendation")
+    res = chatbot(
+        f"""
+From the recommendation, "{recommendation}",
+
+What are some questions or requirements as a business owner? 
+
+For example, "Show me the poster", "Who are the ads agent to find?"
+
+Make them short and concise.
+
+Make sure the list is separated by | without numbering and newline.
+                  """
+    )
+    return jsonify({"steps": res.split("|")})
 
 
 async def setup():

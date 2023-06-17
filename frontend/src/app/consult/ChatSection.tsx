@@ -21,17 +21,35 @@ const ChatSection = React.forwardRef<HTMLDivElement>((props, ref) => {
                 </div>
               </div>
             ) : (
-              <div className="flex justify-start p-2">
-                <Image
-                  src="/logo_plain.png"
-                  alt="logo"
-                  className="mr-4"
-                  width={40}
-                  height={40}
-                />
-                <div className="rounded-lg bg-blue-600 p-2 text-white">
-                  {message.text}
+              <div className="flex flex-col justify-start">
+                <div className="flex p-2">
+                  <Image
+                    src="/logo_plain.png"
+                    alt="logo"
+                    className="mr-4"
+                    width={40}
+                    height={40}
+                  />
+                  <div className="rounded-lg bg-blue-600 p-2 text-white">
+                    {message.text}
+                  </div>
                 </div>
+                {message.body && (
+                  <div className="flex items-start p-2">
+                    <Image
+                      src="/logo_plain.png"
+                      alt="logo"
+                      className="relative mr-4 object-contain py-4"
+                      width={40}
+                      height={40}
+                    />
+                    {message.isMarkdown ? (
+                      <MarkdownEmbed markdown={message.body} />
+                    ) : (
+                      <>{message.body}</>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -49,7 +49,7 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
   const onEnter = ({ message }: { message: string }) => {
     addMessage({
       text: message,
-      origin: "user",
+      origin: "bot",
     });
     setText("");
     onChange();
@@ -57,9 +57,9 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
 
   return (
     <div className="grid w-full grid-cols-12 gap-4 p-2 ">
-      <div className="col-span-9 w-full">
+      <div className="col-span-10 w-full">
         <Input
-          classNames={{ wrapper: "flex items-center" }}
+          classNames={{ wrapper: "flex items-center", input: "py-3 h-[auto]" }}
           h={"100%"}
           placeholder="Ask a question"
           value={text}
@@ -72,7 +72,8 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
           }}
         />
       </div>
-      <div className="col-span-1 flex items-center justify-center">
+
+      <div className="col-span-2 flex items-center justify-center space-x-2">
         <Button
           onClick={() => (isRecording ? stopRecording() : startRecording())}
           variant="filled"
@@ -81,22 +82,18 @@ const InputSection = ({ onChange }: { onChange: () => void }) => {
         >
           {isRecording ? <FiMicOff size="1rem" /> : <FiMic size="1rem" />}
         </Button>
-      </div>
-      <div className="col-span-1 flex items-center justify-center">
-        <Button variant="filled" w={"100%"} className="col-span-1 rounded-md ">
-          <FiPaperclip size="1rem" />
+        <Button variant="subtle" w={"100%"} className="rounded-full">
+          <FiPaperclip size="1.5rem" />
         </Button>
-      </div>
-      <div className="col-span-1 flex items-center justify-center">
         <Button
-          variant="filled"
+          variant="subtle"
           w={"100%"}
-          className="col-span-1 rounded-md "
+          className="rounded-full"
           onClick={() => {
             if (text.trim() !== "") onEnter({ message: text });
           }}
         >
-          <FiSend size="1rem" />
+          <FiSend size="1.5rem" />
         </Button>
       </div>
     </div>

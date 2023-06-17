@@ -4,6 +4,9 @@ import useMessageStore from "@/stores/useMessageStore";
 import Image from "next/image";
 import Button from "@/components/buttons/Button";
 import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@mantine/core";
+import axios from "axios";
 
 interface ChatSectionProps {
   loading: boolean;
@@ -19,15 +22,56 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
     ) ?? {
       messages: [],
     };
+    const questions = useQuery({
+      queryKey: ["questions"],
+      queryFn: async () => {
+        const res = await axios.get("http://localhost:5050/good-questions");
+        return res.data;
+      },
+      staleTime: Infinity,
+    });
 
     return (
-      <div ref={ref} className="">
+      <div ref={ref} className="relative">
+        <div
+          className="absolute left-[50%] right-[50%]"
+          style={{ transform: "translateX(-50%) translateY(-50%)" }}
+        >
+          {messages.length === 0 && questions.isSuccess
+            ? questions.data.map((ques, ind) => (
+                <Button
+                  variant="outline"
+                  key={ind}
+                  onClick={() => onChange(ques)}
+                >
+                  {ques}
+                </Button>
+              ))
+            : new Array(5)
+                .fill(0)
+                .map((_, index) => (
+                  <Skeleton key={index} w={"240px"} height="70px" />
+                ))}
+        </div>
         {messages.map((message) => {
           return (
             <div key={message.text} className="py-2">
               {message.origin === "user" ? (
-                <div className=" p-2">
-                  <div className="rounded-lg p-2">{message.text}</div>
+                <div className="mx-4 flex items-start px-4 py-2">
+                  <div className="mr-4 text-center">
+                    <Image
+                      src="/user.png"
+                      alt="logo"
+                      className="rounded-full"
+                      width={40}
+                      height={40}
+                    />
+                    <div className="text-xs font-semibold">John</div>
+                  </div>
+
+                  <div className="min-h-[52px] flex-1 rounded-md px-4 py-2">
+                    {message.text}
+                  </div>
                 </div>
               ) : (
                 <div className="mx-4 flex items-start px-4 py-2">

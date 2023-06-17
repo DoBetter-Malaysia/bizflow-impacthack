@@ -1,14 +1,10 @@
-import React from "react";
+import { DASHBOARD_CARDS } from "@/app/data/";
 import DashboardCard from "@/components/cards/DashboardCard";
-import DynamicDataTable from "@/components/tables/DynamicDataTable";
 import AreaChartComponent from "@/components/charts/AreaChartComponent";
 import BarChartComponent from "@/components/charts/BarChartComponent";
+import { AudioRecorder } from "react-audio-voice-recorder";
 import Recommendation from "./Recommendation";
-import {
-  TRANSACTIONS,
-  TRANSACTION_COLUMNS,
-  DASHBOARD_CARDS,
-} from "@/app/data/";
+import axios from "axios";
 
 const dropDownOptions: any[] = [
   { value: "payment", label: "Payment" },
@@ -33,6 +29,82 @@ const pizza: any[] = [
   { name: "Hawaiian Pizza", count: 92 },
 ];
 
+function blobToWav(blob: Blob): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+
+    reader.onloadend = function () {
+      let arrayBuffer = reader.result;
+      if (arrayBuffer == null) throw new Error("array buffer is empty.");
+
+      if (typeof arrayBuffer == "string") {
+        var enc = new TextEncoder();
+        arrayBuffer = enc.encode(arrayBuffer);
+      }
+
+      const audioContext = new window.AudioContext();
+      audioContext.decodeAudioData(arrayBuffer, function (buffer) {
+        const wavBuffer = bufferToWav(buffer);
+        resolve(wavBuffer);
+      });
+    };
+
+    reader.onerror = function (error) {
+      reject(error);
+    };
+
+    reader.readAsArrayBuffer(blob);
+  });
+}
+
+function bufferToWav(buffer: AudioBuffer) {
+  const numberOfChannels = buffer.numberOfChannels;
+  const sampleRate = buffer.sampleRate;
+  const length = buffer.length * numberOfChannels * 2 + 44;
+  const arrayBuffer = new ArrayBuffer(length);
+  const view = new DataView(arrayBuffer);
+
+  writeString(view, 0, "RIFF"); // ChunkID
+  view.setUint32(4, length - 8, true); // ChunkSize
+  writeString(view, 8, "WAVE"); // Format
+
+  // Subchunk1
+  writeString(view, 12, "fmt "); // Subchunk1ID
+  view.setUint32(16, 16, true); // Subchunk1Size
+  view.setUint16(20, 1, true); // AudioFormat (PCM)
+  view.setUint16(22, numberOfChannels, true); // NumChannels
+  view.setUint32(24, sampleRate, true); // SampleRate
+  view.setUint32(28, sampleRate * 2 * numberOfChannels, true); // ByteRate
+  view.setUint16(32, numberOfChannels * 2, true); // BlockAlign
+  view.setUint16(34, 16, true); // BitsPerSample
+
+  // Subchunk2
+  writeString(view, 36, "data"); // Subchunk2ID
+  view.setUint32(40, length - 44, true); // Subchunk2Size
+
+  const channels = [];
+  for (let channel = 0; channel < numberOfChannels; channel++) {
+    channels.push(buffer.getChannelData(channel));
+  }
+
+  let offset = 44;
+  for (let i = 0; i < buffer.length; i++) {
+    for (let channel = 0; channel < numberOfChannels; channel++) {
+      const sample = channels[channel][i];
+      view.setInt16(offset, sample * 0x7fff, true);
+      offset += 2;
+    }
+  }
+
+  return new Blob([view], { type: "audio/wav" });
+}
+
+function writeString(view: DataView, offset: number, string: string) {
+  for (let i = 0; i < string.length; i++) {
+    view.setUint8(offset + i, string.charCodeAt(i));
+  }
+}
+
 const Overview = () => {
   return (
     <div className="w-full">
@@ -51,6 +123,33 @@ const Overview = () => {
               />
             </div>
           ))}
+          <div className="h-full w-full rounded-md shadow-md">
+            <AudioRecorder
+              onRecordingComplete={async (b) => {
+                const formData = new FormData();
+                try {
+                  const blob = await blobToWav(
+                    new Blob([b], { type: "audio/webm;codecs=opus" })
+                  );
+
+                  formData.append("file", blob, "voice.wav");
+
+                  axios
+                    .post(`http://127.0.0.1:5050/speech`, formData, {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
+                    })
+                    .then((res) => {
+                      console.log(res);
+                    });
+                } catch (error) {
+                  console.log(error);
+                }
+              }}
+              downloadFileExtension="wav"
+            />
+          </div>
         </div>
         <div className="grid h-min w-full grid-cols-8 gap-8">
           <div className="col-span-5 w-full rounded-xl bg-white p-12 drop-shadow-lg">

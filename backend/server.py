@@ -10,10 +10,13 @@ from dotenv import dotenv_values
 from flask import Flask, jsonify, request, send_from_directory
 from PIL import Image
 from werkzeug.utils import secure_filename
+from speech import recognize_speech
+from flask_cors import CORS
 
 config = dotenv_values()
 
 app = Flask(__name__)
+CORS(app) 
 UPLOAD_FOLDER = "./files/"
 
 if not os.path.isdir(UPLOAD_FOLDER):
@@ -34,6 +37,18 @@ def upload_file():
    f.save(os.path.join(UPLOAD_FOLDER, filename))
    return jsonify({"message": "File uploaded successfully", "file": filename}), 201
 
+@app.route('/speech', methods = ['POST'])
+def speech():
+   if 'file' not in request.files:
+      return jsonify({"message": "No File Part"}), 400
+   f = request.files['file']
+
+   if f.content_type != 'audio/wav':
+      return jsonify({"message": "Invalid file type. This endpoint only accepts audio/wav files."}), 400
+
+   msg = recognize_speech(f);
+
+   return jsonify({"message": msg}), 201
 
 @app.route('/uploads/<name>')
 def download_file(name: str):

@@ -14,11 +14,6 @@ model_cord2 = DonutModel.from_pretrained("naver-clova-ix/donut-base-finetuned-co
 model_cord2.to("cuda")
 model_cord2.eval()
 
-# def parse_document(image: "Image"):
-#     input_img = image
-#     output = model_cord2.inference(image=input_img, prompt="<s_cord-v2>")["predictions"][0]
-#     return output
-
 def process_document_docvqa(image: "Image", question: str):
     # prepare encoder inputs
     pixel_values = processor_docvqa(image, return_tensors="pt").pixel_values

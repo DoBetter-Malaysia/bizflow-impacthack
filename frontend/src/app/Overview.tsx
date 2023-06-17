@@ -17,8 +17,8 @@ const dropDownOptions: any[] = [
 
 const Overview = () => {
   return (
-    <div>
-      <div className="flex flex-col gap-8">
+    <div className="w-full">
+      <div className="flex flex-col gap-8 ">
         <div className="grid h-min w-full grid-cols-3 gap-8">
           {DASHBOARD_CARDS.map((item) => (
             <div className="col-span-1" key={item.title}>
@@ -37,13 +37,13 @@ const Overview = () => {
         <div>
           <Recommendation />
         </div>
-        <div>
+        {/* <div>
           <DynamicDataTable
             rows={TRANSACTIONS}
             columns={TRANSACTION_COLUMNS}
             dropDownOptions={dropDownOptions}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

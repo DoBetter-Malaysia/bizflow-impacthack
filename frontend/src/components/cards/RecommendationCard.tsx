@@ -12,10 +12,10 @@ const RecommendationCard = ({
   return (
     <div
       className={clsx(
-        "h-full w-full rounded-lg",
-        { "bg-orange-300": sentiment === "neutral" },
-        { "bg-green-300": sentiment === "positive" },
-        { "bg-red-300": sentiment === "negative" }
+        "h-full w-full rounded-lg bg-blue-50"
+        // { "bg-orange-300": sentiment === "neutral" },
+        // { "bg-green-300": sentiment === "positive" },
+        // { "bg-red-300": sentiment === "negative" }
       )}
     >
       <div className="flex flex-col items-center justify-center gap-4 align-middle">

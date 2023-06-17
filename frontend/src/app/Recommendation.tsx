@@ -21,9 +21,9 @@ const Recommendation = () => {
             </div>
           ))}
         </div>
-        <div className="w-full">
+        {/* <div className="w-full">
           <ChatAccordion />
-        </div>
+        </div> */}
       </div>
     </div>
   );

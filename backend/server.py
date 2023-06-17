@@ -8,11 +8,14 @@ import ngrok
 from ai import process_document_docvqa
 from configs import config
 from flask import Flask, jsonify, request, send_from_directory
+from flask_cors import CORS
 from gpt import chatbot, construct_index
 from PIL import Image
+from speech import recognize_speech
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+CORS(app)
 UPLOAD_FOLDER = "./files/"
 
 if not os.path.isdir(UPLOAD_FOLDER):
@@ -32,6 +35,27 @@ def upload_file():
     filename = f"{datetime.now().timestamp() // 3600}-{random_string()}-{secure_filename(f.filename)}"
     f.save(os.path.join(UPLOAD_FOLDER, filename))
     return jsonify({"message": "File uploaded successfully", "file": filename}), 201
+
+
+@app.route("/speech", methods=["POST"])
+def speech():
+    if "file" not in request.files:
+        return jsonify({"message": "No File Part"}), 400
+    f = request.files["file"]
+
+    if f.content_type != "audio/wav":
+        return (
+            jsonify(
+                {
+                    "message": "Invalid file type. This endpoint only accepts audio/wav files."
+                }
+            ),
+            400,
+        )
+
+    msg = recognize_speech(f)
+
+    return jsonify({"message": msg}), 201
 
 
 @app.route("/uploads/<name>")

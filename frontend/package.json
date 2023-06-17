@@ -40,8 +40,10 @@
     "react-audio-voice-recorder": "^1.2.1",
     "react-dom": "18.2.0",
     "react-icons": "^4.9.0",
+    "react-markdown": "^8.0.7",
     "react-responsive-masonry": "^2.1.7",
     "recharts": "^2.7.1",
+    "remark-gfm": "^3.0.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
     "zustand": "^4.3.8"

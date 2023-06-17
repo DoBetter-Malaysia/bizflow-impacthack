@@ -14,7 +14,7 @@ const DashboardCard = ({
   isGood,
 }: DashboardCardProps) => {
   return (
-    <div className="w-full rounded-xl bg-white drop-shadow-lg">
+    <div className="h-full w-full rounded-xl bg-white drop-shadow-lg">
       <div className="flex items-center p-8">
         <div className="grid w-full grid-cols-3 gap-4 ">
           <div className=" col-span-1 flex items-center justify-center text-gray-800">

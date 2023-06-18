@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Select } from "@mantine/core";
-import { FiGlobe } from "react-icons/fi";
+import { FiGlobe, FiUploadCloud } from "react-icons/fi";
 
 const Header = () => {
   return (
@@ -27,10 +27,9 @@ const Header = () => {
           icon={<FiGlobe size="1rem" />}
         />
         <Link href={"/integrations"}>
-          <div className="flex flex-col gap-0 font-semibold">
-            <div className="py-auto text-center">
-              <p className="text-[#004be0]">Integrations</p>
-            </div>
+          <div className="flex items-center justify-center gap-0 rounded-md bg-[#004be0] px-4 py-[14px] align-middle text-white">
+            <FiUploadCloud size="1rem" className="mr-2" />
+            <p>Integrations</p>
           </div>
         </Link>
         <Link href={"/consult"}>

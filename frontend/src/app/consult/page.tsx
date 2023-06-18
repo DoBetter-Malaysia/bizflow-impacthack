@@ -74,7 +74,7 @@ export default function Consult() {
         text: "",
         body: message.includes("poster") ? (
           <img
-            src={res}
+            src={`http://localhost:5050/uploads/${res}`}
             alt="Poster"
             height="400px"
             width="300px"

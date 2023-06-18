@@ -52,10 +52,6 @@ const InputSection = ({
   }, [recordingBlob]);
 
   const onEnter = ({ message }: { message: string }) => {
-    addMessage({
-      text: message,
-      origin: "user",
-    });
     setText("");
     onChange(message);
   };

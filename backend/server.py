@@ -12,7 +12,7 @@ from flask_cors import CORS
 from gpt import chatbot, construct_index
 from PIL import Image
 from speech import recognize_speech
-from stable_diffusion import prompt_image
+# from stable_diffusion import prompt_image
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -25,6 +25,19 @@ if not os.path.isdir(UPLOAD_FOLDER):
 
 def random_string():
     return "".join(random.choices(string.ascii_uppercase + string.digits, k=12))
+
+
+@app.after_request
+def add_header(r):
+    """
+    Add headers to both force latest IE rendering engine or Chrome Frame,
+    and also to cache the rendered page for 10 minutes.
+    """
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
 
 @app.route("/upload", methods=["POST"])
@@ -84,7 +97,8 @@ def goodQuestions():
     )
     return (
         jsonify(
-            {"questions": [r.split(".")[1].strip() for r in res.strip().split("|")]}
+            {"questions": [r.split(".")[1].strip()
+                           for r in res.strip().split("|")]}
         ),
         200,
     )
@@ -115,7 +129,7 @@ Recommendation - Explanation
 Limit the number of recommendations to only 4.
 Make sure there is no numbering and both recommendations and explanation are in one line."""
     )
-    recommendations = res + """Expand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.\nPromote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers.""".strip().split(
+    recommendations = (res + """\nExpand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.\nPromote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers.""").strip().split(
         "\n"
     )
     values = []
@@ -158,13 +172,13 @@ Make sure the list is separated by | without numbering and newline.
 
 For example, "Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"
 
-Make them short and concise and include "Show me a poster of the Pepperoni Cheese Pizza for promotion?", "What is the recipe for the Pepperoni Cheese Pizza?", "Which supplier is best for me as a business owner to get the material from?" as part of your steps.
+Make them short and concise and include "Show me a poster of the Pepperoni Cheese Pizza for promotion?", "What is the recipe for the Pepperoni Cheese Pizza?", "Which supplier is best for me as a business owner to get the material of Pepperoni Cheese Pizza?" as part of your steps.
 """
     )
     return (
         jsonify(
-            res
-            + """Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?""".strip().split(
+            (res
+             + """\nShow me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?""").strip().split(
                 "|"
             )
         ),

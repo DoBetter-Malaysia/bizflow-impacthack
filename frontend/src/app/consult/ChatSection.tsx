@@ -39,7 +39,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
         >
           {messages.length === 0 &&
             (questions.isSuccess
-              ? questions.data.questions.map((ques, ind) => (
+              ? questions.data.questions.map((ques: any, ind: any) => (
                   <Button
                     variant="outline"
                     key={ind}
@@ -86,7 +86,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                     width={40}
                     height={40}
                   />
-                  <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-2">
+                  <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-2 whitespace-pre-wrap">
                     {message.body}
                   </div>
                 </div>

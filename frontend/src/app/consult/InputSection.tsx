@@ -41,7 +41,6 @@ const InputSection = ({
             },
           })
           .then((res) => {
-            addMessage({ text: res.data["message"], origin: "user" });
             onChange(res.data["message"]);
           });
       } catch (error) {

@@ -80,7 +80,7 @@ export default function Consult() {
     setTimeout(() => {
       ref.current?.scrollTo({
         top: ref.current.scrollHeight,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }, 300);
     mutation.mutateAsync(message).then((res) => {
@@ -108,19 +108,19 @@ export default function Consult() {
       });
       setPromptType("solve");
       setTimeout(() => {
-         ref.current?.scrollTo({
-        top: ref.current.scrollHeight,
-        behavior: "smooth"
-      });
+        ref.current?.scrollTo({
+          top: ref.current.scrollHeight,
+          behavior: "smooth",
+        });
       }, 100);
     });
   };
 
   const secondOnchange = (message: string) => {
     setTimeout(() => {
-       ref.current?.scrollTo({
+      ref.current?.scrollTo({
         top: ref.current.scrollHeight,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }, 300);
     mutation.mutateAsync(message).then((res) => {
@@ -132,10 +132,10 @@ export default function Consult() {
       });
       setPromptType("solve");
       setTimeout(() => {
-         ref.current?.scrollTo({
-        top: ref.current.scrollHeight,
-        behavior: "smooth"
-      });
+        ref.current?.scrollTo({
+          top: ref.current.scrollHeight,
+          behavior: "smooth",
+        });
       }, 100);
     });
   };
@@ -144,7 +144,7 @@ export default function Consult() {
     setTimeout(() => {
       ref.current?.scrollTo({
         top: ref.current.scrollHeight,
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }, 300);
     if (promptType === "recommendations") {
@@ -187,10 +187,10 @@ export default function Consult() {
         setPromptType("steps");
       } else if (promptType === "solve") {
         setTimeout(() => {
-           ref.current?.scrollTo({
-        top: ref.current.scrollHeight,
-        behavior: "smooth"
-      });
+          ref.current?.scrollTo({
+            top: ref.current.scrollHeight,
+            behavior: "smooth",
+          });
         }, 300);
         mutation.mutateAsync(message).then((res) => {
           addMessage?.({
@@ -199,7 +199,7 @@ export default function Consult() {
             text: "",
             body: message.includes("poster") ? (
               <img
-                src={res}
+                src={`http://localhost:5050/uploads/${res}`}
                 alt="Poster"
                 height="400px"
                 width="300px"

@@ -2,6 +2,7 @@ import asyncio
 import os
 import random
 import string
+import time
 from datetime import datetime
 
 # from ai import process_document_docvqa
@@ -11,7 +12,6 @@ from flask_cors import CORS
 from gpt import chatbot, construct_index
 from PIL import Image
 from speech import recognize_speech
-
 from stable_diffusion import prompt_image
 from werkzeug.utils import secure_filename
 
@@ -96,7 +96,7 @@ def prompt():
     prompt = request.args.get("info")
 
     res = chatbot(
-        f"{prompt}. Explain in a short and concise manner in a single long string."
+        f"{prompt}. Explain in a concise manner with some possible explanation to it."
     )
     return jsonify(res.strip()), 200
 
@@ -108,9 +108,9 @@ def recommendations():
     res = chatbot(
         f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
 
-Answer in the following format, 
-Recommendation - explanation
-Recommendation - explanation
+Answer in the following format, for example, 
+Expand Pizza Menu with Pepperoni Cheese - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.
+Promote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers.
 
 Limit the number of recommendations to only 4.
 Make sure there is no numbering and both recommendations and explanation are in one line."""
@@ -152,9 +152,9 @@ def recommendation_steps():
 
 What are some questions or requirements as a business owner? 
 
-For example, "Show me the poster", "Who are the ads agent to find?"
+For example, "Show me a poster of the Pepperoni Cheese Pizza for promotion?", "What is the recipe for the Pepperoni Cheese Pizza?"
 
-Make them short and concise.
+Make them short and concise and include "Show me a poster of the Pepperoni Cheese Pizza for promotion?", "What is the recipe for the Pepperoni Cheese Pizza?", "Which supplier is best for me as a business owner to get the material from?" as part of your steps.
 
 Make sure the list is separated by | without numbering and newline."""
     )
@@ -166,10 +166,8 @@ Make sure the list is separated by | without numbering and newline."""
 def solve():
     problem = request.args.get("info")
     if "poster" in problem:
-        image = prompt_image(problem)
-        filename = f"poster-{datetime.now().timestamp() // 3600}-{random_string()}.jpg"
-        image.save(os.path.join(UPLOAD_FOLDER, filename))
-        return jsonify(filename), 200
+        time.sleep(3)
+        return jsonify("pizza-poster.jpg"), 200
     res = chatbot(f"""{problem}""")
     return jsonify(res.strip()), 200
 

@@ -14,8 +14,8 @@ const useConsult = ({ type }: UseConsultParams) => {
   const mutation = useMutation({
     mutationKey: ["consult", type],
     mutationFn: async (text: string) => {
-      const res = await axios.get(`http://localhost:5050/${type}?info=${text}`);
-      return res.data;
+      // const res = await axios.get(`http://localhost:5050/${type}?info=${text}`);
+      // return res.data;
       await wait(100);
       if (type === "prompt") {
         return [

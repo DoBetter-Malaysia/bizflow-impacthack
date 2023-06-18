@@ -109,13 +109,15 @@ def recommendations():
         f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
 
 Include the following as part of the recommendations, and make sure the other recommendations are in the same format.
-Expand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.
-Promote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers.
+Recommendation - Explanation
+Recommendation - Explanation
 
 Limit the number of recommendations to only 4.
 Make sure there is no numbering and both recommendations and explanation are in one line."""
     )
-    recommendations = res.strip().split("\n")
+    recommendations = res + """Expand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.\nPromote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers.""".strip().split(
+        "\n"
+    )
     values = []
     for recom in recommendations:
         if recom.strip() == "":
@@ -159,7 +161,15 @@ For example, "Show me a poster of the Pepperoni Cheese Pizza for promotion?|What
 Make them short and concise and include "Show me a poster of the Pepperoni Cheese Pizza for promotion?", "What is the recipe for the Pepperoni Cheese Pizza?", "Which supplier is best for me as a business owner to get the material from?" as part of your steps.
 """
     )
-    return jsonify(res.strip().split("|")), 200
+    return (
+        jsonify(
+            res
+            + """Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?""".strip().split(
+                "|"
+            )
+        ),
+        200,
+    )
 
 
 # /solve?problem=...

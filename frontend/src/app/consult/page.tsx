@@ -90,7 +90,7 @@ export default function Consult() {
         text: "",
         body: message.includes("poster") ? (
           <img
-            src={`http://localhost:5050/uploads/${res}`}
+            src={`http://localhost:5050/uploads/pizza-poster.jpg`}
             alt="Poster"
             height="400px"
             width="300px"
@@ -199,7 +199,7 @@ export default function Consult() {
             text: "",
             body: message.includes("poster") ? (
               <img
-                src={`http://localhost:5050/uploads/${res}`}
+                src={`http://localhost:5050/uploads/pizza-poster.jpg`}
                 alt="Poster"
                 height="400px"
                 width="300px"

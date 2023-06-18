@@ -12,7 +12,7 @@ from gpt import chatbot, construct_index
 from PIL import Image
 from speech import recognize_speech
 
-# from stable_diffusion import prompt_image
+from stable_diffusion import prompt_image
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -118,13 +118,23 @@ Make sure there is no numbering and all recommendations are in one line."""
     recommendations = res.strip().split("\n")
     values = []
     for recom in recommendations:
-        recommendation, explanation = recom.split("-")
-        values.append(
-            {
-                "recommendation": recommendation.strip(),
-                "explanation": explanation.strip(),
-            }
-        )
+        print(recom)
+        try:
+            recommendation, explanation = recom.split(" - ")
+            values.append(
+                {
+                    "recommendation": recommendation.strip(),
+                    "explanation": explanation.strip(),
+                }
+            )
+        except:
+            _, recommendation, explanation = recom.split(" - ")
+            values.append(
+                {
+                    "recommendation": recommendation.strip(),
+                    "explanation": explanation.strip(),
+                }
+            )
     return jsonify(values), 200
 
 
@@ -148,15 +158,15 @@ Make sure the list is separated by | without numbering and newline."""
 
 # /solve?problem=...
 @app.route("/solve")
-def recommendation_steps():
+def solve():
     problem = request.args.get("info")
-    # if "poster" in prompt:
-    #     image = prompt_image(prompt)
-    #     filename = f"poster-{datetime.now()}.jpg"
-    #     image.save(os.path.join(UPLOAD_FOLDER, filename))
-    #     return jsonify(filename), 200
+    if "poster" in problem:
+        image = prompt_image(problem)
+        filename = f"poster-{datetime.now().timestamp() // 3600}-{random_string()}.jpg"
+        image.save(os.path.join(UPLOAD_FOLDER, filename))
+        return jsonify(filename), 200
     res = chatbot(f"""{problem}""")
-    return jsonify(res.strip().split("|")), 200
+    return jsonify(res.strip()), 200
 
 
 async def setup():

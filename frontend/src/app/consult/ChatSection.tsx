@@ -32,26 +32,30 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
     });
 
     return (
-      <div ref={ref} className="relative">
+      <div ref={ref} className="relative h-full">
         <div
-          className="absolute left-[50%] right-[50%]"
+          className="absolute left-[50%] top-[50%] flex flex-col space-y-2"
           style={{ transform: "translateX(-50%) translateY(-50%)" }}
         >
-          {messages.length === 0 && questions.isSuccess
-            ? questions.data.map((ques, ind) => (
-                <Button
-                  variant="outline"
-                  key={ind}
-                  onClick={() => onChange(ques)}
-                >
-                  {ques}
-                </Button>
-              ))
-            : new Array(5)
-                .fill(0)
-                .map((_, index) => (
-                  <Skeleton key={index} w={"240px"} height="70px" />
-                ))}
+          {messages.length === 0 &&
+            (questions.isSuccess
+              ? questions.data.questions.map((ques, ind) => (
+                  <Button
+                    variant="outline"
+                    key={ind}
+                    onClick={() => {
+                      addMessage?.({ origin: "user", text: ques });
+                      onChange(ques);
+                    }}
+                  >
+                    {ques}
+                  </Button>
+                ))
+              : new Array(5)
+                  .fill(0)
+                  .map((_, index) => (
+                    <Skeleton key={index} w={"240px"} height="70px" />
+                  )))}
         </div>
         {messages.map((message) => {
           return (

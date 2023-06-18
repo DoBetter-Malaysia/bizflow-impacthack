@@ -64,8 +64,16 @@ export default function Consult() {
   };
 
   const thirdOnChange = (message: string) => {
+    addMessage?.({
+      origin: "user",
+      isMarkdown: true,
+      text: message,
+    });
     setTimeout(() => {
-      ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      ref.current?.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth"
+      });
     }, 300);
     mutation.mutateAsync(message).then((res) => {
       addMessage?.({
@@ -92,14 +100,20 @@ export default function Consult() {
       });
       setPromptType("solve");
       setTimeout(() => {
-        ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+         ref.current?.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth"
+      });
       }, 100);
     });
   };
 
   const secondOnchange = (message: string) => {
     setTimeout(() => {
-      ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+       ref.current?.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth"
+      });
     }, 300);
     mutation.mutateAsync(message).then((res) => {
       addMessage?.({
@@ -110,19 +124,31 @@ export default function Consult() {
       });
       setPromptType("solve");
       setTimeout(() => {
-        ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+         ref.current?.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth"
+      });
       }, 100);
     });
   };
 
   const onChange = (message: string) => {
     setTimeout(() => {
-      ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      ref.current?.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth"
+      });
     }, 300);
     if (promptType === "recommendations") {
       setOptions([]);
     }
-    console.log(promptType);
+    if (promptType === "solve") {
+      addMessage?.({
+        origin: "user",
+        isMarkdown: true,
+        text: message,
+      });
+    }
 
     mutation.mutateAsync(message).then((res) => {
       if (promptType === "prompt") {
@@ -153,7 +179,10 @@ export default function Consult() {
         setPromptType("steps");
       } else if (promptType === "solve") {
         setTimeout(() => {
-          ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+           ref.current?.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth"
+      });
         }, 300);
         mutation.mutateAsync(message).then((res) => {
           addMessage?.({
@@ -180,12 +209,12 @@ export default function Consult() {
           });
           setPromptType("solve");
           setTimeout(() => {
-            ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+            ref.current.scrollTop = ref.current?.scrollHeight;
           }, 100);
         });
       }
       setTimeout(() => {
-        ref.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+        ref.current.scrollTop = ref.current?.scrollHeight;
       }, 100);
     });
   };

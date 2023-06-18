@@ -6,7 +6,7 @@ import Link from "next/link";
 const Hero = () => {
   return (
     <Container size="xl" className="mt-32">
-      <div className="grid grid-cols-[1fr_1.5fr] gap-4 mt-32">
+      <div className="grid grid-cols-[1fr_1.5fr] gap-4 mt-16">
         <div className="space-y-4 py-20">
           <div className="space-y-2">
             <p className="text-slate-400">

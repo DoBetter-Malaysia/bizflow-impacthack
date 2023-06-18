@@ -108,8 +108,8 @@ def recommendations():
     res = chatbot(
         f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
 
-Answer in the following format, for example, 
-Expand Pizza Menu with Pepperoni Cheese - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.
+Include the following as part of the recommendations, and make sure the other recommendations are in the same format.
+Expand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.
 Promote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers.
 
 Limit the number of recommendations to only 4.
@@ -152,11 +152,12 @@ def recommendation_steps():
 
 What are some questions or requirements as a business owner? 
 
-For example, "Show me a poster of the Pepperoni Cheese Pizza for promotion?", "What is the recipe for the Pepperoni Cheese Pizza?"
+Make sure the list is separated by | without numbering and newline.
+
+For example, "Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"
 
 Make them short and concise and include "Show me a poster of the Pepperoni Cheese Pizza for promotion?", "What is the recipe for the Pepperoni Cheese Pizza?", "Which supplier is best for me as a business owner to get the material from?" as part of your steps.
-
-Make sure the list is separated by | without numbering and newline."""
+"""
     )
     return jsonify(res.strip().split("|")), 200
 

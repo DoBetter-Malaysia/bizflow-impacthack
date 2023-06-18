@@ -23,3 +23,30 @@ item_id,name,type,price
 1,Peperoni Pizza,Pizza,RM20.00
 2,Hawaian Pizza,Pizza,RM30.00
 3,Cheese Pizza,Pizza,RM18.00
+
+VENDORS
+vendor_id,name,phone number
+1,Fresh Mart,017-4123412
+2,Uncle Lim,019-40128428
+3,Great Cheese,019-24123580
+4,ABC Market,019-04947123
+
+MATERIALS
+mat_id,name,price_per_unit(RM),unit,vendor_id
+1,cheese,10,100g,1
+2,cheese,11,100g,2
+3,cheese,20,100g,3
+4,pepperoni,5,100g,1
+5,pepperoni,4,100g,2
+6,dough,2,1kg,2
+7,cheese,14,100g,4
+8,pepperoni,5,100g,4
+9,dough,2.50,1kg,4
+
+PAST_SUPPLIER_TRANSACTIONS
+transaction_id,vendor_id,mat_id,total(RM),date
+1,4,7,1000,15/06/2023
+2,4,7,1500,15/06/2023
+3,4,8,800,15/06/2023
+4,4,8,900,16/06/2023
+5,4,9,200,16/06/2023

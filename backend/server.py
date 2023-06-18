@@ -113,11 +113,13 @@ Recommendation - explanation
 Recommendation - explanation
 
 Limit the number of recommendations to only 4.
-Make sure there is no numbering and all recommendations are in one line."""
+Make sure there is no numbering and both recommendations and explanation are in one line."""
     )
     recommendations = res.strip().split("\n")
     values = []
     for recom in recommendations:
+        if recom.strip() == "":
+            continue
         print(recom)
         try:
             recommendation, explanation = recom.split(" - ")
@@ -128,13 +130,16 @@ Make sure there is no numbering and all recommendations are in one line."""
                 }
             )
         except:
-            _, recommendation, explanation = recom.split(" - ")
-            values.append(
-                {
-                    "recommendation": recommendation.strip(),
-                    "explanation": explanation.strip(),
-                }
-            )
+            try:
+                _, recommendation, explanation = recom.split(" - ")
+                values.append(
+                    {
+                        "recommendation": recommendation.strip(),
+                        "explanation": explanation.strip(),
+                    }
+                )
+            except:
+                continue
     return jsonify(values), 200
 
 

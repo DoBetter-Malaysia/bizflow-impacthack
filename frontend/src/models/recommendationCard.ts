@@ -8,4 +8,5 @@ export interface RecommendationCard {
   icon: IconType;
   link: string;
   sentiment: Sentiment;
+  ignoreSentiment: boolean;
 }

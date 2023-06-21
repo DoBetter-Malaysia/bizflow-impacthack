@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { Tabs } from "@mantine/core";
 import { AiOutlineDashboard, AiOutlineUser } from "react-icons/ai";
 import Overview from "./Overview";
+import Profile from "./Profile";
 
 export default function Home() {
   const onOpen = () => {
@@ -37,7 +38,7 @@ export default function Home() {
             <Overview />
           </Tabs.Panel>
           <Tabs.Panel value={"profile"}>
-            <></>
+            <Profile />
           </Tabs.Panel>
         </div>
       </Tabs>

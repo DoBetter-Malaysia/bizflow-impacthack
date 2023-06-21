@@ -2,7 +2,7 @@ import { DASHBOARD_CARDS } from "@/app/data/";
 import DashboardCard from "@/components/cards/DashboardCard";
 import AreaChartComponent from "@/components/charts/AreaChartComponent";
 import BarChartComponent from "@/components/charts/BarChartComponent";
-import Recommendation from "./Recommendation";
+import Recommendationv2 from "./Recommendationv2";
 
 const data: any[] = [
   { name: "12/06/2023", sales: 220.0 },
@@ -23,12 +23,9 @@ const pizza: any[] = [
 const Overview = () => {
   return (
     <div className="w-full">
-      <div className="flex flex-col gap-8 ">
-        <div className="flex flex-col gap-4">
-          <h3 className="text-3xl font-semibold ">
-            Welcome Back <span className="text-[#004be0]"> Johns Pizza</span>
-          </h3>
-          <div className="grid h-min w-full grid-cols-3 gap-8">
+      <div className="flex flex-col gap-4 ">
+        <div className="flex flex-col gap-2">
+          <div className="grid h-min w-full grid-cols-3 gap-4">
             {DASHBOARD_CARDS.map((item) => (
               <div className="col-span-1" key={item.title}>
                 <DashboardCard
@@ -44,7 +41,7 @@ const Overview = () => {
             ))}
           </div>
         </div>
-        <div className="grid h-min w-full grid-cols-8 gap-8">
+        <div className="grid h-min w-full grid-cols-8 gap-4">
           <div className="col-span-5 w-full rounded-xl bg-white px-12 py-8 shadow-md outline outline-1 outline-gray-100">
             <AreaChartComponent
               data={data}
@@ -56,7 +53,10 @@ const Overview = () => {
           </div>
         </div>
         <div>
-          <Recommendation />
+          <h2 className="py-4 text-3xl font-semibold">
+            <span className="text-[#004be0]">FlowAI </span> Recommendations
+          </h2>
+          <Recommendationv2 />
         </div>
       </div>
     </div>

@@ -23,7 +23,6 @@ const RecentTopTracksBarChart = ({
         <BarChart
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          className="bar-chart"
         >
           <defs>
             <linearGradient id="barChartColour" x1="0" y1="0" x2="0" y2="1">
@@ -34,12 +33,7 @@ const RecentTopTracksBarChart = ({
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" interval={0} className="text-sm" />
           <YAxis />
-          <Bar
-            dataKey="count"
-            fill="url(#areaChartColour)"
-            stroke="#004be0"
-            isAnimationActive={false}
-          />
+          <Bar dataKey="count" fill="url(#areaChartColour)" stroke="#004be0" />
         </BarChart>
       </ResponsiveContainer>
     </>

@@ -36,9 +36,9 @@ const profile = {
   ],
   ratings: [
     {
-      aspect: "Du bist kartoffelsalat",
-      rating: 3,
-      comments: "Du hast brot und nudel",
+      aspect: "Good Compliance Rating",
+      rating: 5,
+      comments: "All business policies are in compliance with the law",
     },
     {
       aspect: "Du bist kartoffelsalat",
@@ -183,13 +183,6 @@ const Profile = () => {
                 </Table>
               </div>
             </Card>
-
-            <div className="col-span-5 w-full rounded-xl bg-white px-12 py-8 shadow-md outline outline-1 outline-gray-100">
-              <AreaChartComponent
-                data={data}
-                title={"Rank Analysis For The Past 6 Months"}
-              />
-            </div>
           </div>
         </div>
       </main>

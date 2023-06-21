@@ -86,7 +86,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                     width={40}
                     height={40}
                   />
-                  <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-2 whitespace-pre-wrap">
+                  <div className="min-h-[52px] flex-1 whitespace-pre-wrap rounded-md bg-white px-4 py-2">
                     {message.body}
                   </div>
                 </div>

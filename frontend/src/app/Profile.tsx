@@ -5,7 +5,7 @@ import {
   Divider,
   Image,
   Table,
-  Text,
+  Text
 } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
@@ -21,7 +21,7 @@ const data = [
   { name: "15/06/2023", sales: 620.0 },
   { name: "16/06/2023", sales: 830.0 },
   { name: "17/06/2023", sales: 476.0 },
-  { name: "18/06/2023", sales: 380.0 },
+  { name: "18/06/2023", sales: 380.0 }
 ];
 
 const profile = {
@@ -32,25 +32,40 @@ const profile = {
   tags: ["Family-owned", "Micro", "Italian", "5-10 Employees"],
   contact_details: [
     { method: "Phone", value: "0395433834" },
-    { method: "Email", value: "hello@johnjohn.com" },
+    { method: "Email", value: "hello@johnjohn.com" }
   ],
   ratings: [
     {
-      aspect: "Good Compliance Rating",
+      aspect: "Food Safety and Hygiene",
       rating: 5,
-      comments: "All business policies are in compliance with the law",
+      comments:
+        "Adheres to strict food safety and hygiene standards, including proper food handling, storage, and preparation procedures, as mandated by local health authorities."
     },
     {
-      aspect: "Du bist kartoffelsalat",
+      aspect: "Financial Recordkeeping",
       rating: 4,
-      comments: "Du hast brot und nudel",
+      comments:
+        "Maintains accurate financial records and documentation, including invoices, receipts, and financial statements, to ensure compliance with accounting and auditing standards."
     },
     {
-      aspect: "Du bist kartoffelsalat",
-      rating: 3,
-      comments: "Du hast brot und nudel",
+      aspect: "Labor Laws",
+      rating: 4,
+      comments:
+        "Complies with labor laws and regulations regarding employee rights, minimum wage requirements, working hours, employee benefits, and proper employment contracts."
     },
-  ],
+    {
+      aspect: "Tax Compliance",
+      rating: 5,
+      comments:
+        "Fulfills tax obligations by accurately reporting and paying all required taxes, including income tax, sales tax, and payroll taxes, in accordance with local tax laws."
+    },
+    {
+      aspect: "Licensing and Permits",
+      rating: 5,
+      comments:
+        "Maintains all the required licenses and permits to operate a food establishment, including food service permits, health permits, and alcohol licenses."
+    }
+  ]
 };
 
 const Profile = () => {
@@ -152,7 +167,7 @@ const Profile = () => {
             <Card withBorder shadow="sm" radius="lg">
               <Card.Section inheritPadding withBorder py="md">
                 <Text fz="md" weight="bold">
-                  BizSense
+                  Compliance Rating
                 </Text>
               </Card.Section>
               <div className="flex flex-col gap-4 pt-4">
@@ -162,7 +177,7 @@ const Profile = () => {
                 <Table>
                   <thead>
                     <tr>
-                      <th></th>
+                      <th>Aspect</th>
                       <th>Rating</th>
                       <th>Comment</th>
                     </tr>
@@ -170,13 +185,17 @@ const Profile = () => {
                   <tbody>
                     {profile.ratings.map((r, i) => (
                       <tr key={i}>
-                        <td>{r.aspect}</td>
-                        <td className="flex">
-                          {Array.from({ length: r.rating }, (v, k) => (
-                            <FaStar key={k} color="gold" />
-                          ))}
+                        <td>
+                          <div className="text-lg font-medium">{r.aspect}</div>
                         </td>
-                        <td>{r.comments}</td>
+                        <td className="">
+                          <div className="flex">
+                            {Array.from({ length: r.rating }, (v, k) => (
+                              <FaStar key={k} color="gold" />
+                            ))}
+                          </div>
+                        </td>
+                        <td className="">{r.comments}</td>
                       </tr>
                     ))}
                   </tbody>

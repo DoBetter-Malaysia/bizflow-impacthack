@@ -8,6 +8,7 @@ import {
   Select,
   Table,
   Text,
+  clsx
 } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
@@ -20,26 +21,26 @@ const pizzaCompanies = [
     name: "Pizza Hut",
     industryRank: 2,
     platformRank: 13,
-    isYourCompany: false,
+    isYourCompany: false
   },
   {
     name: "Dominos Pizza",
     industryRank: 3,
     platformRank: 14,
-    isYourCompany: false,
+    isYourCompany: false
   },
   {
     name: "Johns Pizza",
     industryRank: 4,
     platformRank: 16,
-    isYourCompany: true,
+    isYourCompany: true
   },
   {
     name: "Woon Beans Pizza",
     industryRank: 5,
     platformRank: 17,
-    isYourCompany: false,
-  },
+    isYourCompany: false
+  }
 ];
 
 const profile = {
@@ -50,40 +51,40 @@ const profile = {
   tags: ["Family-owned", "Micro", "Italian", "5-10 Employees"],
   contact_details: [
     { method: "Phone", value: "0395433834" },
-    { method: "Email", value: "hello@johnjohn.com" },
+    { method: "Email", value: "hello@johnjohn.com" }
   ],
   ratings: [
     {
       aspect: "Food Safety and Hygiene",
       rating: 5,
       comments:
-        "Adheres to strict food safety and hygiene standards, including proper food handling, storage, and preparation procedures, as mandated by local health authorities.",
+        "Adheres to strict food safety and hygiene standards, including proper food handling, storage, and preparation procedures, as mandated by local health authorities."
     },
     {
       aspect: "Financial Recordkeeping",
       rating: 4,
       comments:
-        "Maintains accurate financial records and documentation, including invoices, receipts, and financial statements, to ensure compliance with accounting and auditing standards.",
+        "Maintains accurate financial records and documentation, including invoices, receipts, and financial statements, to ensure compliance with accounting and auditing standards."
     },
     {
       aspect: "Labor Laws",
       rating: 4,
       comments:
-        "Complies with labor laws and regulations regarding employee rights, minimum wage requirements, working hours, employee benefits, and proper employment contracts.",
+        "Complies with labor laws and regulations regarding employee rights, minimum wage requirements, working hours, employee benefits, and proper employment contracts."
     },
     {
       aspect: "Tax Compliance",
       rating: 5,
       comments:
-        "Fulfills tax obligations by accurately reporting and paying all required taxes, including income tax, sales tax, and payroll taxes, in accordance with local tax laws.",
+        "Fulfills tax obligations by accurately reporting and paying all required taxes, including income tax, sales tax, and payroll taxes, in accordance with local tax laws."
     },
     {
       aspect: "Licensing and Permits",
       rating: 5,
       comments:
-        "Maintains all the required licenses and permits to operate a food establishment, including food service permits, health permits, and alcohol licenses.",
-    },
-  ],
+        "Maintains all the required licenses and permits to operate a food establishment, including food service permits, health permits, and alcohol licenses."
+    }
+  ]
 };
 
 const competitors = [
@@ -101,7 +102,45 @@ const competitors = [
   "Cici's Pizza",
   "Jets Pizza",
   "Godfather's Pizza",
-  "Uno Pizzeria & Grill",
+  "Uno Pizzeria & Grill"
+];
+
+const comparisons = [
+  {
+    left: "Provides free delivery within a 5-mile radius, ensuring convenience for customers who prefer to have their pizza delivered to their doorstep.",
+    attribute: "Delivery Service",
+    right:
+      "Offers both in-house delivery and third-party delivery services to cater to customers who prefer the convenience of home delivery.",
+    direction: "left"
+  },
+  {
+    left: "Implements a loyalty program where customers earn points for every purchase, which can be redeemed for discounts or free items in the future.",
+    attribute: "Customer Loyalty Programs",
+    right:
+      "Offers a loyalty program that provides exclusive discounts, special promotions, and birthday rewards to its members.",
+    direction: "equal"
+  },
+  {
+    left: "Maintains an interactive website with an online ordering system, allowing customers to easily place their orders and track delivery status.",
+    attribute: "Online Presence",
+    right:
+      "Has a user-friendly website with online ordering capabilities, and actively engages with customers through social media platforms, sharing updates, promotions, and customer reviews.",
+    direction: "right"
+  },
+  {
+    left: "Receives positive customer reviews praising the quality of their pizzas, prompt delivery, and friendly customer service.",
+    attribute: "Customer Reviews and Ratings",
+    right:
+      "Receives mixed customer reviews, with some praising their extensive menu options and others mentioning inconsistencies in food quality and service.",
+    direction: "left"
+  },
+  {
+    left: "Emphasizes using locally sourced and fresh ingredients to create delicious and authentic pizzas with a focus on customer satisfaction.",
+    attribute: "Unique Selling Points",
+    right:
+      "Highlights its family-friendly atmosphere, spacious dining areas, and the availability of a salad bar, catering to customers looking for a casual dining experience.",
+    direction: "left"
+  }
 ];
 
 const Profile = () => {
@@ -287,7 +326,7 @@ const Profile = () => {
               <div className="flex flex-col gap-4 pt-4">
                 <Card.Section
                   inheritPadding
-                  className="grid grid-cols-12 max-w-[75%] m-auto gap-2"
+                  className="m-auto grid grid-cols-12 gap-2"
                 >
                   <div className="col-span-5 flex justify-center">
                     <Text fz="lg">John's Pizza</Text>
@@ -316,6 +355,30 @@ const Profile = () => {
                       alt="Competitor Logo"
                     />
                   </div>
+                  {comparisons.map((comp, index) => (
+                    <div
+                      className="col-span-12 mb-2 grid grid-cols-12 gap-2"
+                      key={index}
+                    >
+                      <div
+                        className={clsx(
+                          "col-span-5 line-clamp-2 flex justify-center rounded-md px-2 py-2 text-slate-800"
+                        )}
+                      >
+                        {comp.left}
+                      </div>
+                      <div className="col-span-2 flex items-center justify-center text-center font-semibold">
+                        {comp.attribute}
+                      </div>
+                      <div
+                        className={clsx(
+                          "col-span-5 line-clamp-2 flex justify-center rounded-md px-2 py-2 text-slate-800"
+                        )}
+                      >
+                        {comp.right}
+                      </div>
+                    </div>
+                  ))}
                 </Card.Section>
 
                 <div>
@@ -325,7 +388,7 @@ const Profile = () => {
                   <Divider />
                 </div>
                 <Card.Section inheritPadding>
-                  <ul className="list-decimal mx-6">
+                  <ul className="mx-6 list-decimal">
                     <li>
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Vel earum temporibus, deserunt rem nobis ullam!

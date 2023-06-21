@@ -23,12 +23,9 @@ const pizza: any[] = [
 const Overview = () => {
   return (
     <div className="w-full">
-      <div className="flex flex-col gap-8 ">
-        <div className="flex flex-col gap-4">
-          <h3 className="text-3xl font-semibold ">
-            Welcome Back <span className="text-[#004be0]"> Johns Pizza</span>
-          </h3>
-          <div className="grid h-min w-full grid-cols-3 gap-8">
+      <div className="flex flex-col gap-4 ">
+        <div className="flex flex-col gap-2">
+          <div className="grid h-min w-full grid-cols-3 gap-4">
             {DASHBOARD_CARDS.map((item) => (
               <div className="col-span-1" key={item.title}>
                 <DashboardCard
@@ -44,7 +41,7 @@ const Overview = () => {
             ))}
           </div>
         </div>
-        <div className="grid h-min w-full grid-cols-8 gap-8">
+        <div className="grid h-min w-full grid-cols-8 gap-4">
           <div className="col-span-5 w-full rounded-xl bg-white px-12 py-8 shadow-md outline outline-1 outline-gray-100">
             <AreaChartComponent
               data={data}

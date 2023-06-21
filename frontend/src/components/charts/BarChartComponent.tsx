@@ -4,12 +4,12 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid,
+  CartesianGrid
 } from "recharts";
 
 const RecentTopTracksBarChart = ({
   data,
-  title,
+  title
 }: {
   data: any[];
   title: string;
@@ -17,7 +17,7 @@ const RecentTopTracksBarChart = ({
   return (
     <>
       <div className="mb-5">
-        <p className="text-xl font-medium">{title}</p>
+        <p className="text-xl font-semibold">{title}</p>
       </div>
       <ResponsiveContainer width="100%" height={400}>
         <BarChart
@@ -31,7 +31,7 @@ const RecentTopTracksBarChart = ({
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" interval={0} className="text-sm" />
+          <XAxis dataKey="name" interval={0} className="text-xs" />
           <YAxis />
           <Bar dataKey="count" fill="url(#areaChartColour)" stroke="#004be0" />
         </BarChart>

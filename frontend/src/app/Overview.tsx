@@ -3,6 +3,7 @@ import DashboardCard from "@/components/cards/DashboardCard";
 import AreaChartComponent from "@/components/charts/AreaChartComponent";
 import BarChartComponent from "@/components/charts/BarChartComponent";
 import Recommendationv2 from "./Recommendationv2";
+import Checklist from "./Checklist";
 
 const data = [
   { name: "12/06/2023", sales: 220.0 },
@@ -22,8 +23,8 @@ const pizza = [
 
 const Overview = () => {
   return (
-    <div className="w-full">
-      <div className="flex flex-col gap-4 ">
+    <div className="grid w-full grid-cols-12 gap-4">
+      <div className="col-span-9 flex flex-col space-y-4">
         <div className="flex flex-col gap-2">
           <div className="grid h-min w-full grid-cols-3 gap-4">
             {DASHBOARD_CARDS.map((item) => (
@@ -42,22 +43,25 @@ const Overview = () => {
           </div>
         </div>
         <div className="grid h-min w-full grid-cols-8 gap-4">
-          <div className="col-span-5 w-full rounded-xl bg-white px-12 py-8 shadow-md outline outline-1 outline-gray-100">
+          <div className="col-span-5 w-full rounded-xl bg-white px-4 py-6 shadow-md outline outline-1 outline-gray-100">
             <AreaChartComponent
               data={data}
               title={"Total Sales Amount(RM) For The Past 7 Days"}
             />
           </div>
-          <div className="col-span-3 w-full rounded-xl bg-white px-12 py-8 shadow-md outline outline-1 outline-gray-100">
+          <div className="col-span-3 w-full rounded-xl bg-white px-4 py-6 shadow-md outline outline-1 outline-gray-100">
             <BarChartComponent data={pizza} title={"Top Pizzas Sold Today"} />
           </div>
         </div>
-        <div>
-          <h2 className="py-4 text-3xl font-semibold">
-            <span className="text-[#004be0]">FlowAI </span> Recommendations
-          </h2>
-          <Recommendationv2 />
-        </div>
+      </div>
+      <div className="col-span-3 rounded-xl bg-white px-4 py-6 shadow-md outline outline-1 outline-gray-100">
+        <Checklist />
+      </div>
+      <div className="col-span-12 mt-8">
+        <h2 className="py-4 text-3xl font-semibold">
+          <span className="text-[#004be0]">FlowAI </span> Recommendations
+        </h2>
+        <Recommendationv2 />
       </div>
     </div>
   );

@@ -5,12 +5,12 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip,
+  Tooltip
 } from "recharts";
 
 const AreaChartComponent = ({
   data,
-  title,
+  title
 }: {
   data: any[];
   title: string;
@@ -18,7 +18,7 @@ const AreaChartComponent = ({
   return (
     <>
       <div className="mb-5">
-        <p className="text-xl font-medium">{title}</p>
+        <p className="text-xl font-semibold">{title}</p>
       </div>
       <ResponsiveContainer height={400} width={"99%"}>
         <AreaChart

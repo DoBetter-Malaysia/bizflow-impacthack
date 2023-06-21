@@ -10,7 +10,12 @@ import { PolymorphicComponentProps } from "@mantine/utils";
 
 type ButtonProps = PolymorphicComponentProps<"button", MantineButtonProps>;
 
-const Button = ({ children, variant = "filled", color = 'blue', ...props }: ButtonProps) => {
+const Button = ({
+  children,
+  variant = "filled",
+  color = "blue",
+  ...props
+}: ButtonProps) => {
   return (
     <MantineButton
       {...props}

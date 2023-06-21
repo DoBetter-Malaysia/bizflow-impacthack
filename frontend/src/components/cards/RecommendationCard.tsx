@@ -8,26 +8,28 @@ const RecommendationCard = ({
   icon,
   link,
   sentiment,
+  ignoreSentiment,
 }: RecommendationCard) => {
   return (
     <div
       className={clsx(
-        "h-full w-full rounded-lg p-4 "
-        // { "bg-orange-300": sentiment === "neutral" },
-        // { "bg-green-300": sentiment === "positive" },
-        // { "bg-red-300": sentiment === "negative" }
+        "h-full w-full rounded-lg p-4",
+        // { "text-green-600": sentiment === "positive" && !ignoreSentiment },
+        // { "text-red-600": sentiment === "negative" && !ignoreSentiment }
+        { "text-[#38a5ff]": !ignoreSentiment },
+        { "text-[#004be0]": ignoreSentiment }
       )}
     >
       <div className="flex flex-col items-center justify-center gap-4 align-middle">
-        <div className="flex flex-col gap-4 p-4 text-[#004be0]">
+        <div className="flex flex-col gap-4 px-4 py-0 ">
           <div className="flex items-center justify-center py-4 align-middle ">
-            {icon({ size: 80 })}
+            {icon({ size: 82 })}
           </div>
           <div>
-            <h3 className="text-center text-lg font-bold">{title}</h3>
+            <h3 className="text-center text-xl font-bold">{title}</h3>
           </div>
           <div className="pb-2">
-            <p className="text-center text-sm text-gray-600">{description}</p>
+            <p className="text-md text-center text-gray-700">{description}</p>
           </div>
         </div>
       </div>

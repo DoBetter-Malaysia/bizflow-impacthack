@@ -6,16 +6,6 @@ import Overview from "./Overview";
 import Profile from "./Profile";
 
 export default function Home() {
-  const onOpen = () => {
-    const newWindow = window.open(
-      "/test-integration",
-      "_blank",
-      "toolbar=0,location=0,menubar=0,height=600,width=600"
-    );
-    newWindow.onbeforeunload = (ev) => {
-      console.log("CLOSED");
-    };
-  };
   return (
     <main className="relative flex flex-col px-40 py-8">
       <h3 className="mb-2 text-3xl font-semibold">
@@ -42,7 +32,6 @@ export default function Home() {
           </Tabs.Panel>
         </div>
       </Tabs>
-      <button onClick={onOpen}>CLICK ME</button>
     </main>
   );
 }

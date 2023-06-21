@@ -12,6 +12,17 @@ import React from "react";
 import { BsChevronLeft } from "react-icons/bs";
 import { FaStar } from "react-icons/fa";
 import RankingCard from "@/components/cards/RankingCard";
+import AreaChartComponent from "@/components/charts/AreaChartComponent";
+
+const data = [
+  { name: "12/06/2023", sales: 220.0 },
+  { name: "13/06/2023", sales: 530.0 },
+  { name: "14/06/2023", sales: 700.0 },
+  { name: "15/06/2023", sales: 620.0 },
+  { name: "16/06/2023", sales: 830.0 },
+  { name: "17/06/2023", sales: 476.0 },
+  { name: "18/06/2023", sales: 380.0 },
+];
 
 const profile = {
   name: "Johns Pizza Sdn Bhd",
@@ -115,15 +126,26 @@ const Profile = () => {
           </div>
 
           <div className="flex flex-col gap-4 ">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-4 gap-4">
               <div className="col-span-1">
-                <RankingCard rank={4} type="Industry" industry="Food" />
+                <RankingCard rank={4} type="Food Industry Rank" isRank={true} />
               </div>
               <div className="col-span-1">
-                <RankingCard rank={4} type="Platform" />
+                <RankingCard rank={16} type="Platform Rank" isRank={true} />
               </div>
               <div className="col-span-1">
-                <RankingCard rank={20000} type="Total No of Customers" />
+                <RankingCard
+                  rank={20000}
+                  type="Total No of Customers"
+                  isRank={false}
+                />
+              </div>
+              <div className="col-span-1">
+                <RankingCard
+                  rank={24}
+                  type="Total Product Types"
+                  isRank={false}
+                />
               </div>
             </div>
 
@@ -161,6 +183,13 @@ const Profile = () => {
                 </Table>
               </div>
             </Card>
+
+            <div className="col-span-5 w-full rounded-xl bg-white px-12 py-8 shadow-md outline outline-1 outline-gray-100">
+              <AreaChartComponent
+                data={data}
+                title={"Rank Analysis For The Past 6 Months"}
+              />
+            </div>
           </div>
         </div>
       </main>

@@ -20,7 +20,7 @@ function openModal<T extends ModalType>({
     modal: type,
     innerProps,
     closeButtonProps: { size: 28 },
-    radius: "lg",
+    radius: "md",
     centered: true,
     scrollAreaComponent: Box as any,
     ...modalProperties,

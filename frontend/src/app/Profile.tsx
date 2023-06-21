@@ -12,16 +12,32 @@ import React from "react";
 import { BsChevronLeft } from "react-icons/bs";
 import { FaStar } from "react-icons/fa";
 import RankingCard from "@/components/cards/RankingCard";
-import AreaChartComponent from "@/components/charts/AreaChartComponent";
 
-const data = [
-  { name: "12/06/2023", sales: 220.0 },
-  { name: "13/06/2023", sales: 530.0 },
-  { name: "14/06/2023", sales: 700.0 },
-  { name: "15/06/2023", sales: 620.0 },
-  { name: "16/06/2023", sales: 830.0 },
-  { name: "17/06/2023", sales: 476.0 },
-  { name: "18/06/2023", sales: 380.0 },
+const pizzaCompanies = [
+  {
+    name: "Pizza Hut",
+    industryRank: 2,
+    platformRank: 13,
+    isYourCompany: false,
+  },
+  {
+    name: "Dominos Pizza",
+    industryRank: 3,
+    platformRank: 14,
+    isYourCompany: false,
+  },
+  {
+    name: "Johns Pizza",
+    industryRank: 4,
+    platformRank: 16,
+    isYourCompany: true,
+  },
+  {
+    name: "Woon Beans Pizza",
+    industryRank: 5,
+    platformRank: 17,
+    isYourCompany: false,
+  },
 ];
 
 const profile = {
@@ -77,7 +93,7 @@ const Profile = () => {
               <div className="flex flex-col gap-4 pt-4">
                 <Card.Section
                   inheritPadding
-                  className="aspect-square max-h-[360px] overflow-hidden"
+                  className="aspect-square max-h-[300px] overflow-hidden"
                 >
                   <img
                     src={profile.image}
@@ -120,6 +136,45 @@ const Profile = () => {
                       </Text>
                     </div>
                   ))}
+                </Card.Section>
+              </div>
+            </Card>
+
+            <Card withBorder shadow="sm" radius="lg">
+              <Card.Section inheritPadding withBorder py="md">
+                <Text fz="md" weight="bold">
+                  Your Top Competitors
+                </Text>
+              </Card.Section>
+              <div className="mb-2 flex flex-col gap-4 px-4 py-4">
+                <Card.Section>
+                  <div className="grid grid-cols-5 items-center gap-2">
+                    <div className="col-span-3 items-start font-semibold">
+                      Company Name
+                    </div>
+                    <div className="col-span-1 items-center font-semibold">
+                      Industry Rank
+                    </div>
+                    <div className="col-span-1 items-center font-semibold">
+                      Platform Rank
+                    </div>
+                    <Divider className="col-span-5" />
+                    {pizzaCompanies.map((c, i) => (
+                      <>
+                        <div className="col-span-3 flex items-center ">
+                          {i + 1}.{"  "}
+                          {c.name}
+                          {c.isYourCompany && (
+                            <Badge className="ml-2 outline outline-1">
+                              Your Company
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="col-span-1">{c.industryRank}</div>
+                        <div className="col-span-1">{c.platformRank}</div>
+                      </>
+                    ))}
+                  </div>
                 </Card.Section>
               </div>
             </Card>

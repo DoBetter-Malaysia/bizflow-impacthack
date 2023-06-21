@@ -1,11 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import { Button, Popover, Select } from "@mantine/core";
 import Image from "next/image";
-import { Select, Popover, Button, Divider } from "@mantine/core";
-import { FiGlobe, FiUploadCloud, FiBell } from "react-icons/fi";
-import { NOTIFICATIONS } from "@/app/data";
-import { Notification } from "@/models/notification";
+import Link from "next/link";
+import { FiBell, FiGlobe, FiUploadCloud } from "react-icons/fi";
 
 // const Notification = ({
 //   title,
@@ -31,7 +29,7 @@ import { Notification } from "@/models/notification";
 
 const Header = () => {
   return (
-    <div className=" sticky top-0 z-10 flex h-20 items-center justify-between border-b-[1px] border-solid border-gray-400 bg-white px-4 shadow-sm">
+    <div className=" sticky top-0 z-[1000] flex h-20 items-center justify-between border-b-[1px] border-solid border-gray-400 bg-white px-4 shadow-sm">
       <Link href="./">
         <div className="flex items-center">
           <Image

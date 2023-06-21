@@ -2,7 +2,7 @@ import { DASHBOARD_CARDS } from "@/app/data/";
 import DashboardCard from "@/components/cards/DashboardCard";
 import AreaChartComponent from "@/components/charts/AreaChartComponent";
 import BarChartComponent from "@/components/charts/BarChartComponent";
-import Recommendation from "./Recommendation";
+import Recommendationv2 from "./Recommendationv2";
 
 const data: any[] = [
   { name: "12/06/2023", sales: 220.0 },
@@ -56,7 +56,10 @@ const Overview = () => {
           </div>
         </div>
         <div>
-          <Recommendation />
+          <h2 className="py-4 text-3xl font-semibold">
+            <span className="text-[#004be0]">FlowAI </span> Recommendations
+          </h2>
+          <Recommendationv2 />
         </div>
       </div>
     </div>

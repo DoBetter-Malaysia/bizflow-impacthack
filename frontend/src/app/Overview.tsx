@@ -4,20 +4,20 @@ import AreaChartComponent from "@/components/charts/AreaChartComponent";
 import BarChartComponent from "@/components/charts/BarChartComponent";
 import Recommendation from "./Recommendation";
 
-const data: any[] = [
+const data = [
   { name: "12/06/2023", sales: 220.0 },
   { name: "13/06/2023", sales: 530.0 },
   { name: "14/06/2023", sales: 700.0 },
   { name: "15/06/2023", sales: 620.0 },
   { name: "16/06/2023", sales: 830.0 },
   { name: "17/06/2023", sales: 476.0 },
-  { name: "18/06/2023", sales: 380.0 },
+  { name: "18/06/2023", sales: 380.0 }
 ];
 
-const pizza: any[] = [
+const pizza = [
   { name: "Hawaiian Pizza", count: 8 },
   { name: "Pepperoni Pizza", count: 7 },
-  { name: "Cheese Pizza", count: 2 },
+  { name: "Cheese Pizza", count: 2 }
 ];
 
 const Overview = () => {

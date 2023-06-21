@@ -52,3 +52,4 @@ import requests
 
 def send_message():
     requests.post(url, headers=headers, data=json.dumps(data))
+    return None

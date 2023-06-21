@@ -20,7 +20,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
       useMessageStore,
       (state) => state
     ) ?? {
-      messages: [],
+      messages: []
     };
     const questions = useQuery({
       queryKey: ["questions"],
@@ -28,11 +28,11 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
         const res = await axios.get("http://localhost:5050/good-questions");
         return res.data;
       },
-      staleTime: Infinity,
+      staleTime: Infinity
     });
 
     return (
-      <div ref={ref} className="relative h-full">
+      <div className="relative h-full">
         <div
           className="absolute left-[50%] top-[50%] flex flex-col space-y-2"
           style={{ transform: "translateX(-50%) translateY(-50%)" }}
@@ -108,6 +108,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
             </div>
           </div>
         )}
+        <div ref={ref}></div>
         <div className="flex-start ml-24 flex flex-col items-start space-y-2">
           {options.map((opt, index) => (
             <ArrowLink
@@ -115,7 +116,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
               onClick={() => {
                 addMessage?.({
                   origin: "user",
-                  text: opt,
+                  text: opt
                 });
                 onChange(opt);
               }}

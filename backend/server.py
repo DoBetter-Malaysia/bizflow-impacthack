@@ -94,15 +94,16 @@ def download_file(name: str):
 
 @app.route("/good-questions")
 def goodQuestions():
-    res = chatbot(
-        "Based on the pizza sales this week, what are some good questions to ask as the business owner.\n\nRemember the questions should be short and concise without explanation.\n\nMake sure the questions listed are separated by | in a single paragraph."
-    )
-    return (
-        jsonify(
-            {"questions": [r.split(".")[1].strip() for r in res.strip().split("|")]}
-        ),
-        200,
-    )
+    # res = chatbot(
+    #     "Based on the pizza sales this week, what are some good questions to ask as the business owner.\n\nRemember the questions should be short and concise without explanation.\n\nMake sure the questions listed are separated by | in a single paragraph."
+    # )
+    # return (
+    #     jsonify(
+    #         {"questions": [r.split(".")[1].strip() for r in res.strip().split("|")]}
+    #     ),
+    #     200,
+    # )
+    return jsonify({"questions": [ "What is the total quantity of pizzas sold this week?", "What is the total revenue generated from pizza sales this week?", "What is the most popular pizza item sold this week?", "What is the average quantity of pizzas sold per day this week?", "What is the average revenue generated from pizza sales per day this week?", "What is the total quantity of each pizza item sold this week?", "What is the total revenue generated from each pizza item sold this week?", "What is the customer demographic of pizza buyers this week?", "What is the total cost of materials purchased from vendors this week?", "What is the total quantity of materials purchased from vendors this week?" ]}), 200
 
 
 # /prompt?question=...
@@ -201,7 +202,7 @@ def solve():
     if "poster" in problem:
         time.sleep(3)
         return jsonify("pizza-poster.jpg"), 200
-    if "send a message" in problem:
+    if "a message" in problem:
         send_message()
         return jsonify("A WhatsApp message has been sent to the supplier.")
     res = chatbot(f"""{problem}""")

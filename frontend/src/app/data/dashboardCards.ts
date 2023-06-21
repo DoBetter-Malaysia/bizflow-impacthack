@@ -1,5 +1,5 @@
 import { DashboardCardProps } from "@/models/dashboardCard";
-import { FaWarehouse } from "react-icons/fa";
+import { FaWarehouse, FaSourcetree } from "react-icons/fa";
 import { GiPayMoney, GiReceiveMoney } from "react-icons/gi";
 
 export const DASHBOARD_CARDS: DashboardCardProps[] = [

@@ -108,11 +108,7 @@ While using Zustand's `persist` middleware, there'll be [hydration mismatch](htt
 A temporary solution here is using `useStore` hook from here, where the values are only retrieved after client renders.
 
 ```ts
-const { bears, increase } = useStore(
-  useBearStore,
-  (state) => state
-) ?? // The defaults are set here as they will be empty before client renders
-{
+const { bears, increase } = useStore(useBearStore, (state) => state) ?? { // The defaults are set here as they will be empty before client renders
   bears: 0,
   increase: () => null,
 };

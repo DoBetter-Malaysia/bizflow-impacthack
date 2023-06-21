@@ -12,8 +12,10 @@ from flask_cors import CORS
 from gpt import chatbot, construct_index
 from PIL import Image
 from speech import recognize_speech
+
 # from stable_diffusion import prompt_image
 from werkzeug.utils import secure_filename
+from whatsapp import send_message
 
 app = Flask(__name__)
 CORS(app)
@@ -36,7 +38,7 @@ def add_header(r):
     r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     r.headers["Pragma"] = "no-cache"
     r.headers["Expires"] = "0"
-    r.headers['Cache-Control'] = 'public, max-age=0'
+    r.headers["Cache-Control"] = "public, max-age=0"
     return r
 
 
@@ -97,8 +99,7 @@ def goodQuestions():
     )
     return (
         jsonify(
-            {"questions": [r.split(".")[1].strip()
-                           for r in res.strip().split("|")]}
+            {"questions": [r.split(".")[1].strip() for r in res.strip().split("|")]}
         ),
         200,
     )
@@ -129,8 +130,13 @@ Recommendation - Explanation
 Limit the number of recommendations to only 4.
 Make sure there is no numbering and both recommendations and explanation are in one line."""
     )
-    recommendations = (res + """\nExpand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.\nPromote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers.""").strip().split(
-        "\n"
+    recommendations = (
+        (
+            res
+            + """\nExpand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.\nPromote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers."""
+        )
+        .strip()
+        .split("\n")
     )
     values = []
     for recom in recommendations:
@@ -172,15 +178,17 @@ Make sure the list is separated by | without numbering and newline.
 
 For example, "Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"
 
-Make them short and concise and include "Show me a poster of the Pepperoni Cheese Pizza for promotion?", "What is the recipe for the Pepperoni Cheese Pizza?", "Which supplier is best for me as a business owner to get the material of Pepperoni Cheese Pizza?" as part of your steps.
+Make them short and concise.
 """
     )
     return (
         jsonify(
-            (res
-             + """\nShow me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?""").strip().split(
-                "|"
+            (
+                res
+                + """\nShow me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"""
             )
+            .strip()
+            .split("|")
         ),
         200,
     )
@@ -193,6 +201,9 @@ def solve():
     if "poster" in problem:
         time.sleep(3)
         return jsonify("pizza-poster.jpg"), 200
+    if "send a message" in problem:
+        send_message()
+        return jsonify("A WhatsApp message has been sent to the supplier.")
     res = chatbot(f"""{problem}""")
     return jsonify(res.strip()), 200
 

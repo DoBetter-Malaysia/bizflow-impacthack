@@ -2,8 +2,32 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Select } from "@mantine/core";
-import { FiGlobe, FiUploadCloud } from "react-icons/fi";
+import { Select, Popover, Button, Divider } from "@mantine/core";
+import { FiGlobe, FiUploadCloud, FiBell } from "react-icons/fi";
+import { NOTIFICATIONS } from "@/app/data";
+import { Notification } from "@/models/notification";
+
+// const Notification = ({
+//   title,
+//   description,
+//   date,
+//   priority,
+//   type,
+//   icon,
+//   isLast,
+// }: Notification) => {
+//   return (
+//     <>
+//       <div className=" flex gap-2 px-2 py-2">
+//         div.
+//         <div>{icon({ size: 40 })}</div>
+//         <div>{title}</div>
+//         <div >{date}</div>
+//       </div>
+//       {!isLast && <Divider my={4} />}
+//     </>
+//   );
+// };
 
 const Header = () => {
   return (
@@ -21,6 +45,36 @@ const Header = () => {
         </div>
       </Link>
       <div className="flex items-center gap-8">
+        <Popover
+          width={600}
+          position="bottom-end"
+          shadow="md"
+          arrowPosition="center"
+          radius={"md"}
+          withArrow
+        >
+          <Popover.Target>
+            <Button variant="light" color="blue.6">
+              <FiBell size="1.5rem" />
+            </Button>
+          </Popover.Target>
+          <Popover.Dropdown>
+            {/* <div className="flex flex-col gap-2">
+              {NOTIFICATIONS.map((notification) => (
+                <div key={notification.title}>
+                  <Notification
+                    {...notification}
+                    isLast={
+                      NOTIFICATIONS.indexOf(notification) ===
+                      NOTIFICATIONS.length - 1
+                    }
+                  />
+                </div>
+              ))}
+            </div> */}
+          </Popover.Dropdown>
+        </Popover>
+
         <Select
           placeholder="English"
           data={["English", "Bahasa Malaysia", "Mandarin", "Tamil"]}

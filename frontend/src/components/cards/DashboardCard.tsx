@@ -17,7 +17,7 @@ const DashboardCard = ({
     <div className="bg-blue-white h-full w-full rounded-xl bg-white shadow-md outline outline-1 outline-gray-100">
       <div className="flex items-center p-8">
         <div className="grid w-full grid-cols-3 gap-1 ">
-          <div className=" col-span-1 flex items-center justify-center text-[#004be0]">
+          <div className=" col-span-1 flex items-center justify-center text-[#004be0e3]">
             {icon({ size: 80 })}
           </div>
           <div className="col-span-2 grow py-2">

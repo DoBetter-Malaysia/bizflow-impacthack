@@ -1,3 +1,4 @@
+import { AddIntegrationModalProps } from "@/components/modals/AddIntegrationModal";
 import { HelloWorldModalProps } from "@/components/modals/HelloWorldModal";
 import { ContextModalProps, modals } from "@mantine/modals";
 import { ReactElement } from "react";
@@ -16,7 +17,7 @@ export type ModalInnerProps = {
 } & {
   [key in typeof secondModal]: {};
 } & {
-  [key in typeof addIntegrationModal]: {};
+  [key in typeof addIntegrationModal]: AddIntegrationModalProps;
 };
 
 export type MantineModal<P extends Record<string, any> = {}> = ((

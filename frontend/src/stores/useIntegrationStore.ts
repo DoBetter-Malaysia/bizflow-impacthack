@@ -221,16 +221,16 @@ const useIntegrationStore = create<IntegrationState>((set, get) => ({
     const intgrtn = availableIntegrations.find((x) => x.id == integrationId);
     if (intgrtn == null) return;
     set({
-      integrations: [...this.integrations, intgrtn],
+      integrations: [...get().integrations, intgrtn],
     });
   },
   remove(integrationId) {
     set({
-      integrations: this.integrations.filter((x) => x.id != integrationId),
+      integrations: get().integrations.filter((x) => x.id != integrationId),
     });
   },
   set(setter) {
-    set((state) => ({ integrations: setter(state.integrations) }));
+    set({ integrations: setter(get().integrations) });
   },
 }));
 

@@ -1,19 +1,52 @@
 "use client";
 
-import Button from "@/components/buttons/Button";
-import useIntegrationStore, { Integration } from "@/stores/useIntegrationStore";
+import ShenYienButton from "@/components/buttons/Button";
+import useIntegrationStore, {
+  Integration,
+  availableIntegrations,
+} from "@/stores/useIntegrationStore";
 import openModal from "@/utils/modals/openModal";
 import {
   Accordion,
   ActionIcon,
+  Autocomplete,
   Avatar,
+  Badge,
+  Button,
   Container,
   Group,
+  SelectItemProps,
   Switch,
   Text,
 } from "@mantine/core";
-import { useState } from "react";
-import { FaCheck, FaPlus, FaSync } from "react-icons/fa";
+import { forwardRef } from "react";
+import { FaCheck, FaPlus, FaSync, FaTrash } from "react-icons/fa";
+
+type ItemProps = SelectItemProps & Integration;
+
+const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
+  ({ tags, img, description, name, id, ...others }: ItemProps, ref) => {
+    return (
+      <div ref={ref} {...others}>
+        <Group noWrap>
+          <Avatar src={img ?? ""} />
+
+          <div>
+            <Text>{name}</Text>
+            <Text size="xs" color="dimmed" lineClamp={2}>
+              {description}
+            </Text>
+            <div className="flex flex-wrap gap-4">
+              {tags.map((tag) => (
+                <Badge key={`${id}-${tag}`}>{tag}</Badge>
+              ))}
+            </div>
+          </div>
+        </Group>
+      </div>
+    );
+  }
+);
 
 const Integrations = () => {
   const { integrations, add, remove, set } = useIntegrationStore();
@@ -56,15 +89,39 @@ const Integrations = () => {
         </div>
       </Container>
       <Container className="mb-8 h-full w-full">
-        <div className="my-4 flex justify-end">
-          <Button
+        <div className="my-4 flex items-center gap-4">
+          <Autocomplete
+            className="w-full"
+            placeholder="Choose an app to integrate with."
+            itemComponent={AutoCompleteItem}
+            data={availableIntegrations
+              .filter((x) => !integrations.includes(x))
+              .slice(0, 5)
+              .map((item) => ({
+                ...item,
+                value: item.name,
+              }))}
+            filter={(value, item) =>
+              item.value.toLowerCase().includes(value.toLowerCase().trim()) ||
+              item.description
+                .toLowerCase()
+                .includes(value.toLowerCase().trim()) ||
+              item.tags.some((x: string) =>
+                x.trim().toLowerCase().includes(value.toLowerCase().trim())
+              )
+            }
+          />
+          <ShenYienButton
             onClick={() =>
-              openModal({ type: "Add Integration Modal", innerProps: {} })
+              openModal({
+                type: "Add Integration Modal",
+                innerProps: { integrationId: 2 },
+              })
             }
             leftIcon={<FaPlus />}
           >
             Add Integration
-          </Button>
+          </ShenYienButton>
         </div>
         {integrations.length == 0 ? (
           <Text color="dimmed" align="center" fz="lg">
@@ -113,6 +170,12 @@ const Integrations = () => {
                     {e.syncOptions.map((iopts) => (
                       <Switch label={iopts.name} />
                     ))}
+                    <Button
+                      className="bg-red-500 hover:bg-red-600 active:bg-red-700 w-min"
+                      leftIcon={<FaTrash />}
+                    >
+                      Disconnect
+                    </Button>
                   </div>
                 </Accordion.Panel>
               </Accordion.Item>

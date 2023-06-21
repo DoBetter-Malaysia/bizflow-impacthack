@@ -4,8 +4,10 @@ import {
   Card,
   Divider,
   Image,
+  List,
+  Select,
   Table,
-  Text
+  Text,
 } from "@mantine/core";
 import Link from "next/link";
 import React from "react";
@@ -21,7 +23,7 @@ const data = [
   { name: "15/06/2023", sales: 620.0 },
   { name: "16/06/2023", sales: 830.0 },
   { name: "17/06/2023", sales: 476.0 },
-  { name: "18/06/2023", sales: 380.0 }
+  { name: "18/06/2023", sales: 380.0 },
 ];
 
 const profile = {
@@ -32,41 +34,59 @@ const profile = {
   tags: ["Family-owned", "Micro", "Italian", "5-10 Employees"],
   contact_details: [
     { method: "Phone", value: "0395433834" },
-    { method: "Email", value: "hello@johnjohn.com" }
+    { method: "Email", value: "hello@johnjohn.com" },
   ],
   ratings: [
     {
       aspect: "Food Safety and Hygiene",
       rating: 5,
       comments:
-        "Adheres to strict food safety and hygiene standards, including proper food handling, storage, and preparation procedures, as mandated by local health authorities."
+        "Adheres to strict food safety and hygiene standards, including proper food handling, storage, and preparation procedures, as mandated by local health authorities.",
     },
     {
       aspect: "Financial Recordkeeping",
       rating: 4,
       comments:
-        "Maintains accurate financial records and documentation, including invoices, receipts, and financial statements, to ensure compliance with accounting and auditing standards."
+        "Maintains accurate financial records and documentation, including invoices, receipts, and financial statements, to ensure compliance with accounting and auditing standards.",
     },
     {
       aspect: "Labor Laws",
       rating: 4,
       comments:
-        "Complies with labor laws and regulations regarding employee rights, minimum wage requirements, working hours, employee benefits, and proper employment contracts."
+        "Complies with labor laws and regulations regarding employee rights, minimum wage requirements, working hours, employee benefits, and proper employment contracts.",
     },
     {
       aspect: "Tax Compliance",
       rating: 5,
       comments:
-        "Fulfills tax obligations by accurately reporting and paying all required taxes, including income tax, sales tax, and payroll taxes, in accordance with local tax laws."
+        "Fulfills tax obligations by accurately reporting and paying all required taxes, including income tax, sales tax, and payroll taxes, in accordance with local tax laws.",
     },
     {
       aspect: "Licensing and Permits",
       rating: 5,
       comments:
-        "Maintains all the required licenses and permits to operate a food establishment, including food service permits, health permits, and alcohol licenses."
-    }
-  ]
+        "Maintains all the required licenses and permits to operate a food establishment, including food service permits, health permits, and alcohol licenses.",
+    },
+  ],
 };
+
+const competitors = [
+  "Domino's Pizza",
+  "Pizza Hut",
+  "Papa John's",
+  "Little Caesars",
+  "California Pizza Kitchen",
+  "Papa Murphy's",
+  "Sbarro",
+  "Marco's Pizza",
+  "Round Table Pizza",
+  "Blaze Pizza",
+  "Mellow Mushroom",
+  "Cici's Pizza",
+  "Jets Pizza",
+  "Godfather's Pizza",
+  "Uno Pizzeria & Grill",
+];
 
 const Profile = () => {
   return (
@@ -200,6 +220,75 @@ const Profile = () => {
                     ))}
                   </tbody>
                 </Table>
+              </div>
+            </Card>
+
+            <Card withBorder shadow="sm" radius="lg">
+              <Card.Section inheritPadding withBorder py="md">
+                <Text fz="md" weight="bold">
+                  Smart Profile Comparison
+                </Text>
+              </Card.Section>
+              <div className="flex flex-col gap-4 pt-4">
+                <Card.Section
+                  inheritPadding
+                  className="grid grid-cols-12 max-w-[75%] m-auto gap-2"
+                >
+                  <div className="col-span-5 flex justify-center">
+                    <Text fz="lg">John's Pizza</Text>
+                  </div>
+                  <div className="col-span-2 flex justify-center">vs</div>
+                  <div className="col-span-5 flex justify-center">
+                    <Select
+                      data={competitors.map((c) => ({ value: c, label: c }))}
+                      placeholder="Select competitor"
+                    />
+                  </div>
+                  <div className="col-span-5 flex justify-center">
+                    <Image
+                      maw={240}
+                      radius="md"
+                      src="./user.png"
+                      alt="John's Pizza Logo"
+                    />
+                  </div>
+                  <div className="col-span-2 flex justify-center"></div>
+                  <div className="col-span-5 flex justify-center">
+                    <Image
+                      maw={240}
+                      radius="md"
+                      src="./bot.png"
+                      alt="Competitor Logo"
+                    />
+                  </div>
+                </Card.Section>
+
+                <div>
+                  <Text fz="lg" pb="sm">
+                    Our Smart Analysis
+                  </Text>
+                  <Divider />
+                </div>
+                <Card.Section inheritPadding>
+                  <ul className="list-decimal mx-6">
+                    <li>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Vel earum temporibus, deserunt rem nobis ullam!
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Vel earum temporibus, deserunt rem nobis ullam!
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Vel earum temporibus, deserunt rem nobis ullam!
+                    </li>
+                    <li>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Vel earum temporibus, deserunt rem nobis ullam!
+                    </li>
+                  </ul>
+                </Card.Section>
               </div>
             </Card>
           </div>

@@ -3,7 +3,7 @@
 import {
   Button as MantineButton,
   clsx,
-  ButtonProps as MantineButtonProps
+  ButtonProps as MantineButtonProps,
 } from "@mantine/core";
 
 import { PolymorphicComponentProps } from "@mantine/utils";
@@ -14,6 +14,7 @@ const Button = ({
   children,
   variant = "filled",
   color = "blue",
+  classNames,
   ...props
 }: ButtonProps) => {
   return (
@@ -27,12 +28,12 @@ const Button = ({
           " text-blue-500 hover:text-blue-600 active:text-blue-700":
             variant == "subtle",
           "border-blue-600 bg-transparent text-blue-500 hover:border-blue-600 hover:bg-blue-500/20 active:bg-blue-600/20":
-            variant == "outline"
+            variant == "outline",
         },
         props.className
       )}
       variant={variant}
-      classNames={{ root: "!h-[unset] py-1" }}
+      classNames={{ ...classNames, root: "!h-[unset] py-1" }}
     >
       {children}
     </MantineButton>

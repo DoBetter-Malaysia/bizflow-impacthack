@@ -1,4 +1,6 @@
 "use client";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { Metadata } from "next";
 import { Tabs } from "@mantine/core";
 import { AiOutlineDashboard, AiOutlineUser } from "react-icons/ai";
@@ -6,12 +8,28 @@ import Overview from "./Overview";
 import Profile from "./Profile";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const tab = searchParams.get("tab");
+  const [activeTab, setActiveTab] = useState<string | null>("overview");
+
+  useEffect(() => {
+    if (tab) {
+      setActiveTab(tab as string);
+    }
+  }, [tab]);
+
   return (
     <main className="relative flex flex-col px-40 py-8">
       <h3 className="mb-2 text-3xl font-semibold">
         Welcome Back <span className="text-[#004be0]"> Johns Pizza</span>
       </h3>
-      <Tabs defaultValue="overview" color="dark" keepMounted={false}>
+      <Tabs
+        defaultValue="overview"
+        color="dark"
+        keepMounted={false}
+        value={activeTab}
+        onTabChange={setActiveTab}
+      >
         <Tabs.List>
           <Tabs.Tab
             value={"overview"}

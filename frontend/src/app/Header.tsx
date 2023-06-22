@@ -30,7 +30,7 @@ import { FiBell, FiGlobe, FiUploadCloud } from "react-icons/fi";
 const Header = () => {
   return (
     <div className=" sticky top-0 z-[1000] flex h-20 items-center justify-between border-b-[1px] border-solid border-gray-400 bg-white px-4 shadow-sm">
-      <Link href="./">
+      <Link href="/?tab=overview">
         <div className="flex items-center">
           <Image
             src="/logo_plain.png"
@@ -96,6 +96,9 @@ const Header = () => {
             />
             <p>FlowAI</p>
           </div>
+        </Link>
+        <Link href={"/?tab=profile"}>
+          <Image src={"/user.png"} alt="user" width={40} height={40} />
         </Link>
       </div>
     </div>

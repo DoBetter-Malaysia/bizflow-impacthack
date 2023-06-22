@@ -7,7 +7,8 @@ import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton, Text } from "@mantine/core";
 import axios from "axios";
-import { MdChat } from "react-icons/md";
+import { MdChat, MdInventory2 } from "react-icons/md";
+import { BsPeopleFill } from "react-icons/bs";
 
 interface ChatSectionProps {
   loading: boolean;
@@ -34,48 +35,114 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
 
     return (
       <div className="relative h-full pr-[20%]">
-        <div className="absolute right-0 top-0 w-[20%] border-l-2 bg-slate-100">
-          <div className="flex flex-col p-2 gap-6">
-            {messages.length === 0 &&
-              (questions.isSuccess
-                ? questions.data.map(
-                    (
-                      ques: { category: string; questions: string[] },
-                      ind: any
-                    ) => (
-                      <div>
-                        <Text fw="bold" fz="sm" color="dimmed">
-                          {ques.category}
-                        </Text>
-                        <div className="pl-2">
-                          {ques.questions.map((que) => (
-                            <Button
-                              leftIcon={<MdChat size="1.5rem" />}
-                              classNames={{ label: "whitespace-normal" }}
-                              variant="subtle"
-                              key={ind}
-                              onClick={() => {
-                                addMessage?.({
-                                  origin: "user",
-                                  text: que,
-                                });
-                                onChange(que);
-                              }}
+        <div className="absolute right-0 top-0 max-h-full w-[20%] overflow-auto border-l-2 bg-slate-100">
+          <div className="flex flex-col space-y-6 p-2">
+            <div className="-mb-4 mt-2 text-xl font-semibold">
+              Your Top Questions
+            </div>
+            {questions.isSuccess
+              ? questions.data.map(
+                  (
+                    ques: { category: string; questions: string[] },
+                    ind: any
+                  ) => (
+                    <div key={ind}>
+                      <Text fw="bold" color="dimmed">
+                        {ques.category}
+                      </Text>
+                      <div className="pl-2">
+                        {ques.questions.map((que) => (
+                          <Button
+                            leftIcon={<MdChat size="1.5rem" />}
+                            classNames={{ label: "whitespace-normal" }}
+                            className="!py-1"
+                            variant="subtle"
+                            key={ind}
+                            onClick={() => {
+                              addMessage?.({
+                                origin: "user",
+                                text: que,
+                              });
+                              onChange(que);
+                            }}
+                          >
+                            <div
+                              className="text-base"
+                              style={{ lineHeight: "1.2rem" }}
                             >
                               {que}
-                            </Button>
-                          ))}
-                        </div>
+                            </div>
+                          </Button>
+                        ))}
                       </div>
-                    )
+                    </div>
                   )
-                : new Array(5)
-                    .fill(0)
-                    .map((_, index) => (
-                      <Skeleton key={index} w="100%" height="70px" />
-                    )))}
+                )
+              : new Array(5)
+                  .fill(0)
+                  .map((_, index) => (
+                    <Skeleton key={index} w="100%" height="70px" />
+                  ))}
           </div>
         </div>
+        {messages.length === 0 && (
+          <div className="absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] pr-[20%]">
+            <div className="mb-1 text-center text-3xl">
+              Not sure what to ask?
+            </div>
+            <div className="mb-8 text-center text-xl text-gray-600">
+              Here are some examples that you can refer to
+            </div>
+            <div className="flex space-x-20">
+              {[
+                {
+                  category: "Customer",
+                  questions: [
+                    "What is the total revenue generated from each pizza item sold this week?",
+                    "What is the customer demographic of pizza buyers this week?",
+                  ],
+                  Icon: BsPeopleFill,
+                },
+                {
+                  category: "Materials",
+                  questions: [
+                    "What is the total cost of materials purchased from vendors this week?",
+                    "What is the total quantity of materials purchased from vendors this week?",
+                  ],
+                  Icon: MdInventory2,
+                },
+              ].map((cat, index) => (
+                <div key={index}>
+                  <div className="flex flex-col items-center justify-center">
+                    <cat.Icon size="60" className="text-blue-600" />
+
+                    <div className="text-2xl font-medium text-blue-600">
+                      {cat.category}
+                    </div>
+                  </div>
+                  <div className="mt-2 space-y-4">
+                    {cat.questions.map((q, idx) => (
+                      <div
+                        key={idx}
+                        className="w-80 cursor-pointer rounded-md bg-blue-100 px-2 py-1 text-center text-lg transition-all hover:bg-blue-200"
+                        onClick={() => {
+                          addMessage?.({
+                            origin: "user",
+                            text: q,
+                          });
+                          onChange(q);
+                        }}
+                      >
+                        {q}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <div className="max-h-full overflow-auto">
           {messages.map((message) => {
             return (

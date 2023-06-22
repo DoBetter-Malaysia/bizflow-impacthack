@@ -127,20 +127,6 @@ def goodQuestions():
                         "What is the total quantity of each pizza item sold this week?",
                     ],
                 },
-                {
-                    "category": "Customer",
-                    "questions": [
-                        "What is the total revenue generated from each pizza item sold this week?",
-                        "What is the customer demographic of pizza buyers this week?",
-                    ],
-                },
-                {
-                    "category": "Materials",
-                    "questions": [
-                        "What is the total cost of materials purchased from vendors this week?",
-                        "What is the total quantity of materials purchased from vendors this week?",
-                    ],
-                },
             ]
         ),
         200,

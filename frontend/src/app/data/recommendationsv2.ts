@@ -4,7 +4,7 @@ import { FaBoxes, FaChartPie, FaPeopleArrows, FaWallet } from "react-icons/fa";
 export const RECOMMENDATIONSV2: RecommendationCardv2[] = [
   {
     icon: FaWallet,
-    link: "/deals",
+    link: "/consult",
     title: "Good Projected Revenue",
     problem:
       "Your revenue has been growing steadily for the past 3 quarters. It shows solid performance of your business.",
@@ -15,7 +15,7 @@ export const RECOMMENDATIONSV2: RecommendationCardv2[] = [
   },
   // {
   //   icon: FaPeopleArrows,
-  //   link: "/deals",
+  //   link: "/consult",
   //   title: "Focused Customer Segments",
   //   problem:
   //     "Your frequent visiting customers that generate the most sales are mainly from the Cheras and Ampang area.",
@@ -26,7 +26,7 @@ export const RECOMMENDATIONSV2: RecommendationCardv2[] = [
   // },
   {
     icon: FaBoxes,
-    link: "/deals",
+    link: "/consult",
     title: "Overstocked Inventory",
     problem:
       "Cheddar, Mozeralla, and Parmesan cheese has been identified as an overstocked product category.",
@@ -37,7 +37,7 @@ export const RECOMMENDATIONSV2: RecommendationCardv2[] = [
   },
   {
     icon: FaChartPie,
-    link: "/deals",
+    link: "/consult",
     title: "Low Profit Margin For Desserts",
     problem:
       "Banana Split, Chocolate Lava Cake, and Tiramisu have been identified as low profit margin products that just about breaks even with cost.",

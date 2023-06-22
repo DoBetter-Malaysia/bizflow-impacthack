@@ -151,6 +151,7 @@ def goodQuestions():
 @app.route("/prompt")
 def prompt():
     prompt = request.args.get("info")
+    return jsonify("The top pizza sold this week is Pepperoni Cheese Pizza."), 200
 
     res = chatbot(
         f"{prompt}. Explain in a concise manner with some possible explanation to it."
@@ -210,23 +211,23 @@ def recommendations():
 @app.route("/steps")
 def recommendation_steps():
     recommendation = request.args.get("info")
-    res = chatbot(
-        f"""From the recommendation, "{recommendation}",
+#     res = chatbot(
+#         f"""From the recommendation, "{recommendation}",
 
-What are some questions or requirements as a business owner? 
+# What are some questions or requirements as a business owner? 
 
-Make sure the list is separated by | without numbering and newline.
+# Make sure the list is separated by | without numbering and newline.
 
-For example, "Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"
+# For example, "Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"
 
-Make them short and concise.
-"""
-    )
+# Make them short and concise.
+# """
+#     )
     return (
         jsonify(
             (
-                res
-                + """|Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"""
+                # res +
+                """|Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"""
             )
             .strip()
             .split("|")
@@ -241,10 +242,13 @@ def solve():
     problem = request.args.get("info")
     if "poster" in problem:
         problem = "Write me a short social media caption for John Pizza to promote his new Pepperoni Cheese Pizza?"
+        # TODO: remove this mock
+        return jsonify("Indulge in pizza perfection with our NEW Pepperoni Cheese Pizza! 🍕✨ Savor the irresistible combination of zesty pepperoni and gooey melted cheese that will leave your taste buds craving for more. Order now and experience pizza bliss like never before! 😋🔥 #JohnPizza #NewPepperoniCheesePizza #PizzaPerfection"), 200
         return jsonify(chatbot(f"""{problem}""")), 200
     if "a message" in problem:
         send_message()
         return jsonify("A WhatsApp message has been sent to the supplier.")
+    return jsonify("Sounds good")
     res = chatbot(f"""{problem}""")
     return jsonify(res.strip()), 200
 

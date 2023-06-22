@@ -16,9 +16,9 @@ data = {
     "type": "text",
     "text": {"body": """Hi FreshMart, I would like to place an order for the ingredients below: 
 
-1. Dough
-2. Cheese
-3. Pepperoni
+1. Dough - 20kg
+2. Cheese - 5kg
+3. Pepperoni - 5kg
 
 Let me know the total amount with an attached invoice 🙂
     """},

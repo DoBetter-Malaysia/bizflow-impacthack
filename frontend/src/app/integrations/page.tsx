@@ -47,6 +47,7 @@ const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
     );
   }
 );
+AutoCompleteItem.displayName = "AutoCompleteItem";
 
 const Integrations = () => {
   const { integrations, add, remove, set } = useIntegrationStore();
@@ -167,11 +168,11 @@ const Integrations = () => {
                 </div>
                 <Accordion.Panel>
                   <div className="flex flex-col gap-4">
-                    {e.syncOptions.map((iopts) => (
-                      <Switch label={iopts.name} />
+                    {e.syncOptions.map((iopts, index) => (
+                      <Switch label={iopts.name} key={index} />
                     ))}
                     <Button
-                      className="bg-red-500 hover:bg-red-600 active:bg-red-700 w-min"
+                      className="w-min bg-red-500 hover:bg-red-600 active:bg-red-700"
                       leftIcon={<FaTrash />}
                     >
                       Disconnect

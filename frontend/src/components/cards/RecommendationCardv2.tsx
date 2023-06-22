@@ -1,6 +1,7 @@
 import { RecommendationCardv2, Sentiment } from "@/models/recommendationCardv2";
 import { IconType } from "react-icons/lib";
 import { clsx, Divider } from "@mantine/core";
+import Link from "next/link";
 
 const RecommendationCardv2 = ({
   icon,
@@ -41,9 +42,11 @@ const RecommendationCardv2 = ({
           <Divider />
         </div>
         <div className="flex justify-center">
-          <span className="font-normal text-[#004be0]">
-            VIEW {numberOfRecommendations} RECOMMENDATIONS
-          </span>
+          <Link href={link}>
+            <span className="font-normal text-[#004be0]">
+              VIEW {numberOfRecommendations} RECOMMENDATIONS
+            </span>
+          </Link>
         </div>
       </div>
     </div>

@@ -6,20 +6,26 @@ const list = [
     name: "Restock for Weekend bonanza",
     checked: false,
     description:
-      "The upcoming weekend will expect a raise of customer due to long weekend"
+      "The upcoming weekend will expect a raise of customer due to long weekend",
   },
   {
     name: "Contact Supplier for the increased price",
     checked: true,
     description:
-      "There has been an increment of 5% in your inventory price, you may want to contact Fresh Mart about it"
+      "There has been an increment of 5% in your inventory price, you may want to contact Fresh Mart about it",
   },
   {
     name: "Look for more workers due to lack of manpower",
     checked: false,
     description:
-      "The number of customers have been raising for the past month, you may need more workers to compensate for it."
-  }
+      "The number of customers have been raising for the past month, you may need more workers to compensate for it.",
+  },
+  {
+    name: "Employee training for new joiner",
+    checked: false,
+    description:
+      "Train David on preparing pizza toppings before moving on to handling the oven.",
+  },
 ];
 
 const Checklist = () => {
@@ -35,8 +41,8 @@ const Checklist = () => {
     );
   };
   return (
-    <div>
-      <div className="mb-5">
+    <div className="h-max ">
+      <div className="mb-3">
         <p className="text-xl font-semibold">Checklist</p>
         <p className="font-light text-slate-500">
           Here are your TODOs for the day
@@ -52,7 +58,7 @@ const Checklist = () => {
               <div className="">
                 <div
                   className={clsx("mb-2 text-lg font-semibold", {
-                    "line-through": item.checked
+                    "line-through": item.checked,
                   })}
                   style={{ lineHeight: "1.1rem" }}
                 >
@@ -60,7 +66,7 @@ const Checklist = () => {
                 </div>
                 <div
                   className={clsx({
-                    "line-through": item.checked
+                    "line-through": item.checked,
                   })}
                 >
                   {item.description}

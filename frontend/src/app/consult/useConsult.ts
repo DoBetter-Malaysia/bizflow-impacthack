@@ -55,7 +55,7 @@ const useConsult = ({ type }: UseConsultParams) => {
           "What social media platforms should I target",
           "What special offers should be included",
           "How can I track the success of my advertising efforts",
-          "Who is the best supplier I can get the materials from?"
+          "Who is the best supplier I can get the materials from?",
         ];
       }
       return "Highlight Pepperoni Pizza in advertisements and social media campaigns to create awareness and generate more interest among customers.";

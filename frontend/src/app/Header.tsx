@@ -77,7 +77,7 @@ const Header = () => {
           placeholder="English"
           data={["English", "Bahasa Malaysia", "Mandarin", "Tamil"]}
           icon={<FiGlobe size="1rem" />}
-          classNames={{ input: "!h-[unset] py-2" }}
+          classNames={{ input: "!h-[unset] py-[10px] text-lg" }}
         />
         <Link href={"/integrations"}>
           <div className="flex items-center justify-center gap-0 rounded-md bg-[#004be0] px-4 py-[14px] align-middle text-white">
@@ -98,7 +98,7 @@ const Header = () => {
           </div>
         </Link>
         <Link href={"/?tab=profile"}>
-          <Image src={"/user.png"} alt="user" width={40} height={40} />
+          <Image src={"/user.png"} alt="user" width={60} height={60} />
         </Link>
       </div>
     </div>

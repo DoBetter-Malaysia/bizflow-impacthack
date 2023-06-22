@@ -5,7 +5,8 @@ import { Metadata } from "next";
 import { Tabs } from "@mantine/core";
 import { AiOutlineDashboard, AiOutlineUser } from "react-icons/ai";
 import Overview from "./Overview";
-import Profile from "./Profile";
+import dynamic from "next/dynamic";
+const Profile = dynamic(() => import("./Profile"), { ssr: false });
 
 export default function Home() {
   const searchParams = useSearchParams();

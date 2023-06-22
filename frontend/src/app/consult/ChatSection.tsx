@@ -72,10 +72,6 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                             variant="subtle"
                             key={ind}
                             onClick={() => {
-                              addMessage?.({
-                                origin: "user",
-                                text: que,
-                              });
                               onChange(que);
                             }}
                           >
@@ -213,16 +209,16 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
               <Image
                 src="/logo_plain.png"
                 alt="logo"
-                className="mr-4 animate-[spin_2s_infinite_linear]"
+                className="ml-4 mr-6 animate-[spin_2s_infinite_linear]"
                 width={32}
                 height={32}
               />
-              <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-4">
+              <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-4 text-lg">
                 Loading...
               </div>
             </div>
           )}
-          <div ref={ref}></div>
+          <div ref={ref} className="mt-4"></div>
           <div className="flex-start ml-24 flex flex-col items-start space-y-2">
             {options.map((opt, index) => (
               <ArrowLink

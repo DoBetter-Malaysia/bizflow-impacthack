@@ -138,7 +138,7 @@ def goodQuestions():
 @app.route("/prompt")
 def prompt():
     prompt = request.args.get("info")
-    return jsonify("The top pizza sold this week is Pepperoni Cheese Pizza."), 200
+    return jsonify("The top pizza sold this week is Pepperoni Pizza."), 200
 
     res = chatbot(
         f"{prompt}. Explain in a concise manner with some possible explanation to it."

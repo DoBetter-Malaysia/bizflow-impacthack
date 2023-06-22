@@ -5,10 +5,18 @@ import Image from "next/image";
 import Button from "@/components/buttons/Button";
 import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton, Text } from "@mantine/core";
+import { Skeleton, Text, clsx } from "@mantine/core";
 import axios from "axios";
-import { MdChat, MdInventory2 } from "react-icons/md";
-import { BsPeopleFill } from "react-icons/bs";
+import { MdChat, MdInventory2, MdOutlineInventory2 } from "react-icons/md";
+import {
+  BsArrowRightShort,
+  BsChatLeft,
+  BsFillCartFill,
+  BsPeopleFill,
+  BsCart,
+  BsPeople,
+  BsInboxes,
+} from "react-icons/bs";
 
 interface ChatSectionProps {
   loading: boolean;
@@ -35,7 +43,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
 
     return (
       <div className="relative h-full pr-[20%]">
-        <div className="absolute right-0 top-0 max-h-full w-[20%] overflow-auto border-l-2 bg-slate-100">
+        <div className="absolute bottom-0 right-0 top-0 z-20 max-h-full w-[20%] overflow-auto border-l-[1px] bg-slate-100">
           <div className="flex flex-col space-y-6 p-2">
             <div className="-mb-4 mt-2 text-xl font-semibold">
               Your Top Questions
@@ -50,11 +58,16 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                       <Text fw="bold" color="dimmed">
                         {ques.category}
                       </Text>
-                      <div className="pl-2">
+                      <div className="space-y-1 pl-2">
                         {ques.questions.map((que) => (
                           <Button
-                            leftIcon={<MdChat size="1.5rem" />}
-                            classNames={{ label: "whitespace-normal" }}
+                            leftIcon={
+                              <BsChatLeft size="1.5rem" className="mt-2" />
+                            }
+                            classNames={{
+                              label: "whitespace-normal",
+                              inner: "!items-start",
+                            }}
                             className="!py-1"
                             variant="subtle"
                             key={ind}
@@ -86,22 +99,30 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
           </div>
         </div>
         {messages.length === 0 && (
-          <div className="absolute left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] pr-[20%]">
+          <div className="absolute left-[50%] top-[50%] z-10 -translate-x-[50%] -translate-y-[50%] pr-[20%]">
             <div className="mb-1 text-center text-3xl">
               Not sure what to ask?
             </div>
             <div className="mb-8 text-center text-xl text-gray-600">
               Here are some examples that you can refer to
             </div>
-            <div className="flex space-x-20">
+            <div className="flex space-x-12">
               {[
+                {
+                  category: "Product",
+                  questions: [
+                    "What is the most popular pizza item sold this week?",
+                    "What is the average quantity of pizzas sold per day this week?",
+                  ],
+                  Icon: BsCart,
+                },
                 {
                   category: "Customer",
                   questions: [
                     "What is the total revenue generated from each pizza item sold this week?",
                     "What is the customer demographic of pizza buyers this week?",
                   ],
-                  Icon: BsPeopleFill,
+                  Icon: BsPeople,
                 },
                 {
                   category: "Materials",
@@ -109,22 +130,27 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                     "What is the total cost of materials purchased from vendors this week?",
                     "What is the total quantity of materials purchased from vendors this week?",
                   ],
-                  Icon: MdInventory2,
+                  Icon: BsInboxes,
                 },
               ].map((cat, index) => (
                 <div key={index}>
                   <div className="flex flex-col items-center justify-center">
-                    <cat.Icon size="60" className="text-blue-600" />
+                    <cat.Icon
+                      size="60"
+                      className={clsx("text-blue-600", {
+                        "translate-y-1 scale-[1.15]": index === 1,
+                      })}
+                    />
 
                     <div className="text-2xl font-medium text-blue-600">
                       {cat.category}
                     </div>
                   </div>
-                  <div className="mt-2 space-y-4">
+                  <div className="mt-4 space-y-4">
                     {cat.questions.map((q, idx) => (
                       <div
                         key={idx}
-                        className="w-80 cursor-pointer rounded-md bg-blue-100 px-2 py-1 text-center text-lg transition-all hover:bg-blue-200"
+                        className="h-[96px] w-80 cursor-pointer rounded-md bg-blue-100 px-2 py-1 text-center text-lg transition-all hover:bg-blue-200"
                         onClick={() => {
                           addMessage?.({
                             origin: "user",
@@ -133,7 +159,8 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                           onChange(q);
                         }}
                       >
-                        {q}
+                        {q}{" "}
+                        <BsArrowRightShort className="ml-2 inline" size="32" />
                       </div>
                     ))}
                   </div>

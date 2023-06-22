@@ -98,6 +98,7 @@ const Integrations = () => {
         <div className="my-4 flex items-center gap-4">
           <Autocomplete
             className="w-full"
+            classNames={{ input: "!h-[unset] py-2" }}
             placeholder="Choose an app to integrate with."
             itemComponent={AutoCompleteItem}
             data={availableIntegrations

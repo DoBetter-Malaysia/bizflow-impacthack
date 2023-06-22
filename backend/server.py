@@ -107,17 +107,18 @@ def goodQuestions():
         jsonify(
             [
                 {
+                    "category": "Context",
+                    "questions": [
+                        "What is the recipe for the Pepperoni Cheese Pizza?",
+                        "Show me a poster of the Pepperoni Cheese Pizza for promotion?",
+                        "Which supplier is best for me as a business owner to get the material from?",
+                    ]
+                },
+                {
                     "category": "Sales",
                     "questions": [
                         "What is the total quantity of pizzas sold this week?",
                         "What is the total revenue generated from pizza sales this week?",
-                    ],
-                },
-                {
-                    "category": "Product",
-                    "questions": [
-                        "What is the most popular pizza item sold this week?",
-                        "What is the average quantity of pizzas sold per day this week?",
                     ],
                 },
                 {

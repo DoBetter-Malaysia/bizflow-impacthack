@@ -42,7 +42,7 @@ const Header = () => {
           <h1 className="text-3xl font-bold">BizFlow</h1>
         </div>
       </Link>
-      <div className="flex items-center gap-8">
+      <div className="flex items-center space-x-4">
         <Popover
           width={600}
           position="bottom-end"
@@ -77,6 +77,7 @@ const Header = () => {
           placeholder="English"
           data={["English", "Bahasa Malaysia", "Mandarin", "Tamil"]}
           icon={<FiGlobe size="1rem" />}
+          classNames={{ input: "!h-[unset] py-2" }}
         />
         <Link href={"/integrations"}>
           <div className="flex items-center justify-center gap-0 rounded-md bg-[#004be0] px-4 py-[14px] align-middle text-white">

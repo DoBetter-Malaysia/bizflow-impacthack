@@ -3,6 +3,7 @@
 import RankingCard from '@/components/cards/RankingCard';
 import { Badge, Card, Divider, Image, Select, Table, Text, clsx } from '@mantine/core';
 import { LatLngTuple, icon } from 'leaflet';
+import { useState } from 'react';
 import { FaStar } from 'react-icons/fa';
 import { MapContainer, Marker, TileLayer, Tooltip } from 'react-leaflet';
 
@@ -101,24 +102,6 @@ const profile = {
   ],
 };
 
-const competitors = [
-  "Domino's Pizza",
-  'Pizza Hut',
-  "Papa John's",
-  'Little Caesars',
-  'California Pizza Kitchen',
-  "Papa Murphy's",
-  'Sbarro',
-  "Marco's Pizza",
-  'Round Table Pizza',
-  'Blaze Pizza',
-  'Mellow Mushroom',
-  "Cici's Pizza",
-  'Jets Pizza',
-  "Godfather's Pizza",
-  'Uno Pizzeria & Grill',
-];
-
 const comparisons = [
   {
     left: 'Provides free delivery within a 5-mile radius, ensuring convenience for customers who prefer to have their pizza delivered to their doorstep.',
@@ -158,6 +141,8 @@ const comparisons = [
 ];
 
 const Profile = () => {
+  const [selectedCompetitor, setSelectedCompetitor] = useState(pizzaCompanies[0]);
+
   return (
     <>
       <main className="relative w-full">
@@ -232,6 +217,7 @@ const Profile = () => {
                     />
                     {pizzaCompanies.map((p) => (
                       <Marker
+                        eventHandlers={{ click: p.isYourCompany ? () => {} : (_) => setSelectedCompetitor(p) }}
                         position={p.latLng as LatLngTuple}
                         icon={icon({
                           iconUrl: p.img,
@@ -349,14 +335,25 @@ const Profile = () => {
                   </div>
                   <div className="col-span-2 flex justify-center">vs</div>
                   <div className="col-span-5 flex justify-center">
-                    <Select data={competitors.map((c) => ({ value: c, label: c }))} placeholder="Select competitor" />
+                    <Select
+                      className="w-full"
+                      classNames={{ wrapper: 'max-w-full w-full' }}
+                      value={selectedCompetitor.name}
+                      data={pizzaCompanies
+                        .filter((x) => !x.isYourCompany)
+                        .map((c) => ({ value: c.name, label: c.name }))}
+                      onChange={(v) => {
+                        setSelectedCompetitor(pizzaCompanies.find((x) => x.name == v)!);
+                      }}
+                      placeholder="Select competitor"
+                    />
                   </div>
                   <div className="col-span-5 flex justify-center">
                     <Image maw={240} radius="md" src="./user.png" alt="John's Pizza Logo" />
                   </div>
                   <div className="col-span-2 flex justify-center"></div>
                   <div className="col-span-5 flex justify-center">
-                    <Image maw={240} radius="md" src="./bot.png" alt="Competitor Logo" />
+                    <Image maw={240} radius="md" src={selectedCompetitor.img} alt="Competitor Logo" />
                   </div>
                   {comparisons.map((comp, index) => (
                     <div className="col-span-12 mb-2 grid grid-cols-12 gap-2" key={index}>

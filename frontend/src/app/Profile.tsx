@@ -104,39 +104,35 @@ const profile = {
 
 const comparisons = [
   {
-    left: 'Provides free delivery within a 5-mile radius, ensuring convenience for customers who prefer to have their pizza delivered to their doorstep.',
-    attribute: 'Delivery Service',
-    right:
-      'Offers both in-house delivery and third-party delivery services to cater to customers who prefer the convenience of home delivery.',
-    direction: 'left',
+    left: "Delivery within 15km radius in Kuala Lumpur",
+    attribute: "Delivery Service",
+    right: "Delivery across Klang Valley",
+    direction: "left",
   },
   {
-    left: 'Implements a loyalty program where customers earn points for every purchase, which can be redeemed for discounts or free items in the future.',
-    attribute: 'Customer Loyalty Programs',
+    left: "John's Pizza Membership & GrabFood Collaboration",
+    attribute: "Customer Loyalty Programs",
     right:
-      'Offers a loyalty program that provides exclusive discounts, special promotions, and birthday rewards to its members.',
-    direction: 'equal',
+      "Free Birthday Pizza & Midnight Discount",
+    direction: "equal",
   },
   {
-    left: 'Maintains an interactive website with an online ordering system, allowing customers to easily place their orders and track delivery status.',
-    attribute: 'Online Presence',
-    right:
-      'Has a user-friendly website with online ordering capabilities, and actively engages with customers through social media platforms, sharing updates, promotions, and customer reviews.',
-    direction: 'right',
+    left: "Active on social media with 10,000 followers and high engagement rates.",
+    attribute: "Online Presence",
+    right: "Well-established website with online ordering and 30,000 monthly website visitors.",
+    direction: "right",
   },
   {
-    left: 'Receives positive customer reviews praising the quality of their pizzas, prompt delivery, and friendly customer service.',
-    attribute: 'Customer Reviews and Ratings',
-    right:
-      'Receives mixed customer reviews, with some praising their extensive menu options and others mentioning inconsistencies in food quality and service.',
-    direction: 'left',
+    left: "95% positive customer reviews mentioning quality ingredients and friendly service.",
+    attribute: "Customer Reviews and Ratings",
+    right: "Mixed reviews, with 60% positive and 40% negative feedback.",
+    direction: "left",
   },
   {
-    left: 'Emphasizes using locally sourced and fresh ingredients to create delicious and authentic pizzas with a focus on customer satisfaction.',
-    attribute: 'Unique Selling Points',
-    right:
-      'Highlights its family-friendly atmosphere, spacious dining areas, and the availability of a salad bar, catering to customers looking for a casual dining experience.',
-    direction: 'left',
+    left: "Locally sourced ingredients, customizable toppings, and a gluten-free crust option.",
+    attribute: "Unique Selling Points",
+    right: "Authentic wood-fired pizzas with imported ingredients.",
+    direction: "left",
   },
 ];
 
@@ -359,17 +355,17 @@ const Profile = () => {
                     <div className="col-span-12 mb-2 grid grid-cols-12 gap-2" key={index}>
                       <div
                         className={clsx(
-                          'col-span-5 line-clamp-2 flex justify-center rounded-md px-2 py-2 text-slate-800'
+                          'col-span-5 line-clamp-2 flex rounded-md px-2 py-2 text-slate-800'
                         )}
                       >
                         {comp.left}
                       </div>
-                      <div className="col-span-2 flex items-center justify-center text-center font-semibold">
+                      <div className="col-span-2 flex items-center text-center font-semibold">
                         {comp.attribute}
                       </div>
                       <div
                         className={clsx(
-                          'col-span-5 line-clamp-2 flex justify-center rounded-md px-2 py-2 text-slate-800'
+                          'col-span-5 line-clamp-2 flex rounded-md px-2 py-2 text-slate-800'
                         )}
                       >
                         {comp.right}

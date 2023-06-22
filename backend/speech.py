@@ -9,7 +9,7 @@ def recognize_speech(file):
 
   # recognize speech using whisper
   try:
-      return r.recognize_whisper(audio, language="english")
+      return r.recognize_whisper(audio)
   except sr.UnknownValueError:
       return "Could not understand what you said."
   except sr.RequestError as e:

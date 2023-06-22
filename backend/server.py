@@ -103,7 +103,48 @@ def goodQuestions():
     #     ),
     #     200,
     # )
-    return jsonify({"questions": [ "What is the total quantity of pizzas sold this week?", "What is the total revenue generated from pizza sales this week?", "What is the most popular pizza item sold this week?", "What is the average quantity of pizzas sold per day this week?", "What is the average revenue generated from pizza sales per day this week?", "What is the total quantity of each pizza item sold this week?", "What is the total revenue generated from each pizza item sold this week?", "What is the customer demographic of pizza buyers this week?", "What is the total cost of materials purchased from vendors this week?", "What is the total quantity of materials purchased from vendors this week?" ]}), 200
+    return (
+        jsonify(
+            [
+                {
+                    "category": "Sales",
+                    "questions": [
+                        "What is the total quantity of pizzas sold this week?",
+                        "What is the total revenue generated from pizza sales this week?",
+                    ],
+                },
+                {
+                    "category": "Product",
+                    "questions": [
+                        "What is the most popular pizza item sold this week?",
+                        "What is the average quantity of pizzas sold per day this week?",
+                    ],
+                },
+                {
+                    "category": "Average",
+                    "questions": [
+                        "What is the average revenue generated from pizza sales per day this week?",
+                        "What is the total quantity of each pizza item sold this week?",
+                    ],
+                },
+                {
+                    "category": "Customer",
+                    "questions": [
+                        "What is the total revenue generated from each pizza item sold this week?",
+                        "What is the customer demographic of pizza buyers this week?",
+                    ],
+                },
+                {
+                    "category": "Materials",
+                    "questions": [
+                        "What is the total cost of materials purchased from vendors this week?",
+                        "What is the total quantity of materials purchased from vendors this week?",
+                    ],
+                },
+            ]
+        ),
+        200,
+    )
 
 
 # /prompt?question=...
@@ -122,19 +163,19 @@ def prompt():
 @app.route("/recommendations")
 def recommendations():
     insight = request.args.get("info")
-#     res = chatbot(
-#         f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
+    #     res = chatbot(
+    #         f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
 
-# Include the following as part of the recommendations, and make sure the other recommendations are in the same format.
-# Recommendation - Explanation
-# Recommendation - Explanation
+    # Include the following as part of the recommendations, and make sure the other recommendations are in the same format.
+    # Recommendation - Explanation
+    # Recommendation - Explanation
 
-# Make sure there is no numbering and both recommendations and explanation are in one line."""
-#     )
+    # Make sure there is no numbering and both recommendations and explanation are in one line."""
+    #     )
     time.sleep(2.5)
     recommendations = (
         (
-            """Monitor customer feedback - Regularly gather feedback from customers regarding the quality, taste, and overall satisfaction with Pepperoni Pizza to identify areas for improvement and ensure customer satisfaction.\nOptimize pizza preparation process - Streamline operations and improve efficiency in preparing Pepperoni Pizza to minimize waiting time, enhance customer experience, and handle increased demand effectively."""     
+            """Monitor customer feedback - Regularly gather feedback from customers regarding the quality, taste, and overall satisfaction with Pepperoni Pizza to identify areas for improvement and ensure customer satisfaction.\nOptimize pizza preparation process - Streamline operations and improve efficiency in preparing Pepperoni Pizza to minimize waiting time, enhance customer experience, and handle increased demand effectively."""
             + """\nExpand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.\nPromote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers."""
         )
         .strip()

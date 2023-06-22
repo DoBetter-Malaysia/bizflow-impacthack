@@ -5,8 +5,9 @@ import Image from "next/image";
 import Button from "@/components/buttons/Button";
 import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "@mantine/core";
+import { Skeleton, Text } from "@mantine/core";
 import axios from "axios";
+import { MdChat } from "react-icons/md";
 
 interface ChatSectionProps {
   loading: boolean;
@@ -33,32 +34,47 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
 
     return (
       <div className="relative h-full pr-[20%]">
-        <div className="absolute bottom-0 right-0 top-0 w-[20%] border-l-2 bg-slate-100">
-          <div></div>
-        </div>
-        <div
-          className="absolute left-[50%] top-[50%] flex flex-col space-y-2"
-          style={{ transform: "translateX(-50%) translateY(-50%)" }}
-        >
-          {messages.length === 0 &&
-            (questions.isSuccess
-              ? questions.data.questions.map((ques: any, ind: any) => (
-                  <Button
-                    variant="outline"
-                    key={ind}
-                    onClick={() => {
-                      addMessage?.({ origin: "user", text: ques });
-                      onChange(ques);
-                    }}
-                  >
-                    {ques}
-                  </Button>
-                ))
-              : new Array(5)
-                  .fill(0)
-                  .map((_, index) => (
-                    <Skeleton key={index} w={"240px"} height="70px" />
-                  )))}
+        <div className="absolute right-0 top-0 w-[20%] border-l-2 bg-slate-100">
+          <div className="flex flex-col p-2 gap-6">
+            {messages.length === 0 &&
+              (questions.isSuccess
+                ? questions.data.map(
+                    (
+                      ques: { category: string; questions: string[] },
+                      ind: any
+                    ) => (
+                      <div>
+                        <Text fw="bold" fz="sm" color="dimmed">
+                          {ques.category}
+                        </Text>
+                        <div className="pl-2">
+                          {ques.questions.map((que) => (
+                            <Button
+                              leftIcon={<MdChat size="1.5rem" />}
+                              classNames={{ label: "whitespace-normal" }}
+                              variant="subtle"
+                              key={ind}
+                              onClick={() => {
+                                addMessage?.({
+                                  origin: "user",
+                                  text: que,
+                                });
+                                onChange(que);
+                              }}
+                            >
+                              {que}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    )
+                  )
+                : new Array(5)
+                    .fill(0)
+                    .map((_, index) => (
+                      <Skeleton key={index} w="100%" height="70px" />
+                    )))}
+          </div>
         </div>
         <div className="max-h-full overflow-auto">
           {messages.map((message) => {

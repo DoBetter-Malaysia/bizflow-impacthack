@@ -1,4 +1,7 @@
 import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
+import { ActionIcon } from "@mantine/core";
+import { HiPencilSquare } from "react-icons/hi2";
+import { FaShare } from "react-icons/fa";
 
 interface ChatBubbleProps {
   message: string;
@@ -11,27 +14,33 @@ const ChatBubble = ({ message, res, onChange }: ChatBubbleProps) => {
     <div>
       <div className="mb-3">Here are some posters that you can refer to:</div>
       <div className="flex space-x-3">
-        <img
-          src={`http://localhost:5050/uploads/pizza-poster.jpg`}
-          alt="Poster"
-          height="400px"
-          width="300px"
-          className="object-contain"
-        />
-        <img
-          src={`http://localhost:5050/uploads/pizza-poster2.jpg`}
-          alt="Poster"
-          height="400px"
-          width="300px"
-          className="object-contain"
-        />
-        <img
-          src={`http://localhost:5050/uploads/pizza-poster3.jpg`}
-          alt="Poster"
-          height="400px"
-          width="300px"
-          className="object-contain"
-        />
+        {["", "2", "3"].map((poster, index) => {
+          return (
+            <div className="relative flex" key={index}>
+              <img
+                src={`http://localhost:5050/uploads/pizza-poster${poster}.jpg`}
+                alt="Poster"
+                height="400px"
+                width="300px"
+                className="relative z-10 object-contain"
+              />
+              <div className="absolute right-2 top-2 z-20 flex space-x-2">
+                <ActionIcon
+                  className="rounded-md bg-blue-400 px-2 py-2 hover:bg-blue-500"
+                  size="xl"
+                >
+                  <HiPencilSquare className="text-white" size="24" />
+                </ActionIcon>
+                <ActionIcon
+                  className="rounded-md bg-blue-400 px-2 py-2 hover:bg-blue-500"
+                  size="xl"
+                >
+                  <FaShare className="text-white" size="24" />
+                </ActionIcon>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   ) : message.includes("video") ? (
@@ -47,12 +56,13 @@ const ChatBubble = ({ message, res, onChange }: ChatBubbleProps) => {
         autoPlay
       ></video>
     </div>
-  ) : message.includes("membuat") ? (
+  ) : message.includes("membuat") || message.includes("recipe") ? (
     <div>
       {res}
       <div className="mb-2 mt-8">
-        Anda boleh merujuk pada <b>video</b> di bawah untuk membuat pepperoni
-        pizza:
+        {message.includes("membuat")
+          ? "Anda boleh merujuk pada <b>video</b> di bawah untuk membuat cheese pepperoni pizza:"
+          : "You can refer to the following video for making the cheese pepperoni pizza"}
       </div>
       <div className="flex justify-center">
         <iframe

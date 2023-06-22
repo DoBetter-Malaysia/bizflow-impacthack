@@ -20,7 +20,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
       useMessageStore,
       (state) => state
     ) ?? {
-      messages: []
+      messages: [],
     };
     const questions = useQuery({
       queryKey: ["questions"],
@@ -28,11 +28,14 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
         const res = await axios.get("http://localhost:5050/good-questions");
         return res.data;
       },
-      staleTime: Infinity
+      staleTime: Infinity,
     });
 
     return (
-      <div className="relative h-full">
+      <div className="relative h-full pr-[20%]">
+        <div className="absolute bottom-0 right-0 top-0 w-[20%] border-l-2 bg-slate-100">
+          <div></div>
+        </div>
         <div
           className="absolute left-[50%] top-[50%] flex flex-col space-y-2"
           style={{ transform: "translateX(-50%) translateY(-50%)" }}
@@ -86,7 +89,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                     width={40}
                     height={40}
                   />
-                  <div className="min-h-[52px] flex-1 whitespace-pre-wrap rounded-md bg-white px-4 py-2">
+                  <div className="min-h-[52px] flex-1 whitespace-pre-wrap rounded-md bg-white px-4 py-2 text-lg">
                     {message.body}
                   </div>
                 </div>
@@ -116,7 +119,7 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
               onClick={() => {
                 addMessage?.({
                   origin: "user",
-                  text: opt
+                  text: opt,
                 });
                 onChange(opt);
               }}

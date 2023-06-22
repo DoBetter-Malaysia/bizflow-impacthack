@@ -9,6 +9,7 @@ import useStore from "@/utils/hooks/useStore";
 import { List, clsx } from "@mantine/core";
 import ArrowLink from "@/components/links/ArrowLink/ArrowLink";
 import { useScrollIntoView } from "@mantine/hooks";
+import ChatBubble from "./ChatBubble";
 
 type PromptType = "prompt" | "recommendations" | "steps" | "solve";
 
@@ -19,7 +20,7 @@ export default function Consultation() {
   const [disabled, setDisabled] = useState(false);
   const mutation = useConsult({ type: promptType });
   const { addMessage } = useStore(useMessageStore, (state) => state) ?? {
-    messages: []
+    messages: [],
   };
   const scrollIntoView = () => {
     ref?.current?.scrollIntoView({ behavior: "smooth" });
@@ -35,7 +36,7 @@ export default function Consultation() {
   const NestedList = ({
     list,
     onChange,
-    nested = true
+    nested = true,
   }: {
     list: Record<string, string>[] | string[];
     onChange: (message: string) => void;
@@ -76,10 +77,12 @@ export default function Consultation() {
   };
 
   const thirdOnChange = (message: string) => {
+    setPromptType("solve");
+
     addMessage?.({
       origin: "user",
       isMarkdown: true,
-      text: message
+      text: message,
     });
     setTimeout(() => {
       scrollIntoView();
@@ -89,40 +92,40 @@ export default function Consultation() {
         origin: "bot",
         isMarkdown: true,
         text: "",
-        body: message.includes("poster") ? (
-          <img
-            src={`http://localhost:5050/uploads/pizza-poster.jpg`}
-            alt="Poster"
-            height="400px"
-            width="300px"
-            className="object-contain"
-          />
-        ) : message.includes("supplier") && !res.includes("WhatsApp") ? (
-          <div>
-            <div>{res}</div>
-            <div>
-              <ArrowLink
-                onClick={() => {
-                  thirdOnChange("Send supplier a message");
-                }}
-              >
-                Send him a message
-              </ArrowLink>
-            </div>
-          </div>
-        ) : (
-          <div>{res}</div>
-        )
+        body: (
+          <ChatBubble message={message} res={res} onChange={thirdOnChange} />
+        ),
       });
-      if (!message.includes("supplier")) {
+      if (message.includes("poster")) {
         addMessage?.({
           origin: "bot",
           isMarkdown: true,
           text: "",
-          body: "What else can I help you with?"
+          body: (
+            <div>
+              <div>Do you want a sample video for that?</div>
+              <div>
+                <ArrowLink
+                  onClick={() => {
+                    thirdOnChange(
+                      "Show me a sample video for pepperoni cheese pizza promotion"
+                    );
+                  }}
+                >
+                  Yes
+                </ArrowLink>
+              </div>
+            </div>
+          ),
+        });
+      } else if (!message.includes("supplier")) {
+        addMessage?.({
+          origin: "bot",
+          isMarkdown: true,
+          text: "",
+          body: "What else can I help you with?",
         });
       }
-      setPromptType("solve");
       setTimeout(() => {
         scrollIntoView();
       }, 100);
@@ -133,7 +136,7 @@ export default function Consultation() {
     addMessage?.({
       origin: "user",
       isMarkdown: true,
-      text: `Explore more about ${message}`
+      text: `Explore more about ${message}`,
     });
     setTimeout(() => {
       scrollIntoView();
@@ -143,7 +146,7 @@ export default function Consultation() {
         origin: "bot",
         isMarkdown: true,
         text: "",
-        body: NestedList({ list: res, nested: false, onChange: thirdOnChange })
+        body: NestedList({ list: res, nested: false, onChange: thirdOnChange }),
       });
       setPromptType("solve");
       setTimeout(() => {
@@ -169,12 +172,12 @@ export default function Consultation() {
           origin: "bot",
           isMarkdown: true,
           text: "",
-          body: res
+          body: res,
         });
         addMessage?.({
           origin: "bot",
           text: "",
-          body: "I have some recommendations based on the insights provided, are you interested to learn more?"
+          body: "I have some recommendations based on the insights provided, are you interested to learn more?",
         });
         setPromptType("recommendations");
         setOptions(["Yes", "No"]);
@@ -187,48 +190,12 @@ export default function Consultation() {
           origin: "bot",
           isMarkdown: true,
           text: "",
-          body: NestedList({ list: res, onChange: secondOnchange })
+          body: NestedList({ list: res, onChange: secondOnchange }),
         });
         setPromptType("steps");
       }
-      //   else if (promptType === "solve") {
-      //     setTimeout(() => {
-      //       ref.current?.scrollTo({
-      //         top: ref.current.scrollHeight,
-      //         behavior: "smooth"
-      //       });
-      //     }, 300);
-      //     mutation.mutateAsync(message).then((res) => {
-      //       addMessage?.({
-      //         origin: "bot",
-      //         isMarkdown: true,
-      //         text: "",
-      //         body: message.includes("poster") ? (
-      //           <img
-      //             src={`http://localhost:5050/uploads/pizza-poster.jpg`}
-      //             alt="Poster"
-      //             height="400px"
-      //             width="300px"
-      //             className="object-contain"
-      //           />
-      //         ) : (
-      //           <div>{res}</div>
-      //         )
-      //       });
-      //       addMessage?.({
-      //         origin: "bot",
-      //         isMarkdown: true,
-      //         text: "",
-      //         body: "What else can I help you with?"
-      //       });
-      //       setPromptType("solve");
-      //       setTimeout(() => {
-      //         ref.current.scrollTop = ref.current?.scrollHeight;
-      //       }, 100);
-      //     });
-      //   }
       setTimeout(() => {
-        ref.current.scrollTop = ref.current?.scrollHeight;
+        scrollIntoView();
       }, 100);
     });
   };
@@ -259,7 +226,7 @@ export default function Consultation() {
             onChange={onChange}
           />
         </div>
-        <div className="mx-8 mb-4 bg-slate-100">
+        <div className="mb-4 border-t-2 bg-slate-200 px-8">
           <InputSection
             onChange={onChange}
             loading={mutation.isLoading || disabled}

@@ -121,19 +121,19 @@ def prompt():
 @app.route("/recommendations")
 def recommendations():
     insight = request.args.get("info")
-    res = chatbot(
-        f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
+#     res = chatbot(
+#         f"""Given that {insight}, I want you to include a short explanation for each recommendation too which will be separated through a dash (-).
 
-Include the following as part of the recommendations, and make sure the other recommendations are in the same format.
-Recommendation - Explanation
-Recommendation - Explanation
+# Include the following as part of the recommendations, and make sure the other recommendations are in the same format.
+# Recommendation - Explanation
+# Recommendation - Explanation
 
-Limit the number of recommendations to only 4.
-Make sure there is no numbering and both recommendations and explanation are in one line."""
-    )
+# Make sure there is no numbering and both recommendations and explanation are in one line."""
+#     )
+    time.sleep(2.5)
     recommendations = (
         (
-            res
+            """Monitor customer feedback - Regularly gather feedback from customers regarding the quality, taste, and overall satisfaction with Pepperoni Pizza to identify areas for improvement and ensure customer satisfaction.\nOptimize pizza preparation process - Streamline operations and improve efficiency in preparing Pepperoni Pizza to minimize waiting time, enhance customer experience, and handle increased demand effectively."""     
             + """\nExpand Pizza Menu with Pepperoni Cheese Pizza - Consider adding variations of Pepperoni Pizza or introducing new pizza flavors to provide customers with more options and potentially increase sales.\nPromote Pepperoni Pizza - Highlight Pepperoni Pizza in advertisements, social media campaigns, and special offers to attract more customers."""
         )
         .strip()
@@ -143,7 +143,6 @@ Make sure there is no numbering and both recommendations and explanation are in 
     for recom in recommendations:
         if recom.strip() == "":
             continue
-        print(recom)
         try:
             recommendation, explanation = recom.split(" - ")
             values.append(
@@ -186,7 +185,7 @@ Make them short and concise.
         jsonify(
             (
                 res
-                + """\nShow me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"""
+                + """|Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"""
             )
             .strip()
             .split("|")
@@ -200,8 +199,8 @@ Make them short and concise.
 def solve():
     problem = request.args.get("info")
     if "poster" in problem:
-        time.sleep(3)
-        return jsonify("pizza-poster.jpg"), 200
+        problem = "Write me a short social media caption for John Pizza to promote his new Pepperoni Cheese Pizza?"
+        return jsonify(chatbot(f"""{problem}""")), 200
     if "a message" in problem:
         send_message()
         return jsonify("A WhatsApp message has been sent to the supplier.")

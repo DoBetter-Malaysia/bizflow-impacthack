@@ -14,36 +14,43 @@ data = {
     "messaging_product": "whatsapp",
     "to": recipient_phone_number,
     "type": "text",
-    "text": {"body": "Damn it woon."},
+    "text": {"body": """Hi FreshMart, I would like to place an order for the ingredients below: 
+
+1. Dough
+2. Cheese
+3. Pepperoni
+
+Let me know the total amount with an attached invoice 🙂
+    """},
 }
 
 
-data = {
-    "messaging_product": "whatsapp",
-    "to": recipient_phone_number,
-    "type": "interactive",
-    "interactive": {
-        "type": "button",
-        "header": {
-            "type": "text",
-            "text": "John Pizza",
-        },
-        "body": {
-            "text": "Hello I'm John Pizza",
-        },
-        "action": {
-            "buttons": [
-                {
-                    "type": "reply",
-                    "reply": {
-                        "title": "Reply Me",
-                        "id": "My ID",
-                    },
-                }
-            ]
-        },
-    },
-}
+# data = {
+#     "messaging_product": "whatsapp",
+#     "to": recipient_phone_number,
+#     "type": "interactive",
+#     "interactive": {
+#         "type": "button",
+#         "header": {
+#             "type": "text",
+#             "text": "John Pizza",
+#         },
+#         "body": {
+#             "text": "Hello I'm John Pizza",
+#         },
+#         "action": {
+#             "buttons": [
+#                 {
+#                     "type": "reply",
+#                     "reply": {
+#                         "title": "Reply Me",
+#                         "id": "My ID",
+#                     },
+#                 }
+#             ]
+#         },
+#     },
+# }
 
 import json
 

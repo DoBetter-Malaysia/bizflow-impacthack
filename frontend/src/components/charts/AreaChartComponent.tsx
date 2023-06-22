@@ -21,10 +21,6 @@ const AreaChartComponent = ({
 }) => {
   const [activeTab, setActiveTab] = useState<string | null>("all");
 
-  useEffect(() => {
-    console.log(activeTab);
-  });
-
   return (
     <>
       <div className="mb-2 flex flex-col gap-2 px-4">
@@ -50,7 +46,7 @@ const AreaChartComponent = ({
             />
           </div>
         </div>
-        <div className="flex justify-end">
+        {/* <div className="flex justify-end">
           <div className="text-sm font-medium text-black">
             <Tabs
               color="#004be0e3"
@@ -100,7 +96,7 @@ const AreaChartComponent = ({
               </Tabs.List>
             </Tabs>
           </div>
-        </div>
+        </div> */}
       </div>
       <ResponsiveContainer height={400} width={"99%"}>
         <AreaChart
@@ -109,20 +105,26 @@ const AreaChartComponent = ({
         >
           <defs>
             <linearGradient id="foodpanda" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#d60665" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#d60665" stopOpacity={0.1} />
+              <stop offset="0%" stopColor="#d60665" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="#d60665" stopOpacity={0.2} />
+              {/* <stop offset="5%" stopColor="#d60665" stopOpacity={0.8} /> */}
+              {/* <stop offset="95%" stopColor="#d60665" stopOpacity={0.1} /> */}
             </linearGradient>
           </defs>
           <defs>
             <linearGradient id="grabfood" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#00b14f" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#00b14f" stopOpacity={0.1} />
+              <stop offset="0%" stopColor="#00b14f" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="#00b14f" stopOpacity={0.2} />
+              {/* <stop offset="5%" stopColor="#00b14f" stopOpacity={0.8} /> */}
+              {/* <stop offset="95%" stopColor="#00b14f" stopOpacity={0.1} /> */}
             </linearGradient>
           </defs>
           <defs>
             <linearGradient id="shopeefood" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#ee4e2e" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#ee4e2e" stopOpacity={0.1} />
+              <stop offset="0%" stopColor="#ee4e2e" stopOpacity={0.2} />
+              <stop offset="100%" stopColor="#ee4e2e" stopOpacity={0.2} />
+              {/* <stop offset="5%" stopColor="#ee4e2e" stopOpacity={0.8} /> */}
+              {/* <stop offset="95%" stopColor="#ee4e2e" stopOpacity={0.1} /> */}
             </linearGradient>
           </defs>
           <XAxis dataKey="name" className="text-sm" />
@@ -134,9 +136,11 @@ const AreaChartComponent = ({
               type="monotone"
               dataKey="foodpanda"
               fillOpacity={1}
-              fill="url(#foodpanda)"
+              // fill="url(#foodpanda)"
+              fill="#f7cde0"
               stroke="#d60665"
               markerUnits={0}
+              stackId={"sales"}
             />
           )}
           {(activeTab === "all" || activeTab === "grabfood") && (
@@ -144,9 +148,11 @@ const AreaChartComponent = ({
               type="monotone"
               dataKey="grabfood"
               fillOpacity={1}
-              fill="url(#grabfood)"
+              // fill="url(#grabfood)"
+              fill="#ccefdc"
               stroke="#00b14f"
               markerUnits={0}
+              stackId={"sales"}
             />
           )}
           {(activeTab === "all" || activeTab === "shopeefood") && (
@@ -154,9 +160,11 @@ const AreaChartComponent = ({
               type="monotone"
               dataKey="shopeefood"
               fillOpacity={1}
-              fill="url(#shopeefood)"
+              // fill="url(#shopeefood)"
+              fill="#fcdcd5"
               stroke="#ee4e2e"
               markerUnits={0}
+              stackId={"sales"}
             />
           )}
           <Legend />

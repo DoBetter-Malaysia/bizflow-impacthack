@@ -6,19 +6,61 @@ import Recommendationv2 from "./Recommendationv2";
 import Checklist from "./Checklist";
 
 const data = [
-  { name: "12/06/2023", foodpanda: 220.0, shopeefood: 130.0, grabfood: 180.0 },
-  { name: "13/06/2023", foodpanda: 530.0, shopeefood: 160.0, grabfood: 330.0 },
-  { name: "14/06/2023", foodpanda: 300.0, shopeefood: 200.0, grabfood: 250.0 },
-  { name: "15/06/2023", foodpanda: 320.0, shopeefood: 220.0, grabfood: 270.0 },
-  { name: "16/06/2023", foodpanda: 200.0, shopeefood: 110.0, grabfood: 246.0 },
-  { name: "17/06/2023", foodpanda: 476.0, shopeefood: 230.0, grabfood: 411.0 },
-  { name: "18/06/2023", foodpanda: 380.0, shopeefood: 300.0, grabfood: 400.0 },
+  {
+    name: "12/06/2023",
+    foodpanda: 220.0,
+    shopeefood: 50.0,
+    grabfood: 180.0,
+    sales: [220.0, 50.0, 180.0],
+  },
+  {
+    name: "13/06/2023",
+    foodpanda: 530.0,
+    shopeefood: 160.0,
+    grabfood: 200.0,
+    sales: [530.0, 160.0, 200.0],
+  },
+  {
+    name: "14/06/2023",
+    foodpanda: 300.0,
+    shopeefood: 143.0,
+    grabfood: 250.0,
+    sales: [300.0, 143.0, 250.0],
+  },
+  {
+    name: "15/06/2023",
+    foodpanda: 320.0,
+    shopeefood: 50.0,
+    grabfood: 270.0,
+    sales: [320.0, 50.0, 270.0],
+  },
+  {
+    name: "16/06/2023",
+    foodpanda: 200.0,
+    shopeefood: 110.0,
+    grabfood: 246.0,
+    sales: [200.0, 110.0, 246.0],
+  },
+  {
+    name: "17/06/2023",
+    foodpanda: 476.0,
+    shopeefood: 163.0,
+    grabfood: 411.0,
+    sales: [476.0, 163.0, 411.0],
+  },
+  {
+    name: "18/06/2023",
+    foodpanda: 380.0,
+    shopeefood: 300.0,
+    grabfood: 400.0,
+    sales: [380.0, 300.0, 400.0],
+  },
 ];
 
 const pizza = [
-  { name: "Hawaiian Pizza", count: 8 },
-  { name: "Pepperoni Pizza", count: 7 },
-  { name: "Cheese Pizza", count: 2 },
+  { name: "Hawaiian Pizza", count: 8, regular: 2, large: 5, personal: 1 },
+  { name: "Pepperoni Pizza", count: 7, regular: 2, large: 3, personal: 2 },
+  { name: "Cheese Pizza", count: 2, regular: 1, large: 1, personal: 0 },
 ];
 
 const Overview = () => {

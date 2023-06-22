@@ -13,7 +13,7 @@ import {
 } from "@mantine/core";
 import { LatLngTuple, icon } from "leaflet";
 import { useState } from "react";
-import { FaStar } from "react-icons/fa";
+import { FaCheck, FaStar, FaThumbsUp } from "react-icons/fa";
 import { MapContainer, Marker, TileLayer, Tooltip } from "react-leaflet";
 
 const pizzaCompanies = [
@@ -121,14 +121,14 @@ const comparisons = [
   {
     left: "John's Pizza Membership & GrabFood Collaboration",
     attribute: "Customer Loyalty Programs",
-    right:
-      "Free Birthday Pizza & Midnight Discount",
+    right: "Free Birthday Pizza & Midnight Discount",
     direction: "equal",
   },
   {
     left: "Active on social media with 10,000 followers and high engagement rates.",
     attribute: "Online Presence",
-    right: "Well-established website with online ordering and 30,000 monthly website visitors.",
+    right:
+      "Well-established website with online ordering and 30,000 monthly website visitors.",
     direction: "right",
   },
   {
@@ -220,7 +220,7 @@ const Profile = () => {
               <div className="flex flex-col gap-4 pt-4">
                 <Card.Section
                   inheritPadding
-                  className="flex aspect-video flex-col gap-4"
+                  className="flex aspect-square flex-col gap-4"
                 >
                   <MapContainer
                     center={
@@ -423,9 +423,16 @@ const Profile = () => {
                     >
                       <div
                         className={clsx(
-                          'col-span-5 line-clamp-2 flex rounded-md px-2 py-2 text-slate-800'
+                          "col-span-5 overflow-visible border border-slate-300 relative line-clamp-2 flex rounded-md items-center justify-center text-center px-2 py-2 text-slate-800"
                         )}
                       >
+                        {comp.direction == "left" && (
+                          <FaThumbsUp
+                            size="1.5rem"
+                            color="green"
+                            className="absolute -top-2 -right-2"
+                          />
+                        )}
                         {comp.left}
                       </div>
                       <div className="col-span-2 flex items-center text-center font-semibold">
@@ -433,9 +440,16 @@ const Profile = () => {
                       </div>
                       <div
                         className={clsx(
-                          'col-span-5 line-clamp-2 flex rounded-md px-2 py-2 text-slate-800'
+                          "col-span-5 overflow-visible border border-slate-300 relative line-clamp-2 flex rounded-md items-center justify-center text-center px-2 py-2 text-slate-800"
                         )}
                       >
+                        {comp.direction == "right" && (
+                          <FaThumbsUp
+                            size="1.5rem"
+                            color="green"
+                            className="absolute -top-2 -left-2"
+                          />
+                        )}
                         {comp.right}
                       </div>
                     </div>
@@ -451,20 +465,40 @@ const Profile = () => {
                 <Card.Section inheritPadding>
                   <ul className="mx-6 list-decimal">
                     <li>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Vel earum temporibus, deserunt rem nobis ullam!
+                      <strong>
+                        Competitor A has a higher customer satisfaction rating
+                        compared to John's Pizza.
+                      </strong>
+                      <Text color="dimmed">
+                        Recommendation: John should focus on improving customer
+                        service and enhancing the overall dining experience to
+                        increase customer satisfaction and loyalty.
+                      </Text>
                     </li>
                     <li>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Vel earum temporibus, deserunt rem nobis ullam!
+                      <strong>
+                        Competitor B offers a wider variety of pizza toppings
+                        and customization options than John's Pizza.
+                      </strong>
+                      <Text color="dimmed">
+                        Recommendation: John should consider expanding the menu
+                        to include more diverse toppings and offer customizable
+                        options to cater to a broader range of customer
+                        preferences.
+                      </Text>
                     </li>
                     <li>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Vel earum temporibus, deserunt rem nobis ullam!
-                    </li>
-                    <li>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Vel earum temporibus, deserunt rem nobis ullam!
+                      <strong>
+                        Competitor C has partnered with local food delivery
+                        services, allowing customers to order their pizzas
+                        conveniently.
+                      </strong>
+                      <Text color="dimmed">
+                        Recommendation: John should explore partnerships with
+                        popular food delivery platforms to offer delivery
+                        services and reach a wider customer base, especially in
+                        the current trend of increased online food ordering.
+                      </Text>
                     </li>
                   </ul>
                 </Card.Section>

@@ -25,12 +25,18 @@ const ChatBubble = ({ message, res, onChange }: ChatBubbleProps) => {
                 className="relative z-10 object-contain"
               />
               <div className="absolute right-2 top-2 z-20 flex space-x-2">
-                <ActionIcon
-                  className="rounded-md bg-blue-400 px-2 py-2 hover:bg-blue-500"
-                  size="xl"
+                <a
+                  href={`http://localhost:5050/uploads/pizza-poster${poster}.jpg`}
+                  download
+                  target="_blank"
                 >
-                  <HiPencilSquare className="text-white" size="24" />
-                </ActionIcon>
+                  <ActionIcon
+                    className="rounded-md bg-blue-400 px-2 py-2 hover:bg-blue-500"
+                    size="xl"
+                  >
+                    <HiPencilSquare className="text-white" size="24" />
+                  </ActionIcon>
+                </a>
                 <ActionIcon
                   className="rounded-md bg-blue-400 px-2 py-2 hover:bg-blue-500"
                   size="xl"
@@ -42,6 +48,10 @@ const ChatBubble = ({ message, res, onChange }: ChatBubbleProps) => {
           );
         })}
       </div>
+      <div className="mb-3 mt-8">
+        You can use the following caption to promote it on your Social Media:{" "}
+      </div>
+      <div>{res}</div>
     </div>
   ) : message.includes("video") ? (
     <div>
@@ -49,7 +59,7 @@ const ChatBubble = ({ message, res, onChange }: ChatBubbleProps) => {
         Here is a sample promotional video for your inspiration:{" "}
       </div>
       <video
-        className="h-[600px] w-[600px] object-cover"
+        className="mb-6 h-[600px] w-[600px] object-cover"
         src="/pizza-promotion.mp4"
         muted
         controls
@@ -64,7 +74,7 @@ const ChatBubble = ({ message, res, onChange }: ChatBubbleProps) => {
           ? "Anda boleh merujuk pada <b>video</b> di bawah untuk membuat cheese pepperoni pizza:"
           : "You can refer to the following video for making the cheese pepperoni pizza"}
       </div>
-      <div className="flex justify-center">
+      <div className="mb-6 flex justify-center">
         <iframe
           width="800"
           height="400"

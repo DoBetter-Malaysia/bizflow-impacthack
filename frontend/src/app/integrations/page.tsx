@@ -19,6 +19,7 @@ import {
   Switch,
   Text,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { forwardRef } from "react";
 import { FaCheck, FaPlus, FaSync, FaTrash } from "react-icons/fa";
 
@@ -76,7 +77,11 @@ const Integrations = () => {
           return type;
         })
       );
-    }, 2500);
+      notifications.show({
+        message: "Data synced successfully!",
+        color: "green",
+      });
+    }, 2000);
   };
 
   return (
@@ -156,7 +161,9 @@ const Integrations = () => {
                       color={e.syncState == 1 ? "green" : "blue"}
                       size="lg"
                       loading={e.syncState == 0}
-                      onClick={() => onSyncPressed(e)}
+                      onClick={() => {
+                        onSyncPressed(e);
+                      }}
                     >
                       {e.syncState == -1 ? (
                         <FaSync size="1rem" />

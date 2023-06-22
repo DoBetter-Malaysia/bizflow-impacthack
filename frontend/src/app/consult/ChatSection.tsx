@@ -60,73 +60,75 @@ const ChatSection = React.forwardRef<HTMLDivElement, ChatSectionProps>(
                     <Skeleton key={index} w={"240px"} height="70px" />
                   )))}
         </div>
-        {messages.map((message) => {
-          return (
-            <div key={message.text} className="py-2">
-              {message.origin === "user" ? (
-                <div className="mx-4 flex items-start px-4 py-2">
-                  <div className="mr-4 text-center">
-                    <Image
-                      src="/user.png"
-                      alt="logo"
-                      className="rounded-full"
-                      width={40}
-                      height={40}
-                    />
-                    <div className="text-xs font-semibold">John</div>
-                  </div>
+        <div className="max-h-full overflow-auto">
+          {messages.map((message) => {
+            return (
+              <div key={message.text} className="py-2">
+                {message.origin === "user" ? (
+                  <div className="mx-4 flex items-start px-4 py-2">
+                    <div className="mr-4 text-center">
+                      <Image
+                        src="/user.png"
+                        alt="logo"
+                        className="rounded-full"
+                        width={60}
+                        height={60}
+                      />
+                      <div className="text-md font-semibold">John</div>
+                    </div>
 
-                  <div className="min-h-[52px] flex-1 rounded-md px-4 py-2">
-                    {message.text}
+                    <div className="min-h-[52px] flex-1 rounded-md px-4 py-6 text-xl">
+                      {message.text}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className="mx-4 flex items-start px-4 py-2">
-                  <Image
-                    src="/bot.png"
-                    alt="logo"
-                    className="mr-4"
-                    width={40}
-                    height={40}
-                  />
-                  <div className="min-h-[52px] flex-1 whitespace-pre-wrap rounded-md bg-white px-4 py-2 text-lg">
-                    {message.body}
+                ) : (
+                  <div className="mx-4 flex items-start px-4 py-2">
+                    <Image
+                      src="/bot.png"
+                      alt="logo"
+                      className="mr-4"
+                      width={60}
+                      height={60}
+                    />
+                    <div className="min-h-[52px] flex-1 whitespace-pre-wrap rounded-md bg-white px-6 py-6 text-lg">
+                      {message.body}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
+            );
+          })}
+          {loading && (
+            <div className="mx-4 flex items-start px-4 py-2">
+              <Image
+                src="/logo_plain.png"
+                alt="logo"
+                className="mr-4 animate-[spin_2s_infinite_linear]"
+                width={32}
+                height={32}
+              />
+              <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-4">
+                Loading...
+              </div>
             </div>
-          );
-        })}
-        {loading && (
-          <div className="mx-4 flex items-start px-4 py-2">
-            <Image
-              src="/logo_plain.png"
-              alt="logo"
-              className="mr-4 animate-[spin_2s_infinite_linear]"
-              width={32}
-              height={32}
-            />
-            <div className="min-h-[52px] flex-1 rounded-md bg-white px-4 py-2">
-              Loading...
-            </div>
+          )}
+          <div ref={ref}></div>
+          <div className="flex-start ml-24 flex flex-col items-start space-y-2">
+            {options.map((opt, index) => (
+              <ArrowLink
+                key={index}
+                onClick={() => {
+                  addMessage?.({
+                    origin: "user",
+                    text: opt,
+                  });
+                  onChange(opt);
+                }}
+              >
+                {opt}
+              </ArrowLink>
+            ))}
           </div>
-        )}
-        <div ref={ref}></div>
-        <div className="flex-start ml-24 flex flex-col items-start space-y-2">
-          {options.map((opt, index) => (
-            <ArrowLink
-              key={index}
-              onClick={() => {
-                addMessage?.({
-                  origin: "user",
-                  text: opt,
-                });
-                onChange(opt);
-              }}
-            >
-              {opt}
-            </ArrowLink>
-          ))}
         </div>
       </div>
     );

@@ -423,14 +423,14 @@ const Profile = () => {
                     >
                       <div
                         className={clsx(
-                          "col-span-5 overflow-visible border border-slate-300 relative line-clamp-2 flex rounded-md items-center justify-center text-center px-2 py-2 text-slate-800"
+                          "relative col-span-5 line-clamp-2 flex items-center justify-center overflow-visible rounded-md border border-slate-300 px-2 py-2 text-center text-slate-800"
                         )}
                       >
                         {comp.direction == "left" && (
                           <FaThumbsUp
                             size="1.5rem"
                             color="green"
-                            className="absolute -top-2 -right-2"
+                            className="absolute -right-2 -top-2"
                           />
                         )}
                         {comp.left}
@@ -440,14 +440,14 @@ const Profile = () => {
                       </div>
                       <div
                         className={clsx(
-                          "col-span-5 overflow-visible border border-slate-300 relative line-clamp-2 flex rounded-md items-center justify-center text-center px-2 py-2 text-slate-800"
+                          "relative col-span-5 line-clamp-2 flex items-center justify-center overflow-visible rounded-md border border-slate-300 px-2 py-2 text-center text-slate-800"
                         )}
                       >
                         {comp.direction == "right" && (
                           <FaThumbsUp
                             size="1.5rem"
                             color="green"
-                            className="absolute -top-2 -left-2"
+                            className="absolute -left-2 -top-2"
                           />
                         )}
                         {comp.right}
@@ -467,9 +467,9 @@ const Profile = () => {
                     <li>
                       <strong>
                         Competitor A has a higher customer satisfaction rating
-                        compared to John's Pizza.
+                        compared to {"John's"} Pizza.
                       </strong>
-                      <Text color="dimmed">
+                      <Text color="dimmed" className="mb-6">
                         Recommendation: John should focus on improving customer
                         service and enhancing the overall dining experience to
                         increase customer satisfaction and loyalty.
@@ -478,9 +478,9 @@ const Profile = () => {
                     <li>
                       <strong>
                         Competitor B offers a wider variety of pizza toppings
-                        and customization options than John's Pizza.
+                        and customization options than {"John's"} Pizza.
                       </strong>
-                      <Text color="dimmed">
+                      <Text color="dimmed" className="mb-6">
                         Recommendation: John should consider expanding the menu
                         to include more diverse toppings and offer customizable
                         options to cater to a broader range of customer
@@ -493,7 +493,7 @@ const Profile = () => {
                         services, allowing customers to order their pizzas
                         conveniently.
                       </strong>
-                      <Text color="dimmed">
+                      <Text color="dimmed" className="mb-6">
                         Recommendation: John should explore partnerships with
                         popular food delivery platforms to offer delivery
                         services and reach a wider customer base, especially in

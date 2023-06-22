@@ -15,7 +15,7 @@ const ArrowLink = ({
 }: IArrowLinkProp) => {
   return (
     <a
-      className={`${styles["link"]} ${styles["link--arrowed"]} inline-flex flex-row text-lg font-semibold`}
+      className={`${styles["link"]} ${styles["link--arrowed"]} mt-2 inline-flex flex-row !text-xl font-medium`}
       href={href}
       target={target}
       onClick={onClick}

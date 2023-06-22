@@ -19,10 +19,10 @@ export const availableIntegrations: Integration[] = [
       "StoreHub is a cloud-based point of sale (POS) and business management system designed specifically for retail and F&B businesses. It offers a comprehensive set of features and tools to help businesses streamline their operations, manage inventory, process sales transactions, track customer data, and analyze business performance.",
     syncOptions: [
       { name: "Sync Inventory", active: false },
-      { name: "Sync Sales", active: false },
+      { name: "Sync Sales", active: true },
     ],
     tags: ["Point of Sale", "Inventory Management", "Retail", "F&B"],
-    syncState: -1,
+    syncState: 1,
   },
   {
     id: 3,
@@ -31,11 +31,11 @@ export const availableIntegrations: Integration[] = [
     description:
       "Foodpanda is an online food delivery platform that allows users to order food from a wide selection of restaurants in their area. It operates through a user-friendly website or mobile app, where customers can browse menus, place orders, and track their deliveries in real-time. Foodpanda partners with local restaurants to provide a convenient and reliable food delivery service to customers.",
     syncOptions: [
-      { name: "Sync Orders", active: false },
+      { name: "Sync Orders", active: true },
       { name: "Sync Menu", active: false },
     ],
     tags: ["Food Delivery", "Online Ordering", "Restaurant"],
-    syncState: -1,
+    syncState: 1,
   },
   {
     id: 4,
@@ -44,11 +44,11 @@ export const availableIntegrations: Integration[] = [
     description:
       "Shopify is an e-commerce platform that enables businesses to create online stores and sell products. It provides a robust set of features for inventory management, order processing, secure payments, and customizable storefronts. With Shopify, businesses can easily build and manage their online presence.",
     syncOptions: [
-      { name: "Sync Orders", active: false },
+      { name: "Sync Orders", active: true },
       { name: "Sync Products", active: false },
     ],
     tags: ["E-commerce", "Online Store", "Inventory Management"],
-    syncState: -1,
+    syncState: 1,
   },
   {
     id: 2,

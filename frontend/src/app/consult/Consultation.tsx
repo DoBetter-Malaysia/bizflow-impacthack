@@ -226,7 +226,7 @@ export default function Consultation() {
             onChange={onChange}
           />
         </div>
-        <div className="mb-4 border-t-2 bg-slate-200 px-8">
+        <div className="border-t-2 bg-slate-200 px-8">
           <InputSection
             onChange={onChange}
             loading={mutation.isLoading || disabled}

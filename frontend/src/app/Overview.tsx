@@ -1,4 +1,5 @@
 import { DASHBOARD_CARDS } from "@/app/data/";
+import { Image } from "@mantine/core";
 import DashboardCard from "@/components/cards/DashboardCard";
 import AreaChartComponent from "@/components/charts/AreaChartComponent";
 import BarChartComponent from "@/components/charts/BarChartComponent";
@@ -82,6 +83,36 @@ const Overview = () => {
                 />
               </div>
             ))}
+            <div className="col-span-1">
+              <div className="bg-blue-white flex h-full w-full items-center rounded-xl bg-white shadow-md outline outline-1 outline-gray-100">
+                <div className="flex items-center px-8 py-6">
+                  <div className="grid w-full grid-cols-3 gap-4">
+                    <div className="col-span-1 flex items-center justify-center">
+                      <Image
+                        src={"./foodpanda.png"}
+                        alt={"FoodPanda"}
+                        h={40}
+                        w={40}
+                        fit="contain"
+                      />
+                    </div>
+                    <div className="col-span-2 grow py-2">
+                      <div className="flex flex-col">
+                        <h3 className="text-xl font-bold text-pink-600">
+                          FoodPanda
+                        </h3>
+                        <h3 className="text-sm text-gray-600">
+                          Current Top Sales Channel
+                        </h3>
+                        <h3 className="text-sm font-semibold text-gray-600">
+                          RM 2426.00
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -98,8 +129,10 @@ const Overview = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-3 rounded-xl bg-white px-4 py-6 shadow-md outline outline-1 outline-gray-100">
-        <Checklist />
+      <div className="relative col-span-3 rounded-xl bg-white shadow-md outline outline-1 outline-gray-100">
+        <div className="absolute bottom-0 left-0 right-0 top-0 overflow-y-auto overflow-x-hidden px-6 py-6">
+          <Checklist />
+        </div>
       </div>
       <div className="col-span-12 mt-8">
         <h2 className="py-4 text-3xl font-semibold">

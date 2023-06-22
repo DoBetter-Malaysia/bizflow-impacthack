@@ -21,3 +21,8 @@ compel
 modelscope==1.4.2
 open_clip_torch
 pytorch-lightning
+imageio
+albumentations==0.5.2
+opencv-python
+ffmpeg-python
+moviepy

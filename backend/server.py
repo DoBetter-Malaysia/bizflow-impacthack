@@ -238,8 +238,9 @@ def solve():
     if "a message" in problem:
         send_message()
         return jsonify("A WhatsApp message has been sent to the supplier.")
-#     if "supplier" in problem:
-#         return jsonify("Fresh Mart, your best supplier that has the lowest price for these items.")
+    if "supplier" in problem:
+        time.sleep(2)
+        return jsonify("Fresh Mart is your best supplier because he has the lowest price for these items.")
 #     if "recipe" in problem:
 #         return jsonify("""Title: Cheese Pepperoni Pizza
 

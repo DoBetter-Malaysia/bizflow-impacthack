@@ -78,7 +78,7 @@ const ChatBubble = ({ message, res, onChange }: ChatBubbleProps) => {
         <iframe
           width="800"
           height="400"
-          src="https://www.youtube.com/embed/HCAPjIVOdJw?start=17"
+          src="https://www.youtube.com/embed/fcp4nSBEQlA?start=11"
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen

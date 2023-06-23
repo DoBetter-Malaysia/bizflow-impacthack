@@ -59,8 +59,8 @@ const data = [
 ];
 
 const pizza = [
-  { name: "Hawaiian Pizza", count: 8, regular: 2, large: 5, personal: 1 },
-  { name: "Pepperoni Pizza", count: 7, regular: 2, large: 3, personal: 2 },
+  { name: "Pepperoni Pizza", count: 8, regular: 2, large: 5, personal: 1 },
+  { name: "Hawaiian Pizza", count: 7, regular: 2, large: 3, personal: 2 },
   { name: "Cheese Pizza", count: 2, regular: 1, large: 1, personal: 0 },
 ];
 

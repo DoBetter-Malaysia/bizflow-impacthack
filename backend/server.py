@@ -241,6 +241,9 @@ def solve():
     if "supplier" in problem:
         time.sleep(2)
         return jsonify("Fresh Mart is your best supplier because he has the lowest price for these items.")
+    if "video" in problem:
+        time.sleep(2)
+        return jsonify("This is a video")
 #     if "recipe" in problem:
 #         return jsonify("""Title: Cheese Pepperoni Pizza
 

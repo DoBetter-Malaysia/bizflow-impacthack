@@ -103,6 +103,7 @@ def goodQuestions():
     #     ),
     #     200,
     # )
+    time.sleep(2.5)
     return (
         jsonify(
             [
@@ -138,7 +139,7 @@ def goodQuestions():
 @app.route("/prompt")
 def prompt():
     prompt = request.args.get("info")
-    return jsonify("The top pizza sold this week is Pepperoni Cheese Pizza."), 200
+    # return jsonify("The top pizza sold this week is Pepperoni Cheese Pizza."), 200
 
     res = chatbot(
         f"{prompt}. Explain in a concise manner with some possible explanation to it."
@@ -159,7 +160,7 @@ def recommendations():
 
     # Make sure there is no numbering and both recommendations and explanation are in one line."""
     #     )
-    time.sleep(2.5)
+    time.sleep(3)
     recommendations = (
         (
             """Monitor customer feedback - Regularly gather feedback from customers regarding the quality, taste, and overall satisfaction with Pepperoni Pizza to identify areas for improvement and ensure customer satisfaction.\nOptimize pizza preparation process - Streamline operations and improve efficiency in preparing Pepperoni Pizza to minimize waiting time, enhance customer experience, and handle increased demand effectively."""
@@ -215,7 +216,7 @@ def recommendation_steps():
         jsonify(
             (
                 # res + "|" +
-                """Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?"""
+                """Show me a poster of the Pepperoni Cheese Pizza for promotion?|What is the recipe for the Pepperoni Cheese Pizza?|Which supplier is best for me as a business owner to get the material from?|What is the expected customer group for Pepperoni Cheese Pizza?"""
             )
             .strip()
             .split("|")
@@ -228,58 +229,58 @@ def recommendation_steps():
 @app.route("/solve")
 def solve():
     problem = request.args.get("info")
-    time.sleep(2.5)
+    # time.sleep(2.5)
     if "poster" in problem:
         problem = "Write me a short social media caption for John Pizza to promote his new Pepperoni Cheese Pizza?"
         # TODO: remove this mock
-        return jsonify("Indulge in pizza perfection with our NEW Pepperoni Cheese Pizza! 🍕✨ Savor the irresistible combination of zesty pepperoni and gooey melted cheese that will leave your taste buds craving for more. Order now and experience pizza bliss like never before! 😋🔥 #JohnPizza #NewPepperoniCheesePizza #PizzaPerfection"), 200
+        # return jsonify("Indulge in pizza perfection with our NEW Pepperoni Cheese Pizza! 🍕✨ Savor the irresistible combination of zesty pepperoni and gooey melted cheese that will leave your taste buds craving for more. Order now and experience pizza bliss like never before! 😋🔥 #JohnPizza #NewPepperoniCheesePizza #PizzaPerfection"), 200
         return jsonify(chatbot(f"""{problem}""")), 200
     if "a message" in problem:
         send_message()
         return jsonify("A WhatsApp message has been sent to the supplier.")
-    if "supplier" in problem:
-        return jsonify("Fresh Mart, your best supplier that has the lowest price for these items.")
-    if "recipe" in problem:
-        return jsonify("""Title: Cheese Pepperoni Pizza
+#     if "supplier" in problem:
+#         return jsonify("Fresh Mart, your best supplier that has the lowest price for these items.")
+#     if "recipe" in problem:
+#         return jsonify("""Title: Cheese Pepperoni Pizza
 
-Ingredients:
+# Ingredients:
 
--    Pizza dough (store-bought or homemade)
--    Tomato sauce
--    Mozzarella cheese, shredded
--    Pepperoni slices
--    Fresh basil leaves
--    Olive oil
--    Garlic powder
--    Dried oregano
--    Salt
--    Black pepper
+# -    Pizza dough (store-bought or homemade)
+# -    Tomato sauce
+# -    Mozzarella cheese, shredded
+# -    Pepperoni slices
+# -    Fresh basil leaves
+# -    Olive oil
+# -    Garlic powder
+# -    Dried oregano
+# -    Salt
+# -    Black pepper
 
-Instructions:
+# Instructions:
 
-1.    Preheat your oven to the recommended temperature for pizza baking.
+# 1.    Preheat your oven to the recommended temperature for pizza baking.
 
-2.    Roll out the pizza dough on a floured surface to your desired thickness. Place it on a pizza stone or a greased baking sheet.
+# 2.    Roll out the pizza dough on a floured surface to your desired thickness. Place it on a pizza stone or a greased baking sheet.
 
-3.    Spread a generous amount of tomato sauce evenly over the pizza dough, leaving a small border around the edges.
+# 3.    Spread a generous amount of tomato sauce evenly over the pizza dough, leaving a small border around the edges.
 
-4.    Sprinkle a generous amount of shredded mozzarella cheese over the tomato sauce, covering the entire pizza.
+# 4.    Sprinkle a generous amount of shredded mozzarella cheese over the tomato sauce, covering the entire pizza.
 
-5.    Arrange pepperoni slices on top of the cheese, ensuring they are evenly distributed.
+# 5.    Arrange pepperoni slices on top of the cheese, ensuring they are evenly distributed.
 
-6.    Tear or chop fresh basil leaves and scatter them over the pizza.
+# 6.    Tear or chop fresh basil leaves and scatter them over the pizza.
 
-7.    Drizzle a little olive oil over the pizza for added flavor.
+# 7.    Drizzle a little olive oil over the pizza for added flavor.
 
-8.    Sprinkle garlic powder, dried oregano, salt, and black pepper according to your taste preferences.
+# 8.    Sprinkle garlic powder, dried oregano, salt, and black pepper according to your taste preferences.
 
-9.    Carefully transfer the pizza to the preheated oven and bake until the crust turns golden brown and the cheese is melted and bubbly. Follow the recommended baking time provided for your specific pizza dough.
+# 9.    Carefully transfer the pizza to the preheated oven and bake until the crust turns golden brown and the cheese is melted and bubbly. Follow the recommended baking time provided for your specific pizza dough.
 
-10.    Once baked, remove the pizza from the oven and let it cool slightly before slicing and serving.
+# 10.    Once baked, remove the pizza from the oven and let it cool slightly before slicing and serving.
 
-Enjoy the cheesy, flavorful delight of your homemade Cheese Pepperoni Pizza!
-        """), 200
-    return jsonify("Sounds good")
+# Enjoy the cheesy, flavorful delight of your homemade Cheese Pepperoni Pizza!
+#         """), 200
+#     return jsonify("Sounds good")
     res = chatbot(f"""{problem}""")
     return jsonify(res.strip()), 200
 

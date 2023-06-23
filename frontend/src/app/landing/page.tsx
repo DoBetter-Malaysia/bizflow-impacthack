@@ -24,7 +24,7 @@ const Hero = () => {
             </p>
           </div>
           <div className="space-x-4">
-            <Link href="/">
+            <Link href="/integrations">
               <Button className="text-xl">Get Started</Button>
             </Link>
             <Button className="text-xl" variant="outline">
